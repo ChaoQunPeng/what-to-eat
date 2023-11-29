@@ -1,0 +1,37 @@
+{
+  "id": "4351324",
+  "name": "what-to-eat",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "38333087",
+      "name": "校验",
+      "font_class": "xiaoyan",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "38333088",
+      "name": "排版列表切换",
+      "font_class": "paibanliebiaoqiehuan",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "38333089",
+      "name": "添加",
+      "font_class": "tianjia",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "38333090",
+      "name": "编辑",
+      "font_class": "bianji",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    }
+  ]
+}

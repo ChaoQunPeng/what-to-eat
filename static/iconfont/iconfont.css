@@ -1,0 +1,33 @@
+@font-face {
+  font-family: "iconfont"; /* Project id 4351324 */
+  src: 
+       url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAAT8AAsAAAAACiQAAASwAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHFQGYACDGgqHOIYbATYCJAMUCwwABCAFhGcHWxu4CMiOxDiGcgnFZHITwfdj/9tz5bs21So+XRDNJI0MiQgJr1AyzSKhqpXwfj43fSHUkKqm5vYrigQIvpB2YmFz6NzkJGIn44f7GW+NBVQPwJeRGDawKOCPo27bLvUEWpxukV3EnsB7BNqsycM5KqtpAfvrIkYL3rigMfAL4zolF4Etq1VyyKFF0VR2axFis6GSHnCuA3ho/3z8h6SwBUnNAKccXyuVwuk38AbHWQsL8gcwGwR8ekJFxtLI9HE533oW7kaX4NrSrFxzRHkR/MItFhMN3HH/wyMkWSGaAKQdOG4vVvgFOgh+gcQvkPnFPyPSSsxuQz+ILYC4i+GmSkOroo44gMuR68wlX9/VzdHRM9TZ3mU0M9/kjhYuXbZp0wa31oio4Ys2uS1Y4Tpf7mDe4jl/M8/etHHpsmWbOoISlkLivnCpx6JNfTlEKV8N2E/xTFsxzLitlY/xOuOtNrovZIWlXKON6CEimVrum4B9AETzI00bG5SYEk3Gtkckydz6ICLmsIvXNzQENy7btGHDkhah2Ygtdp3PEwzBMxrY412Jl87EzeebFzXOmVJ4SSdmXDjM9PnQdI/PX1RcvF4aeRKzMZ7iO5hPgOctapeKG5Jtpte5L1zmsahHvuiQ24IlrtL5M2aPmp8n5gVZiL0Cy7OLhsdGHQu+9vfPNEQGtKQNOh/y5ElM1JYXh96LV7jAh60w8DIpzuAAHZv7PfZG8qLA6X7wNCdwfr80dkx7JK8FXF8kx9F5ZXsiqyzbnKc56VTnbU6m7K0IjFHjY2FhbXW4LVmRJkjnSi/TiiAjWEVKRyJCiR0ptzuSUVISSu5Q1GYNqVRDmUuGspRKb0lLDZuvzqWoXHW+RZNvsXBW0GLJ1/AsXGdR45drtkQj4auRk6Zdd0KCfVX6mLkPpiNh3aIKqiR7vc3ZSEh/DacHfQ0y82xXOxtyBGbMGTvNY3mB6edqex8ExIgYBSWzp+tHTK0VsMXEoKPQ8geCX1NH3H+cHC3ImVKOrUngOktjq2pGH548Qao8daJg53S+ibrrZOgOE19zYZsgd0o5rE3gbnPc1hrW11cVCyPAyPyOcxag8YDrhUfjtK34QxzFd+Jj8aancppHx5fN6XPI+W3Lvyl9X4fmTSfUja318hGAFumaSD2Dg10tBQCUUZaNy8ut4+QK/AkC1W12xNyENm1oADj7PGlH3l9a6hGX9/uQNBuHrMUEquAWoGq3AU1abEObRaW72/XTw0WxA2ZMxCD02AJJl1eQ9biEKrhHUA15C016/IM250N4XLuZkBTTpIghpYR4JEFJdFqZpmBspE2kfEAtopNCiKQNFB4gEuMSoolyUkvSTawwDMqTGEZGyGidhiijbyPVah2hp3VKUsLEKRhGnxUfL0t7lziJTgPFaCQRBkmKIDYSgSKhoyUz6zPhv9eEJDdATYQuiUJRmgGFIyckipNQAlUu1ZaqOpLRBoPkkjAYMnKWDE1Hg1Amm0lqFNUh6NMnKZEkGHEUNcJ6WeKJerKy0rj+5ZoDzPsJasLxNTgYjnExK8wamu9QIt1IkdZVL6LElltNkeKIaBieqhgQaW0YyhApda212NYAAA==') format('woff2'),
+       url('./iconfont.woff?t=1701241609828') format('woff'),
+       url('./iconfont.ttf?t=1701241609828') format('truetype'),
+       url('./iconfont.svg?t=1701241609828#iconfont') format('svg');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-xiaoyan:before {
+  content: "\e600";
+}
+
+.icon-paibanliebiaoqiehuan:before {
+  content: "\e601";
+}
+
+.icon-tianjia:before {
+  content: "\e602";
+}
+
+.icon-bianji:before {
+  content: "\e603";
+}
+

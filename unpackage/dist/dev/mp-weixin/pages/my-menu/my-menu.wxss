@@ -1,0 +1,18 @@
+page {
+  background: var(--wte-page-bg-color);
+}
+.action-area {
+  display: flex;
+  justify-content: flex-end;
+}
+.action-area .action-box {
+  display: flex;
+  align-items: center;
+  height: 36rpx;
+}
+.action-area .divider {
+  width: 1px;
+  height: 28rpx;
+  background: #cccccc;
+}
+

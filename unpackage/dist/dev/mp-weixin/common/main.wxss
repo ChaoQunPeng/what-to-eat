@@ -50,6 +50,9 @@
 .icon-bianji:before {
   content: "\e603";
 }
+:root {
+  --wte-page-bg-color: #fafafa;
+}
 .wte-btn {}
 .wte-btn.primary {
     background: #EE0A24;

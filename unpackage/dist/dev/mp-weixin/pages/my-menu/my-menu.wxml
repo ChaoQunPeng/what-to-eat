@@ -1,0 +1,1 @@
+<view><view class="action-area"><view class="action-box"><view data-event-opts="{{[['tap',[['goCategoryText',['$event']]]]]}}" class="category-text" bindtap="__e">分类管理</view><view class="divider"></view></view></view></view>

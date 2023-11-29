@@ -135,7 +135,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -164,17 +164,31 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
     return {
-      menuText: '鸡腿'
+      menuText: "鸡腿"
     };
   },
   onLoad: function onLoad() {},
-  methods: {}
+  methods: {
+    goMyMenu: function goMyMenu() {
+      uni.navigateTo({
+        url: "/pages/my-menu/my-menu"
+      });
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 

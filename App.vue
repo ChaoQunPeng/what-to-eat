@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-29 16:10:04
+ * @LastEditTime: 2023-11-29 18:07:01
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -24,7 +24,7 @@ export default {
 /*每个页面公共css */
 @import './static/iconfont/iconfont.css';
 
-@import './static/theme/common.css';
+@import './static/theme/index.less';
 
 * {
   margin: 0;

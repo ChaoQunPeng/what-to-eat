@@ -1,1 +1,1 @@
-<view>asdsa<view class="iconfont icon-xiaoyan"></view></view>
+<view><view style="text-align:right;padding-right:30rpx;"><view class="go-menu-page iconfont icon-bianji"></view></view><image class="logo" src="../../static/logo.svg" mode="scaleToFill"></image><view class="main"><view class="menu-text">{{"吃"+menuText+"!"}}</view><button class="wte-btn primary">点击开始</button><view class="menu-scope">当前菜单范围：全部、减脂、川菜、鸡肉、麦当...</view><view class="modify-menu-scope">修改菜单范围</view></view></view>

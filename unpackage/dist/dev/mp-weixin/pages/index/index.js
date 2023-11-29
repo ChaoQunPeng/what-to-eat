@@ -157,11 +157,18 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
     return {
-      title: 'Hello'
+      menuText: '鸡腿'
     };
   },
   onLoad: function onLoad() {},

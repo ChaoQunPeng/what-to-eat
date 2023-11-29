@@ -10,5 +10,8 @@
   "license": "ISC",
   "dependencies": {
     "@vant/weapp": "^1.11.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.5"
   }
 }

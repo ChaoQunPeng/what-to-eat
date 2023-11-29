@@ -2,26 +2,31 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-29 19:07:40
+ * @LastEditTime: 2023-11-29 21:02:26
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view style="text-align: right; padding-right: 30rpx">
-      <view class="go-menu-page iconfont icon-bianji" @click="goMyMenu"></view>
+      <view
+        class="go-menu-page iconfont icon-bianji"
+        @click="goMyMenu"
+      ></view>
     </view>
 
-    <image class="logo" src="../../static/logo.svg" mode="scaleToFill" />
+    <image
+      class="logo"
+      src="../../static/logo.svg"
+      mode="scaleToFill"
+    />
 
     <view class="main">
       <view class="menu-text">吃{{ menuText }}!</view>
 
       <button class="wte-btn primary">点击开始</button>
 
-      <view class="menu-scope">
-        当前菜单范围：全部、减脂、川菜、鸡肉、麦当...
-      </view>
+      <view class="menu-scope"> 当前菜单范围：全部、减脂、川菜、鸡肉、麦当... </view>
 
       <view class="modify-menu-scope">修改菜单范围</view>
     </view>
@@ -34,7 +39,7 @@ export default {
 
   data() {
     return {
-      menuText: "鸡腿"
+      menuText: '鸡腿'
     };
   },
 
@@ -42,7 +47,7 @@ export default {
 
   methods: {
     goMyMenu() {
-      uni.navigateTo({ url: "/pages/my-menu/my-menu" });
+      uni.navigateTo({ url: '/pages/my-menu/my-menu' });
     }
   }
 };

@@ -171,18 +171,23 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
     return {
-      menuText: "鸡腿"
+      menuText: '鸡腿'
     };
   },
   onLoad: function onLoad() {},
   methods: {
     goMyMenu: function goMyMenu() {
       uni.navigateTo({
-        url: "/pages/my-menu/my-menu"
+        url: '/pages/my-menu/my-menu'
       });
     }
   }

@@ -1,9 +1,12 @@
-.wte-btn {}
+
+
+.wte-btn {
+}
 
 .wte-btn.primary {
-    background: #EE0A24;
-    border-radius: 44rpx;
-    color: #fff;
-    line-height: 1;
-    padding: 24rpx 64rpx;
+  background: #ee0a24;
+  border-radius: 44rpx;
+  color: #fff;
+  line-height: 1;
+  padding: 24rpx 64rpx;
 }

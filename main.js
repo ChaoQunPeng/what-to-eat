@@ -2,12 +2,11 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-04-07 15:12:06
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-29 16:09:48
+ * @LastEditTime: 2023-11-29 20:07:54
  * @FilePath: /what-to-eat/main.js
  * @Description: 
  */
 import App from './App'
-
 
 
 

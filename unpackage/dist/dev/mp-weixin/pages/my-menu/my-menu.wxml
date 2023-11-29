@@ -1,1 +1,1 @@
-<view><view class="font-bold flex mr-0 m-2 p-[16px] flex-1 flex mr-10">Hello world!</view><view class="action-area"><view class="action-box"><view data-event-opts="{{[['tap',[['goCategoryText',['$event']]]]]}}" class="category-text" bindtap="__e">分类管理</view><view class="divider"></view></view></view></view>
+<view><view class="mr-999">Hello world!</view><view class="action-area"><view class="action-box"><view data-event-opts="{{[['tap',[['goCategoryText',['$event']]]]]}}" class="category-text" bindtap="__e">分类管理</view><view class="divider"></view></view></view></view>

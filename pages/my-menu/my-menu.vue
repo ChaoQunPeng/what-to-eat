@@ -2,13 +2,13 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-29 20:53:35
+ * @LastEditTime: 2023-11-29 21:39:06
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
 <template>
   <view>
-    <view class="font-bold flex mr-0 m-2 p-[16px] flex-1 flex mr-10">Hello world!</view>
+    <view class="mr-999">Hello world!</view>
 
     <view class="action-area">
       <view class="action-box">
@@ -20,36 +20,40 @@
 </template>
 
 <script>
-export default {
-  data() {
-    return {};
-  },
+  export default {
+    data() {
+      return {
+        arr: []
+      };
+    },
 
-  methods: {
-    goCategoryText() {}
-  }
-};
+    methods: {
+      goCategoryText() {
+        
+      }
+    }
+  };
 </script>
 
 <style lang="less">
-page {
-  background: var(--wte-page-bg-color);
-}
+  page {
+    background: var(--wte-page-bg-color);
+  }
 
-.action-area {
-  display: flex;
-  justify-content: flex-end;
-
-  .action-box {
+  .action-area {
     display: flex;
-    align-items: center;
-    height: 36rpx;
-  }
+    justify-content: flex-end;
 
-  .divider {
-    width: 1px;
-    height: 28rpx;
-    background: #cccccc;
+    .action-box {
+      display: flex;
+      align-items: center;
+      height: 36rpx;
+    }
+
+    .divider {
+      width: 1px;
+      height: 28rpx;
+      background: #cccccc;
+    }
   }
-}
 </style>

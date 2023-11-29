@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "tailwindcss": "npx tailwindcss -i ./tailwindcss-config.css -o ./static/theme/tailwindcss-dist.css --watch"
   },
   "author": "",
   "license": "ISC",

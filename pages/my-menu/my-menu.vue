@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-30 18:37:12
+ * @LastEditTime: 2023-11-30 19:07:51
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -13,7 +13,7 @@
         <view class="mr-24 text-red text-size-24" @click="goCategoryText">分类管理</view>
         <view class="divider mr-24"></view>
         <view class="iconfont icon-paibanliebiaoqiehuan mr-24" @click="switchViewType"></view>
-        <view class="iconfont icon-tianjia mr-40"></view>
+        <view class="iconfont icon-tianjia mr-40" @click="goMenuForm"></view>
       </view>
     </view>
 
@@ -82,6 +82,13 @@ export default {
      */
     switchViewType() {
       this.viewType = this.viewType == 'byMenu' ? 'byCategory' : 'byMenu';
+    },
+    /**
+     * @description: 前往菜单表单
+     * @return {*}
+     */
+    goMenuForm() {
+      uni.navigateTo({ url: '/pages/menu-form/menu-form' });
     },
     /**
      * @description: 点击卡片更多操作

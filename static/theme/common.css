@@ -1,4 +1,6 @@
-
+.u-cell__title-text {
+  color: var(--wte-color-black) !important;
+}
 
 .wte-btn {
 }

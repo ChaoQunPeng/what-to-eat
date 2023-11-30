@@ -13,6 +13,14 @@
         "navigationBarTitleText": "我的菜单",
         "enablePullDownRefresh": false
       }
+    },
+    {
+    	"path" : "pages/menu-form/menu-form",
+    	"style" : 
+    	{
+    		"navigationBarTitleText" : "新增菜单",
+    		"enablePullDownRefresh" : false
+    	}
     }
   ],
   "globalStyle": {

@@ -1,0 +1,89 @@
+<!--
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-11-30 18:43:52
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-11-30 20:09:35
+ * @FilePath: /what-to-eat/pages/menu-form/menu-form.vue
+ * @Description: 
+-->
+<template>
+  <view>
+    <view class="bg-white mt-30">
+      <u-cell-group>
+        <u-cell title="菜单名称">
+          <u-input
+            slot="right-icon"
+            placeholder="请输入"
+            placeholder-class="placeholder-text-right"
+            class="name-input"
+            border="none"
+            v-model="name"
+          ></u-input>
+
+          <!-- <input placeholder="自动获得焦点" /> -->
+        </u-cell>
+      </u-cell-group>
+    </view>
+
+    <view class="flex items-end mt-36 ml-32">
+      <view class="text-size-28 text-black mr-8">分类</view>
+      <view class="text-size-24 text-black-45">(可不选或多选)</view>
+    </view>
+
+    <view class="flex items-end mt-14 ml-32">
+      <view class="iconfont icon-tianjia text-red mr-6 text-size-24"></view>
+      <view class="text-red text-size-24">点击选择</view>
+    </view>
+
+    <view class="flex justify-center px-47 pb-30 w-full save-btn fixed bottom-0">
+      <button class="w-full wte-btn primary" @click="save">保存</button>
+    </view>
+  </view>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      name: ''
+    };
+  },
+
+  created() {
+    // 判断是否有安全区
+    // console.log(uni.getSystemInfoSync().safeAreaInsets.bottom);
+  },
+
+  methods: {
+    /**
+     * @description: 保存
+     * @return {*}
+     */    
+    save() {
+      console.log(this.name);
+    }
+  }
+};
+</script>
+
+<style lang="less">
+page {
+  background: var(--wte-page-bg-color);
+}
+
+.placeholder-text-right {
+  text-align: right;
+  font-weight: 300 !important;
+  color: #f00;
+}
+
+/deep/ .uni-input-input {
+  text-align: right;
+}
+
+.save-btn {
+  padding-bottom: 60rpx;
+  padding-bottom: constant(safe-area-inset-bottom);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+</style>

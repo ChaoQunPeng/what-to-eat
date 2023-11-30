@@ -552,12 +552,21 @@ video {
   bottom: 0rpx;
 }
 
+.mx-47 {
+  margin-left: 47rpx;
+  margin-right: 47rpx;
+}
+
 .mb-20 {
   margin-bottom: 20rpx;
 }
 
 .mb-30 {
   margin-bottom: 30rpx;
+}
+
+.ml-32 {
+  margin-left: 32rpx;
 }
 
 .ml-auto {
@@ -572,8 +581,16 @@ video {
   margin-right: 40rpx;
 }
 
+.mr-6 {
+  margin-right: 6rpx;
+}
+
 .mr-8 {
   margin-right: 8rpx;
+}
+
+.mt-14 {
+  margin-top: 14rpx;
 }
 
 .mt-18 {
@@ -584,28 +601,8 @@ video {
   margin-top: 30rpx;
 }
 
-.ml-36 {
-  margin-left: 36rpx;
-}
-
 .mt-36 {
   margin-top: 36rpx;
-}
-
-.ml-32 {
-  margin-left: 32rpx;
-}
-
-.mt-14 {
-  margin-top: 14rpx;
-}
-
-.mr-6 {
-  margin-right: 6rpx;
-}
-
-.mt-60 {
-  margin-top: 60rpx;
 }
 
 .flex {
@@ -651,14 +648,14 @@ video {
   padding-right: 40rpx;
 }
 
-.py-28 {
-  padding-top: 28rpx;
-  padding-bottom: 28rpx;
-}
-
 .px-47 {
   padding-left: 47rpx;
   padding-right: 47rpx;
+}
+
+.py-28 {
+  padding-top: 28rpx;
+  padding-bottom: 28rpx;
 }
 
 .pb-30 {
@@ -675,6 +672,14 @@ video {
 
 .text-size-36 {
   font-size: 36rpx;
+}
+
+.text-size-30 {
+  font-size: 30rpx;
+}
+
+.text-size-32 {
+  font-size: 32rpx;
 }
 
 .font-medium {
@@ -694,13 +699,10 @@ video {
 }
 
 .text-black-45 {
-  color: var(--wte-color-black-45);
-}
-
-.text-black-65 {
-  color: var(--wte-color-black-65);
+  color: rgba(18, 18, 18, 0.45);
 }
 
 .text-red {
-  color: var(--wte-color-red);
+  --tw-text-opacity: 1;
+  color: rgb(238 10 36 / var(--tw-text-opacity));
 }

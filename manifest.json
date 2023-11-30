@@ -50,7 +50,8 @@
     "quickapp" : {},
     /* 小程序特有相关 */
     "mp-weixin" : {
-        "appid" : "",
+        // 这里一定要填 https://blog.csdn.net/qq_39352780/article/details/115367526
+        "appid" : "wxb5c3d1653ac32e26",
         "setting" : {
             "urlCheck" : false
         },

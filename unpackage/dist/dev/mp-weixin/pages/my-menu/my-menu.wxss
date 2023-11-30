@@ -1,5 +1,5 @@
 page {
-  background: var(--wte-page-bg-color);
+  background: #fafafa;
 }
 .action-area {
   display: flex;

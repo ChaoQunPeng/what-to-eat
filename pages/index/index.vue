@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-29 21:12:10
+ * @LastEditTime: 2023-11-30 20:39:00
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -54,7 +54,7 @@
   }
 
   .go-menu-page {
-    font-size: 24px;
+    font-size: 42rpx;
   }
 
   .logo {

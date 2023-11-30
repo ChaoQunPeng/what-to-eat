@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-30 19:07:51
+ * @LastEditTime: 2023-11-30 21:01:25
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
   <view>
     <view class="action-area mt-18 mb-20">
       <view class="action-box">
-        <view class="mr-24 text-red text-size-24" @click="goCategoryText">分类管理</view>
+        <view class="mr-24 text-red text-size-30" @click="goCategoryText">分类管理</view>
         <view class="divider mr-24"></view>
         <view class="iconfont icon-paibanliebiaoqiehuan mr-24" @click="switchViewType"></view>
         <view class="iconfont icon-tianjia mr-40" @click="goMenuForm"></view>
@@ -51,6 +51,12 @@
     ></u-action-sheet>
 
     <u-modal :show="showModel" content="您确定删除？" showCancelButton @cancel="cancel" @confirm="confirm"></u-modal>
+
+    <u-popup :show="showPop" @close="popOnClose" @open="popOnOpen">
+      <view>
+        <text>asdasd</text>
+      </view>
+    </u-popup>
   </view>
 </template>
 
@@ -71,7 +77,8 @@ export default {
         }
       ],
       showActionSheet: false,
-      showModel: false
+      showModel: false,
+      showPop: false
     };
   },
 
@@ -108,14 +115,16 @@ export default {
       if (item.code == 'delete') {
         this.showModel = true;
       }
-    }
+    },
+    popOnOpen() {},
+    popOnClose() {}
   }
 };
 </script>
 
 <style lang="less">
 page {
-  background: var(--wte-page-bg-color);
+  background: #fafafa;
 }
 
 .action-area {

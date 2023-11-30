@@ -1,5 +1,9 @@
 {
   "navigationBarTitleText": "我的菜单",
   "enablePullDownRefresh": false,
-  "usingComponents": {}
+  "usingComponents": {
+    "u-action-sheet": "/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet",
+    "u-modal": "/uni_modules/uview-ui/components/u-modal/u-modal",
+    "u-popup": "/uni_modules/uview-ui/components/u-popup/u-popup"
+  }
 }

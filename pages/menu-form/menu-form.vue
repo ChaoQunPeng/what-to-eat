@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-30 18:43:52
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-30 20:09:35
+ * @LastEditTime: 2023-11-30 20:54:31
  * @FilePath: /what-to-eat/pages/menu-form/menu-form.vue
  * @Description: 
 -->
@@ -26,17 +26,17 @@
     </view>
 
     <view class="flex items-end mt-36 ml-32">
-      <view class="text-size-28 text-black mr-8">分类</view>
-      <view class="text-size-24 text-black-45">(可不选或多选)</view>
+      <view class="text-size-32 text-black mr-8">分类</view>
+      <view class="text-size-28 text-black-45">(可不选或多选)</view>
     </view>
 
-    <view class="flex items-end mt-14 ml-32">
-      <view class="iconfont icon-tianjia text-red mr-6 text-size-24"></view>
-      <view class="text-red text-size-24">点击选择</view>
+    <view class="flex items-center mt-14 ml-32">
+      <view class="iconfont icon-tianjia text-red mr-6 text-size-32"></view>
+      <view class="text-red text-size-30">点击选择</view>
     </view>
 
-    <view class="flex justify-center px-47 pb-30 w-full save-btn fixed bottom-0">
-      <button class="w-full wte-btn primary" @click="save">保存</button>
+    <view class="flex justify-center pb-30 w-full save-btn fixed bottom-0">
+      <button class="wte-btn primary mx-47 w-full" @click="save">保存</button>
     </view>
   </view>
 </template>
@@ -58,7 +58,7 @@ export default {
     /**
      * @description: 保存
      * @return {*}
-     */    
+     */
     save() {
       console.log(this.name);
     }
@@ -68,17 +68,21 @@ export default {
 
 <style lang="less">
 page {
-  background: var(--wte-page-bg-color);
+  background: #fafafa;
 }
 
 .placeholder-text-right {
-  text-align: right;
+  text-align: right !important;
   font-weight: 300 !important;
   color: #f00;
 }
 
 /deep/ .uni-input-input {
-  text-align: right;
+  text-align: right !important;
+}
+
+/deep/ .u-input__content__field-wrapper__field {
+  text-align: right !important;
 }
 
 .save-btn {

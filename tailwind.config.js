@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 19:17:36
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-30 16:17:33
+ * @LastEditTime: 2023-11-30 20:31:39
  * @FilePath: /what-to-eat/tailwind.config.js
  * @Description: tailwind配置文件
  */
@@ -18,12 +18,12 @@ module.exports = {
       return map;
     }, {}),
     colors: {
-      red: 'var(--wte-color-red)',
+      red: '#ee0a24',
       black: 'var(--wte-color-black)',
-      'black-85': 'var(--wte-color-black-85)',
-      'black-65': 'var(--wte-color-black-65)',
-      'black-45': 'var(--wte-color-black-45)',
-      'black-25': 'var(--wte-color-black-25)',
+      'black-85': 'rgba(18, 18, 18, 0.85)',
+      'black-65': 'rgba(18, 18, 18, 0.65)',
+      'black-45': 'rgba(18, 18, 18, 0.45)',
+      'black-25': 'rgba(18, 18, 18, 0.25)',
       // transparent: 'transparent',
       white: '#ffffff'
     },

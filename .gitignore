@@ -1,3 +1,9 @@
-node_modules
-__wecomponents
+node_modules/
+dist/**
+.project
 unpackage/
+.DS_Store
+__wecomponents
+wxcomponents/**/*.vue
+wxcomponents/**/*.css
+.hbuilderx/

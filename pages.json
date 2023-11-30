@@ -22,5 +22,8 @@
     "backgroundColor": "#f00",
     "usingComponents": {}
   },
+  "easycom": {
+    "^u-(.*)": "@/uni_modules/uview-ui/components/u-$1/u-$1.vue"
+  },
   "uniIdRouter": {}
 }

@@ -548,13 +548,38 @@ video {
   position: fixed;
 }
 
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
 .bottom-0 {
   bottom: 0rpx;
+}
+
+.top-0 {
+  top: 0rpx;
+}
+
+.-z-10 {
+  z-index: -10;
+}
+
+.z-10 {
+  z-index: 10;
 }
 
 .mx-47 {
   margin-left: 47rpx;
   margin-right: 47rpx;
+}
+
+.mx-40 {
+  margin-left: 40rpx;
+  margin-right: 40rpx;
 }
 
 .mb-20 {
@@ -609,8 +634,40 @@ video {
   display: flex;
 }
 
+.h-88 {
+  height: 88rpx;
+}
+
+.h-58 {
+  height: 58rpx;
+}
+
+.h-60 {
+  height: 60rpx;
+}
+
+.h-screen {
+  height: 100vh;
+}
+
 .w-full {
   width: 100%;
+}
+
+.w-32 {
+  width: 32rpx;
+}
+
+.flex-1 {
+  flex: 1 1 0%;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
 }
 
 .items-end {
@@ -638,6 +695,11 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }
 
+.px-26 {
+  padding-left: 26rpx;
+  padding-right: 26rpx;
+}
+
 .px-30 {
   padding-left: 30rpx;
   padding-right: 30rpx;
@@ -646,11 +708,6 @@ video {
 .px-40 {
   padding-left: 40rpx;
   padding-right: 40rpx;
-}
-
-.px-47 {
-  padding-left: 47rpx;
-  padding-right: 47rpx;
 }
 
 .py-28 {
@@ -662,16 +719,20 @@ video {
   padding-bottom: 30rpx;
 }
 
+.pt-40 {
+  padding-top: 40rpx;
+}
+
+.text-center {
+  text-align: center;
+}
+
 .text-size-24 {
   font-size: 24rpx;
 }
 
 .text-size-28 {
   font-size: 28rpx;
-}
-
-.text-size-36 {
-  font-size: 36rpx;
 }
 
 .text-size-30 {
@@ -682,12 +743,20 @@ video {
   font-size: 32rpx;
 }
 
+.text-size-36 {
+  font-size: 36rpx;
+}
+
 .font-medium {
   font-weight: 500;
 }
 
 .font-normal {
   font-weight: 400;
+}
+
+.font-bold {
+  font-weight: 700;
 }
 
 .leading-none {
@@ -705,4 +774,12 @@ video {
 .text-red {
   --tw-text-opacity: 1;
   color: rgb(238 10 36 / var(--tw-text-opacity));
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
 }

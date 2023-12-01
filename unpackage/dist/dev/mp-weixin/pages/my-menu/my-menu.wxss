@@ -1,18 +1,29 @@
 page {
   background: #fafafa;
 }
-.action-area {
-  display: flex;
-  justify-content: flex-end;
+.tabs > view {
+  position: relative;
+  margin-right: 30rpx;
+  font-size: 32rpx;
+  font-weight: 400;
+  color: rgba(18, 18, 18, 0.45);
+  transition: all 0.2s;
 }
-.action-area .action-box {
-  display: flex;
-  align-items: center;
-  height: 36rpx;
+.tabs > view.actived {
+  font-size: 40rpx;
+  color: rgba(18, 18, 18);
 }
-.action-area .divider {
-  width: 1px;
-  height: 28rpx;
-  background: #cccccc;
+.tabs > view.actived::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 5px;
+  width: 100%;
+  height: 12rpx;
+  background: #ee0a24;
+}
+.tabs > view > view {
+  position: relative;
+  z-index: 1;
 }
 

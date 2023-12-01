@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-30 18:43:52
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-11-30 20:54:31
+ * @LastEditTime: 2023-12-01 13:05:03
  * @FilePath: /what-to-eat/pages/menu-form/menu-form.vue
  * @Description: 
 -->
@@ -32,12 +32,14 @@
 
     <view class="flex items-center mt-14 ml-32">
       <view class="iconfont icon-tianjia text-red mr-6 text-size-32"></view>
-      <view class="text-red text-size-30">点击选择</view>
+      <view class="text-red text-size-30" @click="openCategoryList">点击选择</view>
     </view>
 
     <view class="flex justify-center pb-30 w-full save-btn fixed bottom-0">
       <button class="wte-btn primary mx-47 w-full" @click="save">保存</button>
     </view>
+
+    <wte-side-list-popup ref="wteSideListPopup"></wte-side-list-popup>
   </view>
 </template>
 
@@ -55,6 +57,13 @@ export default {
   },
 
   methods: {
+    /**
+     * @description: 打开类型列表
+     * @return {*}
+     */
+    openCategoryList() {
+      this.$refs.wteSideListPopup.open();
+    },
     /**
      * @description: 保存
      * @return {*}
@@ -89,5 +98,13 @@ page {
   padding-bottom: 60rpx;
   padding-bottom: constant(safe-area-inset-bottom);
   padding-bottom: env(safe-area-inset-bottom);
+}
+
+.pop-container {
+  width: calc(100vw - 200rpx);
+
+  .swipe-item {
+    height: 88rpx;
+  }
 }
 </style>

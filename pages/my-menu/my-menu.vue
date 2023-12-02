@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 21:47:18
+ * @LastEditTime: 2023-12-02 20:06:07
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -23,36 +23,30 @@
 
     <!-- 菜单分组 -->
     <view class="menu-group-area px-40">
-      <template v-for="i in 3">
-        <view v-if="viewType == 'byMenu'" :key="i" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
+      <template v-for="(item, index) in pageDataList">
+        <view v-if="viewType == 'byMenu'" :key="index" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
           <view class="header flex items-center">
-            <view class="text-size-36 font-medium leading-none">沙县小吃</view>
-            <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'menu', item: i })"> </view>
+            <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
+            <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'menu', item })"> </view>
           </view>
 
-          <div class="mt-30 font-normal text-size-24 text-black-45">分类：早餐、面条、卤味</div>
+          <div class="mt-30 font-normal text-size-24 text-black-45">分类：{{ item.list }}</div>
         </view>
 
-        <view v-else :key="i" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
+        <view
+          v-else-if="viewType == 'byCategory'"
+          :key="index"
+          class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20"
+        >
           <view class="header flex items-center">
-            <view class="text-size-36 font-medium leading-none">早餐</view>
+            <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
             <view class="iconfont icon-gengduo ml-auto"></view>
           </view>
 
-          <div class="mt-30 font-normal text-size-24 text-black-45">食物：面条、包子、豆浆</div>
+          <div class="mt-30 font-normal text-size-24 text-black-45">食物：{{ item.list }}</div>
         </view>
       </template>
     </view>
-
-    <!-- <u-action-sheet
-      :actions="list"
-      :title="actionSheetTitle"
-      :show="showActionSheet"
-      :closeOnClickAction="true"
-      :closeOnClickOverlay="true"
-      @close="showActionSheet = false"
-      @select="actionSheetOnSelect"
-      ></u-action-sheet> -->
 
     <wte-action-sheet ref="actionSheet" :actions="list"></wte-action-sheet>
     <wte-modal ref="confirmDeleteModal"></wte-modal>
@@ -69,11 +63,13 @@
 </template>
 
 <script>
+import { WET_MENU_DATA } from '../../config/constant';
+
 export default {
   data() {
     return {
       viewType: 'byMenu',
-      actionSheetTitle: '',
+      dataList: [],
       list: [
         {
           name: '编辑',
@@ -87,6 +83,20 @@ export default {
       showActionSheet: false,
       itemName: ''
     };
+  },
+
+  computed: {
+    pageDataList() {
+      if (this.viewType == 'byMenu') {
+        return this.$store.getters.menuGroupList;
+      } else if (this.viewType == 'byCategory') {
+        return this.$store.getters.categoryGroupList;
+      }
+    }
+  },
+
+  onLoad() {
+    this.dataList = uni.getStorageSync(WET_MENU_DATA);
   },
 
   methods: {
@@ -113,7 +123,7 @@ export default {
     clickCardMore({ source, item }) {
       this.$refs.actionSheet.open({
         title: item.name ?? '菜单或食材',
-        onSelect: (selectItem) => {
+        onSelect: selectItem => {
           if (selectItem.code == 'delete') {
             this.$refs.confirmDeleteModal.open({
               content: `确定要删除${item.name}吗？`,

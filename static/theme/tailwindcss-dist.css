@@ -626,6 +626,10 @@ video {
   height: 88rpx;
 }
 
+.h-full {
+  height: 100%;
+}
+
 .h-screen {
   height: 100vh;
 }
@@ -644,6 +648,10 @@ video {
 
 .transform {
   transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.flex-col {
+  flex-direction: column;
 }
 
 .flex-wrap {
@@ -666,16 +674,8 @@ video {
   overflow: hidden;
 }
 
-.overflow-ellipsis {
-  text-overflow: ellipsis;
-}
-
 .text-ellipsis {
   text-overflow: ellipsis;
-}
-
-.whitespace-nowrap {
-  white-space: nowrap;
 }
 
 .rounded-radius-20 {
@@ -770,6 +770,10 @@ video {
 .text-red {
   --tw-text-opacity: 1;
   color: rgb(238 10 36 / var(--tw-text-opacity));
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
 }
 
 .transition {

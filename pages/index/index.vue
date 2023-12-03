@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-02 20:00:22
+ * @LastEditTime: 2023-12-03 21:01:02
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -16,13 +16,19 @@
       <image class="logo" src="../../static/logo.svg" mode="scaleToFill" />
 
       <view class="main">
-        <view class="menu-text">吃{{ menuText }}!</view>
+        <view class="menu-text">
+          <template v-if="menuText"> 吃{{ menuText }}! </template>
+          <template v-else>吃什么呢？</template>
+        </view>
 
-        <button class="wte-btn primary">点击开始</button>
+        <button class="wte-btn primary" @click="randomFood">
+          <template v-if="timer">点击停止</template>
+          <template v-else>点击开始</template>
+        </button>
 
-        <view class="menu-scope text-ellipsis overflow-hidden"> 当前菜单范围：{{ currentCategoryText }} </view>
+        <view class="menu-scope text-ellipsis overflow-hidden"> 当前范围：{{ currentCategoryText }} </view>
 
-        <view class="modify-menu-scope"> 修改菜单范围 </view>
+        <view class="modify-menu-scope" @click="modifyScope"> 修改范围 </view>
       </view>
     </view>
 
@@ -31,6 +37,61 @@
         <template v-if="index != 4">{{ menu.name }}</template>
       </view>
     </view>
+
+    <wte-popup ref="modifyScope">
+      <view class="modify-scope h-full flex flex-col">
+        <view class="header flex items-center pt-40 pb-30 px-26">
+          <view class="flex-1 text-center text-size-32 font-medium leading-none"> 修改范围 </view>
+        </view>
+
+        <view class="body flex-1">
+          <view class="collapse-box" v-for="(category, index) in currentScopeList" :key="index">
+            <view class="header flex items-center" @click="headerClick(category)">
+              <view>{{ category.isChecked }}</view>
+              <view class="font-bold">{{ category.name }}</view>
+
+              <u-checkbox-group
+                class="ml-auto"
+                v-model="category.isChecked"
+                placement="column"
+                activeColor="#ee0a24"
+                shape="circle"
+              >
+                <u-checkbox :name="1"> </u-checkbox>
+              </u-checkbox-group>
+            </view>
+            <view class="body">
+              <view
+                v-for="(food, fIndex) in category.list"
+                :key="fIndex"
+                class="flex items-center"
+                @click="clickFood(food)"
+              >
+                <view> {{ food.food }} </view>
+
+                <u-checkbox-group
+                  class="ml-auto"
+                  v-model="food.isChecked"
+                  placement="column"
+                  activeColor="#ee0a24"
+                  shape="circle"
+                >
+                  <u-checkbox :name="1"> </u-checkbox>
+                </u-checkbox-group>
+
+                <!-- <view
+                  v-show="food.isChecked"
+                  class="iconfont icon-xiaoyan ml-auto font-bold checked-icon text-red"
+                ></view> -->
+              </view>
+            </view>
+          </view>
+        </view>
+        <view class="foot">
+          <button class="wte-btn primary" @click="randomFood">确定</button>
+        </view>
+      </view>
+    </wte-popup>
   </view>
 </template>
 
@@ -42,16 +103,17 @@ export default {
 
   data() {
     return {
-      menuText: '鸡腿',
-      currentCategoryIdList: ['zaocan', 'wucan', 'wancan', 'huangmenji', 'kendeji']
+      menuText: '',
+      currentScopeList: [],
+      currentCategoryIdList: ['zaocan', 'wucan', 'wancan', 'huangmenji', 'kendeji'],
+      timer: null
     };
   },
 
   computed: {
     currentCategoryText() {
-      let categoryGroup = this.$store.getters.categoryGroup;
-
-      return categoryGroup.map(e => e.name).join('、');
+      let categoryList = this.$store.getters.categoryList;
+      return categoryList.map(e => e.name).join('、');
     },
     reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
@@ -73,9 +135,76 @@ export default {
 
   onLoad() {},
 
+  created() {
+    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.getters.categoryList));
+
+    this.currentScopeList.forEach(e => {
+      this.$set(e, 'expand', false);
+    });
+  },
+
   methods: {
     goMyMenu() {
       uni.navigateTo({ url: '/pages/my-menu/my-menu' });
+    },
+    /**
+     * @description: 随机筛选一个食物
+     * @return {*}
+     */
+    randomFood() {
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+        return;
+      }
+
+      let categoryList = this.$store.getters.categoryList;
+      let randomList = [];
+      let foodList = [];
+
+      categoryList.forEach(e => {
+        if (this.currentCategoryIdList.includes(e.id)) {
+          randomList.push(e);
+        }
+      });
+
+      foodList = categoryList
+        .filter(e => this.currentCategoryIdList.includes(e.id))
+        .reduce((acc, cur) => {
+          return (acc = [...acc, ...cur.list]);
+        }, [])
+        .map(e => e.food);
+
+      randomList = Array.from(new Set(foodList));
+
+      this.timer = setInterval(() => {
+        let randomIndex = Math.floor(Math.random() * randomList.length);
+
+        if (this.menuText != randomList[randomIndex]) {
+          this.menuText = randomList[randomIndex];
+        }
+      }, 100);
+    },
+    /**
+     * @description: 修改范围
+     * @return {*}
+     */
+    modifyScope() {
+      this.$refs.modifyScope.open();
+    },
+    headerClick(category) {
+      if (category.isChecked === undefined) {
+        this.$set(category, 'isChecked', []);
+      }
+      
+      this.$set(category, 'category', category.isChecked.length == 0 ? [1] : []);
+    },
+    clickFood(food) {
+      if (food.isChecked === undefined) {
+        this.$set(food, 'isChecked', []);
+      }
+
+      this.$set(food, 'isChecked', food.isChecked.length == 0 ? [1] : []);
     }
   }
 };
@@ -141,5 +270,45 @@ page {
   transform: rotate(30deg);
   word-break: keep-all;
   width: 33.33333%;
+}
+
+.modify-scope {
+  width: calc(100vw - 200rpx);
+
+  .collapse-box {
+    .header {
+      border-top: 1px solid #ddd;
+      border-bottom: 1px solid #ddd;
+      padding: 16rpx 20rpx;
+    }
+
+    .body {
+      > view {
+        position: relative;
+        padding: 20rpx 20rpx 20rpx 40rpx;
+
+        &:active {
+          background: #f0f0f0;
+        }
+
+        &:last-child {
+          &::after {
+            display: none;
+          }
+        }
+
+        &::after {
+          content: '';
+          width: 100%;
+          height: 1px;
+          display: flex;
+          bottom: 0;
+          position: absolute;
+          left: 30rpx;
+          background: #ddd;
+        }
+      }
+    }
+  }
 }
 </style>

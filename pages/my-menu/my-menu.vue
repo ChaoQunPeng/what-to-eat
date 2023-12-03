@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-02 20:06:07
+ * @LastEditTime: 2023-12-03 14:15:17
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -88,9 +88,9 @@ export default {
   computed: {
     pageDataList() {
       if (this.viewType == 'byMenu') {
-        return this.$store.getters.menuGroupList;
+        return this.$store.getters.foodList;
       } else if (this.viewType == 'byCategory') {
-        return this.$store.getters.categoryGroupList;
+        return this.$store.getters.categoryList;
       }
     }
   },
@@ -99,7 +99,7 @@ export default {
     this.dataList = uni.getStorageSync(WET_MENU_DATA);
   },
 
-  methods: {
+  methods: { 
     /**
      * @description: 切换视图类型
      * @return {*}

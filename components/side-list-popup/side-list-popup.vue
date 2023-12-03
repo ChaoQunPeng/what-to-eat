@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-01 12:55:17
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 14:16:22
+ * @LastEditTime: 2023-12-03 17:07:52
  * @FilePath: /what-to-eat/components/side-list-popup/side-list-popup.vue
  * @Description: 
 -->
@@ -12,7 +12,7 @@
       <view class="header flex items-center pt-40 pb-30 px-26">
         <view class="iconfont icon-guanbi-xiao"></view>
         <view class="flex-1 text-center text-size-32 font-medium leading-none">
-          {{ options.title ? '你好评' : '阿萨德' }}
+          {{ options.title }}
         </view>
         <view class="iconfont icon-tianjia"></view>
       </view>

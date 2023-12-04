@@ -147,10 +147,10 @@ var render = function () {
   })
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
-      _vm.viewType = "byMenu"
+      _vm.viewType = "byCategory"
     }
     _vm.e1 = function ($event) {
-      _vm.viewType = "byCategory"
+      _vm.viewType = "byMenu"
     }
   }
   _vm.$mp.data = Object.assign(
@@ -265,14 +265,15 @@ var _constant = __webpack_require__(/*! ../../config/constant */ 178);
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
-      viewType: 'byMenu',
+      viewType: 'byCategory',
       dataList: [],
       list: [{
-        name: '编辑',
-        code: 'edit'
+        name: '重命名',
+        code: 'rename'
       }, {
         name: '删除',
         code: 'delete'
@@ -336,10 +337,23 @@ var _default = {
               content: "\u786E\u5B9A\u8981\u5220\u9664".concat(item.name, "\u5417\uFF1F"),
               showCancelButton: true
             });
-          } else if (selectItem.code == 'edit') {
-            _this.$refs.editModal.open({
-              title: "\u7F16\u8F91",
-              showCancelButton: true
+          } else if (selectItem.code == 'rename') {
+            _this.$refs.renameModal.open({
+              title: "\u91CD\u547D\u540D ".concat(item.name),
+              showCancelButton: true,
+              onConfirm: function onConfirm() {
+                if (source == 'food') {
+                  _this.$store.commit('updateFoodData', {
+                    foodId: item.id,
+                    food: _this.itemName
+                  });
+                } else {
+                  _this.$store.commit('updateCategoryData', {
+                    categoryId: item.id,
+                    category: _this.itemName
+                  });
+                }
+              }
             });
           }
         }

@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-30 18:43:52
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-03 22:29:40
+ * @LastEditTime: 2023-12-04 21:58:52
  * @FilePath: /what-to-eat/pages/menu-form/menu-form.vue
  * @Description: 
 -->
@@ -10,7 +10,7 @@
   <view>
     <view class="bg-white mt-30">
       <u-cell-group>
-        <u-cell title="菜单名称">
+        <u-cell title="食物名称">
           <u-input
             slot="right-icon"
             placeholder="请输入"
@@ -30,6 +30,8 @@
       <view class="text-size-28 text-black-45">(可不选或多选)</view>
     </view>
 
+    <view class="my-10 ml-32">{{ checkedCategoryList.map(e => e.name).join('、') }}</view>
+
     <view class="flex items-center mt-14 ml-32">
       <view class="iconfont icon-tianjia text-red mr-6 text-size-32"></view>
       <view class="text-red text-size-30" @click="openCategoryList">点击选择</view>
@@ -39,7 +41,7 @@
       <button class="wte-btn primary mx-47 w-full" @click="save">保存</button>
     </view>
 
-    <wte-side-list-popup ref="wteSideListPopup"></wte-side-list-popup>
+    <wte-side-list-popup ref="wteSideListPopup" :list="categoryList" :checked-keys="[]"></wte-side-list-popup>
   </view>
 </template>
 
@@ -47,13 +49,17 @@
 export default {
   data() {
     return {
-      name: ''
+      name: '',
+      checkedCategoryList: [],
+      categoryList: []
     };
   },
 
   created() {
     // 判断是否有安全区
     // console.log(uni.getSystemInfoSync().safeAreaInsets.bottom);
+
+    this.categoryList = JSON.parse(JSON.stringify(this.$store.getters.categoryList));
   },
 
   methods: {
@@ -62,7 +68,13 @@ export default {
      * @return {*}
      */
     openCategoryList() {
-      this.$refs.wteSideListPopup.open();
+      this.$refs.wteSideListPopup.setChecked();
+      this.$refs.wteSideListPopup.open({
+        title: `选择分类`,
+        onOk: result => {
+          this.checkedCategoryList = result;
+        }
+      });
     },
     /**
      * @description: 保存

@@ -9632,7 +9632,7 @@ function normalizeComponent (
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -9641,17 +9641,24 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
 var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 36));
+var _constant = __webpack_require__(/*! ../config/constant */ 178);
 /*
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-03 14:43:35
+ * @LastEditTime: 2023-12-04 20:54:25
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
 
 _vue.default.use(_vuex.default); //vue的插件机制
 
+var getLocalData = function getLocalData() {
+  return uni.getStorageSync(_constant.WET_MENU_DATA);
+};
+var setLocalData = function setLocalData(data) {
+  return uni.setStorageSync(_constant.WET_MENU_DATA, data);
+};
 var store = new _vuex.default.Store({
   state: {
     dataList: [{
@@ -9796,14 +9803,69 @@ var store = new _vuex.default.Store({
     }
   },
   mutations: {
-    //相当于同步的操作
+    /**
+     * @description: 更新dataList
+     * @param {*} state
+     * @param {*} dataList
+     * @return {*}
+     */
+    updateDataList: function updateDataList(state, dataList) {
+      state.dataList = dataList;
+    },
+    /**
+     * @description: 更新食物数据
+     * @param {*} state
+     * @param {*} id
+     * @param {*} newData
+     * @return {*}
+     */
+    updateFoodLocalData: function updateFoodLocalData(state, newData) {
+      var list = getLocalData();
+      var foodIndex = list.findIndex(function (e) {
+        return e.foodId == newData.foodId;
+      });
+      if (foodIndex > -1) {
+        list.forEach(function (e) {
+          if (e.foodId == newData.foodId) {
+            e.food = newData.food;
+          }
+        });
+        setLocalData(list);
+        store.commit('updateDataList', list);
+      } else {
+        console.log("\u67E5\u65E0\u6570\u636E");
+      }
+    },
+    /**
+     * @description: 更新分类数据
+     * @param {*} state
+     * @param {*} id
+     * @param {*} newData
+     * @return {*}
+     */
+    updateCategoryData: function updateCategoryData(state, newData) {
+      var list = getLocalData();
+      var index = list.findIndex(function (e) {
+        return e.categoryId == newData.categoryId;
+      });
+      if (index > -1) {
+        list.forEach(function (e) {
+          if (e.categoryId == newData.categoryId) {
+            e.category = newData.category;
+          }
+        });
+        setLocalData(list);
+        store.commit('updateDataList', list);
+      } else {
+        console.log("\u67E5\u65E0\u6570\u636E");
+      }
+    }
   },
-  actions: {
-    //相当于异步的操作,不能直接改变state的值，只能通过触发mutations的方法才能改变
-  }
+  actions: {}
 });
 var _default = store;
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
 /* 36 */

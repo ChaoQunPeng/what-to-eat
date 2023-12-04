@@ -2,8 +2,8 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-01 15:14:56
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 21:40:12
- * @FilePath: /what-to-eat/components/action-sheet/action-sheet.vue
+ * @LastEditTime: 2023-12-04 20:03:56
+ * @FilePath: /what-to-eat/components/wte-action-sheet/wte-action-sheet.vue
  * @Description: 
 -->
 <template>
@@ -55,7 +55,6 @@ export default {
       this.show = false;
     },
     onSelect(item) {
-      console.log(this.actions);
       if (this.options.onSelect) {
         this.options.onSelect(item);
       }

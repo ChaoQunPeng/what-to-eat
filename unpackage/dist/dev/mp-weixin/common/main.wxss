@@ -361,6 +361,10 @@
   margin-top: 30rpx;
   margin-bottom: 30rpx
 }
+.my-10 {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx
+}
 .mb-20 {
   margin-bottom: 20rpx
 }

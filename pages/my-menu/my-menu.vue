@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-03 22:10:45
+ * @LastEditTime: 2023-12-04 20:54:20
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -10,11 +10,11 @@
   <view>
     <view class="flex items-center h-60 mx-40 mb-20">
       <view class="tabs flex items-end">
-        <view :class="{ actived: viewType == 'byMenu' }" @click="viewType = 'byMenu'">
+        <view :class="{ actived: viewType == 'byCategory' }" @click="viewType = 'byCategory'">
           <view>菜单</view>
         </view>
-        <view :class="{ actived: viewType == 'byCategory' }" @click="viewType = 'byCategory'">
-          <view>分类</view>
+        <view :class="{ actived: viewType == 'byMenu' }" @click="viewType = 'byMenu'">
+          <view>食物</view>
         </view>
       </view>
 
@@ -27,7 +27,7 @@
         <view v-if="viewType == 'byMenu'" :key="index" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
           <view class="header flex items-center">
             <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
-            <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'menu', item })"> </view>
+            <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'food', item })"> </view>
           </view>
 
           <div class="mt-30 font-normal text-size-24 text-black-45">分类：{{ parseToText(item.list, 'category') }}</div>
@@ -37,6 +37,7 @@
           v-else-if="viewType == 'byCategory'"
           :key="index"
           class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20"
+          @click="clickCardMore({ source: 'category', item })"
         >
           <view class="header flex items-center">
             <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
@@ -50,7 +51,7 @@
 
     <wte-action-sheet ref="actionSheet" :actions="list"></wte-action-sheet>
     <wte-modal ref="confirmDeleteModal"></wte-modal>
-    <wte-modal ref="editModal">
+    <wte-modal ref="renameModal">
       <u-input
         placeholder="请输入"
         placeholder-class="placeholder-text-right"
@@ -68,12 +69,12 @@ import { WET_MENU_DATA } from '../../config/constant';
 export default {
   data() {
     return {
-      viewType: 'byMenu',
+      viewType: 'byCategory',
       dataList: [],
       list: [
         {
-          name: '编辑',
-          code: 'edit'
+          name: '重命名',
+          code: 'rename'
         },
         {
           name: '删除',
@@ -134,10 +135,17 @@ export default {
               content: `确定要删除${item.name}吗？`,
               showCancelButton: true
             });
-          } else if (selectItem.code == 'edit') {
-            this.$refs.editModal.open({
-              title: `编辑`,
-              showCancelButton: true
+          } else if (selectItem.code == 'rename') {
+            this.$refs.renameModal.open({
+              title: `重命名 ${item.name}`,
+              showCancelButton: true,
+              onConfirm: () => {
+                if (source == 'food') {
+                  this.$store.commit('updateFoodData', { foodId: item.id, food: this.itemName });
+                } else {
+                  this.$store.commit('updateCategoryData', { categoryId: item.id, category: this.itemName });
+                }
+              }
             });
           }
         }

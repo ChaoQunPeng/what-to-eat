@@ -26,12 +26,15 @@ wx.__webpack_require_UNI_MP_PLUGIN__ = __webpack_require__; /*
                                                             * @Author: PengChaoQun 1152684231@qq.com
                                                             * @Date: 2023-04-07 15:12:06
                                                             * @LastEditors: PengChaoQun 1152684231@qq.com
-                                                            * @LastEditTime: 2023-12-04 18:53:12
+                                                            * @LastEditTime: 2023-12-04 21:21:28
                                                             * @FilePath: /what-to-eat/main.js
                                                             * @Description:
                                                             */
 
 _vue.default.use(_uviewUi.default);
+_vue.default.prototype.$clone = function (data) {
+  return JSON.parse(JSON.stringify(data));
+};
 _vue.default.config.productionTip = false;
 _App.default.mpType = 'app';
 var app = new _vue.default(_objectSpread(_objectSpread({}, _App.default), {}, {
@@ -431,7 +434,6 @@ var _default = {
       this.show = false;
     },
     onSelect: function onSelect(item) {
-      console.log(this.actions);
       if (this.options.onSelect) {
         this.options.onSelect(item);
       }
@@ -870,28 +872,18 @@ exports.default = void 0;
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   name: 'wte-side-list-popup',
   // components:{},
-  // props: {},
+
+  props: {
+    list: {
+      type: Array
+    },
+    checkedKeys: {
+      type: Array
+    }
+  },
   data: function data() {
     return {
       show: false,
@@ -910,21 +902,47 @@ var _default = {
         style: {
           backgroundColor: '#ee0a24'
         }
-      }]
+      }],
+      listData: []
     };
   },
   // computed: {},
-
-  // created() {},
-
+  created: function created() {
+    var _this = this;
+    this.listData = this.$clone(this.list);
+    this.listData.forEach(function (e) {
+      _this.$set(e, 'isChecked', false);
+    });
+    console.log(this);
+  },
   // mounted() {},
 
   methods: {
-    open: function open() {
+    open: function open(options) {
+      this.options = options;
       this.show = true;
     },
     popOnOpen: function popOnOpen() {},
     popOnClose: function popOnClose() {
+      this.show = false;
+    },
+    setChecked: function setChecked() {
+      var _this2 = this;
+      this.listData.forEach(function (e) {
+        if (_this2.checkedKeys.includes(e.id)) {
+          e.isChecked = true;
+        }
+      });
+    },
+    clickItem: function clickItem(item) {
+      item.isChecked = !item.isChecked;
+    },
+    ok: function ok() {
+      var result = this.listData.filter(function (e) {
+        return e.isChecked;
+      });
+      this.$emit('ok', result);
+      this.options.onOk && this.options.onOk(result);
       this.show = false;
     }
   }

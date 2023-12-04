@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-03 14:15:17
+ * @LastEditTime: 2023-12-03 22:10:45
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
@@ -30,7 +30,7 @@
             <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'menu', item })"> </view>
           </view>
 
-          <div class="mt-30 font-normal text-size-24 text-black-45">分类：{{ item.list }}</div>
+          <div class="mt-30 font-normal text-size-24 text-black-45">分类：{{ parseToText(item.list, 'category') }}</div>
         </view>
 
         <view
@@ -43,7 +43,7 @@
             <view class="iconfont icon-gengduo ml-auto"></view>
           </view>
 
-          <div class="mt-30 font-normal text-size-24 text-black-45">食物：{{ item.list }}</div>
+          <div class="mt-30 font-normal text-size-24 text-black-45">食物：{{ parseToText(item.list, 'food') }}</div>
         </view>
       </template>
     </view>
@@ -92,6 +92,11 @@ export default {
       } else if (this.viewType == 'byCategory') {
         return this.$store.getters.categoryList;
       }
+    },
+    parseToText() {
+      return function (list, type) {
+        return list.map(e => e[type]).join('、');
+      };
     }
   },
 
@@ -99,7 +104,7 @@ export default {
     this.dataList = uni.getStorageSync(WET_MENU_DATA);
   },
 
-  methods: { 
+  methods: {
     /**
      * @description: 切换视图类型
      * @return {*}

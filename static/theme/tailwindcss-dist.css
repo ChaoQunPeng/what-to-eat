@@ -578,6 +578,16 @@ video {
   margin-right: 47rpx;
 }
 
+.mx-30 {
+  margin-left: 30rpx;
+  margin-right: 30rpx;
+}
+
+.my-30 {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx;
+}
+
 .mb-20 {
   margin-bottom: 20rpx;
 }

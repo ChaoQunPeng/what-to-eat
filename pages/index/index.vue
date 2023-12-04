@@ -2,13 +2,14 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-03 21:01:02
+ * @LastEditTime: 2023-12-04 16:32:51
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="h-screen relative z-10">
+      <aaa-bbb ref="AAABB"></aaa-bbb>
       <view style="text-align: right; padding-right: 30rpx">
         <view class="go-menu-page iconfont icon-bianji" @click="goMyMenu"></view>
       </view>
@@ -38,6 +39,11 @@
       </view>
     </view>
 
+    <!-- <u-popup :show="true" ref="adasdsasa">
+    </u-popup> -->
+
+    
+
     <wte-popup ref="modifyScope">
       <view class="modify-scope h-full flex flex-col">
         <view class="header flex items-center pt-40 pb-30 px-26">
@@ -47,7 +53,7 @@
         <view class="body flex-1">
           <view class="collapse-box" v-for="(category, index) in currentScopeList" :key="index">
             <view class="header flex items-center" @click="headerClick(category)">
-              <view>{{ category.isChecked }}</view>
+              <view></view>
               <view class="font-bold">{{ category.name }}</view>
 
               <u-checkbox-group
@@ -65,11 +71,11 @@
                 v-for="(food, fIndex) in category.list"
                 :key="fIndex"
                 class="flex items-center"
-                @click="clickFood(food)"
+                @click="clickFood(food, category)"
               >
                 <view> {{ food.food }} </view>
 
-                <u-checkbox-group
+                <!-- <u-checkbox-group
                   class="ml-auto"
                   v-model="food.isChecked"
                   placement="column"
@@ -77,7 +83,7 @@
                   shape="circle"
                 >
                   <u-checkbox :name="1"> </u-checkbox>
-                </u-checkbox-group>
+                </u-checkbox-group> -->
 
                 <!-- <view
                   v-show="food.isChecked"
@@ -87,10 +93,11 @@
             </view>
           </view>
         </view>
-        <view class="foot">
-          <button class="wte-btn primary" @click="randomFood">确定</button>
+        <view class="foot mx-30 my-30">
+          <button class="wte-btn primary" @click="modifyCagetory">确定</button>
         </view>
       </view>
+      <u-toast ref="uToast"></u-toast>
     </wte-popup>
   </view>
 </template>
@@ -104,8 +111,8 @@ export default {
   data() {
     return {
       menuText: '',
-      currentScopeList: [],
       currentCategoryIdList: ['zaocan', 'wucan', 'wancan', 'huangmenji', 'kendeji'],
+      currentScopeList: [],
       timer: null
     };
   },
@@ -113,7 +120,11 @@ export default {
   computed: {
     currentCategoryText() {
       let categoryList = this.$store.getters.categoryList;
-      return categoryList.map(e => e.name).join('、');
+
+      return categoryList
+        .filter(e => this.currentCategoryIdList.includes(e.id))
+        .map(e => e.name)
+        .join('、');
     },
     reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
@@ -133,14 +144,17 @@ export default {
     }
   },
 
-  onLoad() {},
-
   created() {
     this.currentScopeList = JSON.parse(JSON.stringify(this.$store.getters.categoryList));
 
     this.currentScopeList.forEach(e => {
       this.$set(e, 'expand', false);
+      this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
+  },
+
+  mounted() {
+    console.log(this.$refs);
   },
 
   methods: {
@@ -190,21 +204,49 @@ export default {
      * @return {*}
      */
     modifyScope() {
+      this.$nextTick(() => {});
+
+      console.log(this.$refs);
+
       this.$refs.modifyScope.open();
     },
     headerClick(category) {
       if (category.isChecked === undefined) {
         this.$set(category, 'isChecked', []);
       }
-      
-      this.$set(category, 'category', category.isChecked.length == 0 ? [1] : []);
+
+      this.$set(category, 'isChecked', category.isChecked.length == 0 ? [1] : []);
+
+      // category.list.forEach(food => {
+      //   this.$set(food, 'isChecked', category.isChecked);
+      // });
     },
-    clickFood(food) {
-      if (food.isChecked === undefined) {
-        this.$set(food, 'isChecked', []);
+    clickFood(food, category) {
+      // if (food.isChecked === undefined) {
+      //   this.$set(food, 'isChecked', []);
+      // }
+      // this.$set(food, 'isChecked', food.isChecked.length == 0 ? [1] : []);
+      // if (category.list.every(food => food.isChecked?.length > 0)) {
+      //   category.isChecked = [1];
+      // } else if (category.list.every(food => food.isChecked?.length == 0)) {
+      //   category.isChecked = [];
+      // } else {
+      //   category.isChecked = [];
+      // }
+    },
+    modifyCagetory() {
+      if (this.currentScopeList.filter(e => e.isChecked?.length > 0).length == 0) {
+        this.$refs.uToast.show({
+          message: '至少要选择一个分类哦~'
+        });
+        return;
       }
 
-      this.$set(food, 'isChecked', food.isChecked.length == 0 ? [1] : []);
+      this.currentCategoryIdList = this.currentScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
+      this.currentScopeList.forEach(e => {
+        this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
+      });
+      this.$refs.modifyScope.close();
     }
   }
 };

@@ -42,10 +42,38 @@ page {
   color: #ee0a24;
 }
 .fixed-menu {
-  color: rgba(18, 18, 18, 0.05);
+  color: rgba(18, 18, 18, 0.04);
   -webkit-transform: rotate(30deg);
           transform: rotate(30deg);
   word-break: keep-all;
   width: 33.33333%;
+}
+.modify-scope {
+  width: calc(100vw - 200rpx);
+}
+.modify-scope .collapse-box .header {
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  padding: 16rpx 20rpx;
+}
+.modify-scope .collapse-box .body > view {
+  position: relative;
+  padding: 20rpx 20rpx 20rpx 40rpx;
+}
+.modify-scope .collapse-box .body > view:active {
+  background: #f0f0f0;
+}
+.modify-scope .collapse-box .body > view:last-child::after {
+  display: none;
+}
+.modify-scope .collapse-box .body > view::after {
+  content: '';
+  width: 100%;
+  height: 1px;
+  display: flex;
+  bottom: 0;
+  position: absolute;
+  left: 30rpx;
+  background: #ddd;
 }
 

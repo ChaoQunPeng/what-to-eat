@@ -2,8 +2,8 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-03 16:47:03
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 16:30:00
- * @FilePath: /what-to-eat/components/popup/popup.vue
+ * @LastEditTime: 2023-12-04 17:45:28
+ * @FilePath: /what-to-eat/components/wte-popup/wte-popup.vue
  * @Description: 
 -->
 <template>
@@ -37,6 +37,9 @@ export default {
   methods: {
     open() {
       this.show = true;
+    },
+    close() {
+      this.show = false;
     },
     onOpen() {},
     onClose() {

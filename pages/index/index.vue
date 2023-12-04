@@ -2,14 +2,13 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 16:32:51
+ * @LastEditTime: 2023-12-04 18:07:05
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="h-screen relative z-10">
-      <aaa-bbb ref="AAABB"></aaa-bbb>
       <view style="text-align: right; padding-right: 30rpx">
         <view class="go-menu-page iconfont icon-bianji" @click="goMyMenu"></view>
       </view>
@@ -35,14 +34,12 @@
 
     <view class="fixed flex flex-wrap w-full h-screen top-0">
       <view v-for="(menu, index) in reaolveBgMenuList" :key="index" class="fixed-menu flex items-center justify-center">
-        <template v-if="index != 4">{{ menu.name }}</template>
+        <template>{{ menu.name }}</template>
       </view>
     </view>
 
     <!-- <u-popup :show="true" ref="adasdsasa">
     </u-popup> -->
-
-    
 
     <wte-popup ref="modifyScope">
       <view class="modify-scope h-full flex flex-col">
@@ -56,15 +53,11 @@
               <view></view>
               <view class="font-bold">{{ category.name }}</view>
 
-              <u-checkbox-group
-                class="ml-auto"
-                v-model="category.isChecked"
-                placement="column"
-                activeColor="#ee0a24"
-                shape="circle"
-              >
-                <u-checkbox :name="1"> </u-checkbox>
-              </u-checkbox-group>
+              <view class="ml-auto">
+                <u-checkbox-group v-model="category.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
+                  <u-checkbox :name="1"> </u-checkbox>
+                </u-checkbox-group>
+              </view>
             </view>
             <view class="body">
               <view
@@ -140,7 +133,7 @@ export default {
         return result;
       }
 
-      return getRandomObjectsFromArray(MENU_DATA_LIST, 9);
+      return getRandomObjectsFromArray(MENU_DATA_LIST, 18);
     }
   },
 
@@ -153,9 +146,7 @@ export default {
     });
   },
 
-  mounted() {
-    console.log(this.$refs);
-  },
+  mounted() {},
 
   methods: {
     goMyMenu() {
@@ -204,9 +195,9 @@ export default {
      * @return {*}
      */
     modifyScope() {
-      this.$nextTick(() => {});
-
-      console.log(this.$refs);
+      this.currentScopeList.forEach(e => {
+        this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
+      });
 
       this.$refs.modifyScope.open();
     },
@@ -308,7 +299,7 @@ page {
 }
 
 .fixed-menu {
-  color: rgba(18, 18, 18, 0.05);
+  color: rgba(18, 18, 18, 0.04);
   transform: rotate(30deg);
   word-break: keep-all;
   width: 33.33333%;

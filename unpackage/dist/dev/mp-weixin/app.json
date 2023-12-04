@@ -9,7 +9,7 @@
     "navigationBarTextStyle": "black",
     "navigationBarTitleText": "uni-app",
     "navigationBarBackgroundColor": "#FAFAFA",
-    "backgroundColor": "#f00"
+    "backgroundColor": "#FAFAFA"
   },
   "usingComponents": {}
 }

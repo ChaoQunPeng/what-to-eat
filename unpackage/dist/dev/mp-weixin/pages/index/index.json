@@ -1,8 +1,9 @@
 {
   "navigationBarTitleText": "",
   "usingComponents": {
-    "u-checkbox-group": "/node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group",
-    "u-checkbox": "/node-modules/uview-ui/components/u-checkbox/u-checkbox",
-    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast"
+    "wte-popup": "/components/wte-popup/wte-popup",
+    "u-checkbox-group": "/uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group",
+    "u-checkbox": "/uni_modules/uview-ui/components/u-checkbox/u-checkbox",
+    "u-toast": "/uni_modules/uview-ui/components/u-toast/u-toast"
   }
 }

@@ -780,8 +780,8 @@ function populateParameters(result) {
     appVersion: "1.0.0",
     appVersionCode: "100",
     appLanguage: getAppLanguage(hostLanguage),
-    uniCompileVersion: "3.96",
-    uniRuntimeVersion: "3.96",
+    uniCompileVersion: "3.98",
+    uniRuntimeVersion: "3.98",
     uniPlatform: undefined || "mp-weixin",
     deviceBrand: deviceBrand,
     deviceModel: model,
@@ -9625,6 +9625,1444 @@ function normalizeComponent (
 
 /***/ }),
 /* 35 */
+/*!**********************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/store/store.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 36));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-02 18:08:31
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-03 14:43:35
+ * @FilePath: /what-to-eat/store/store.js
+ * @Description: store文件;
+ */
+
+_vue.default.use(_vuex.default); //vue的插件机制
+
+var store = new _vuex.default.Store({
+  state: {
+    dataList: [{
+      foodId: 'banfen',
+      food: '拌粉',
+      categoryId: 'zaocan',
+      category: '早餐'
+    }, {
+      foodId: 'banfen',
+      food: '拌粉',
+      categoryId: 'wucan',
+      category: '午餐'
+    }, {
+      foodId: 'banfen',
+      food: '拌粉',
+      categoryId: 'wancan',
+      category: '晚餐'
+    }, {
+      foodId: 'zhujiaofan',
+      food: '猪脚饭',
+      categoryId: 'wucan',
+      category: '午餐'
+    }, {
+      foodId: 'zhujiaofan',
+      food: '猪脚饭',
+      categoryId: 'wancan',
+      category: '晚餐'
+    }, {
+      foodId: 'jirou',
+      food: '鸡肉',
+      categoryId: 'huangmenji',
+      category: '黄焖鸡'
+    }, {
+      foodId: 'jirou',
+      food: '鸡肉',
+      categoryId: 'kendeji',
+      category: '肯德基'
+    }]
+  },
+  getters: {
+    /**
+     * 食物数据-对象形式
+     * @param {*} state
+     * {
+     *    "食物名称1":[{}],
+     *    "食物名称2":[{}]
+     * }
+     */
+    foodMap: function foodMap(state) {
+      var foodGroup = {};
+      state.dataList.forEach(function (item) {
+        var foodId = item.foodId;
+        if (!foodGroup[foodId]) {
+          foodGroup[foodId] = [];
+        }
+        foodGroup[foodId].push(item);
+      });
+      console.log("foodGroup", foodGroup);
+      return foodGroup;
+    },
+    /**
+     * 分类数据-对象形式
+     * @param {*} state
+     * {
+     *    "分类名称1":[{}],
+     *    "分类名称2":[{}]
+     * }
+     */
+    categoryMap: function categoryMap(state) {
+      var categoryGroup = {};
+      state.dataList.forEach(function (item) {
+        var categoryId = item.categoryId;
+        if (!categoryGroup[categoryId]) {
+          categoryGroup[categoryId] = [];
+        }
+        categoryGroup[categoryId].push(item);
+      });
+      console.log("categoryGroup", categoryGroup);
+      return categoryGroup;
+    },
+    /**
+     * @description: 食物列表
+     * @param {*} state
+     *
+     * [
+     *    {
+     *      "id":"",
+     *      "name":"食物",
+     *      "list":[{}]
+     *    }
+     * ]
+     * @return {*}
+     */
+    foodList: function foodList() {
+      var foodGroup = store.getters.foodMap;
+      var list = [];
+      var _loop = function _loop(key) {
+        list.push({
+          id: foodGroup[key][0].foodId,
+          name: foodGroup[key][0].food,
+          list: foodGroup[key].filter(function (e) {
+            return e.foodId == key;
+          })
+        });
+      };
+      for (var key in foodGroup) {
+        _loop(key);
+      }
+      console.log("foodList", list);
+      return list;
+    },
+    /**
+     * @description: 分类列表
+     * @param {*} state
+     *
+     * [
+     *    {
+     *      "id":"",
+     *      "name":"分类",
+     *      "list":[{}]
+     *    }
+     * ]
+     * @return {*}
+     */
+    categoryList: function categoryList() {
+      var categoryGroup = store.getters.categoryMap;
+      var list = [];
+      var _loop2 = function _loop2(key) {
+        list.push({
+          id: categoryGroup[key][0].categoryId,
+          name: categoryGroup[key][0].category,
+          list: categoryGroup[key].filter(function (e) {
+            return e.categoryId == key;
+          })
+        });
+      };
+      for (var key in categoryGroup) {
+        _loop2(key);
+      }
+      console.log("categoryList", list);
+      return list;
+    }
+  },
+  mutations: {
+    //相当于同步的操作
+  },
+  actions: {
+    //相当于异步的操作,不能直接改变state的值，只能通过触发mutations的方法才能改变
+  }
+});
+var _default = store;
+exports.default = _default;
+
+/***/ }),
+/* 36 */
+/*!**************************************************************************************!*\
+  !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
+  \**************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(global) {/*!
+ * vuex v3.6.2
+ * (c) 2021 Evan You
+ * @license MIT
+ */
+
+
+function applyMixin (Vue) {
+  var version = Number(Vue.version.split('.')[0]);
+
+  if (version >= 2) {
+    Vue.mixin({ beforeCreate: vuexInit });
+  } else {
+    // override init and inject vuex init procedure
+    // for 1.x backwards compatibility.
+    var _init = Vue.prototype._init;
+    Vue.prototype._init = function (options) {
+      if ( options === void 0 ) options = {};
+
+      options.init = options.init
+        ? [vuexInit].concat(options.init)
+        : vuexInit;
+      _init.call(this, options);
+    };
+  }
+
+  /**
+   * Vuex init hook, injected into each instances init hooks list.
+   */
+
+  function vuexInit () {
+    var options = this.$options;
+    // store injection
+    if (options.store) {
+      this.$store = typeof options.store === 'function'
+        ? options.store()
+        : options.store;
+    } else if (options.parent && options.parent.$store) {
+      this.$store = options.parent.$store;
+    }
+  }
+}
+
+var target = typeof window !== 'undefined'
+  ? window
+  : typeof global !== 'undefined'
+    ? global
+    : {};
+var devtoolHook = target.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+
+function devtoolPlugin (store) {
+  if (!devtoolHook) { return }
+
+  store._devtoolHook = devtoolHook;
+
+  devtoolHook.emit('vuex:init', store);
+
+  devtoolHook.on('vuex:travel-to-state', function (targetState) {
+    store.replaceState(targetState);
+  });
+
+  store.subscribe(function (mutation, state) {
+    devtoolHook.emit('vuex:mutation', mutation, state);
+  }, { prepend: true });
+
+  store.subscribeAction(function (action, state) {
+    devtoolHook.emit('vuex:action', action, state);
+  }, { prepend: true });
+}
+
+/**
+ * Get the first item that pass the test
+ * by second argument function
+ *
+ * @param {Array} list
+ * @param {Function} f
+ * @return {*}
+ */
+function find (list, f) {
+  return list.filter(f)[0]
+}
+
+/**
+ * Deep copy the given object considering circular structure.
+ * This function caches all nested objects and its copies.
+ * If it detects circular structure, use cached copy to avoid infinite loop.
+ *
+ * @param {*} obj
+ * @param {Array<Object>} cache
+ * @return {*}
+ */
+function deepCopy (obj, cache) {
+  if ( cache === void 0 ) cache = [];
+
+  // just return if obj is immutable value
+  if (obj === null || typeof obj !== 'object') {
+    return obj
+  }
+
+  // if obj is hit, it is in circular structure
+  var hit = find(cache, function (c) { return c.original === obj; });
+  if (hit) {
+    return hit.copy
+  }
+
+  var copy = Array.isArray(obj) ? [] : {};
+  // put the copy into cache at first
+  // because we want to refer it in recursive deepCopy
+  cache.push({
+    original: obj,
+    copy: copy
+  });
+
+  Object.keys(obj).forEach(function (key) {
+    copy[key] = deepCopy(obj[key], cache);
+  });
+
+  return copy
+}
+
+/**
+ * forEach for object
+ */
+function forEachValue (obj, fn) {
+  Object.keys(obj).forEach(function (key) { return fn(obj[key], key); });
+}
+
+function isObject (obj) {
+  return obj !== null && typeof obj === 'object'
+}
+
+function isPromise (val) {
+  return val && typeof val.then === 'function'
+}
+
+function assert (condition, msg) {
+  if (!condition) { throw new Error(("[vuex] " + msg)) }
+}
+
+function partial (fn, arg) {
+  return function () {
+    return fn(arg)
+  }
+}
+
+// Base data struct for store's module, package with some attribute and method
+var Module = function Module (rawModule, runtime) {
+  this.runtime = runtime;
+  // Store some children item
+  this._children = Object.create(null);
+  // Store the origin module object which passed by programmer
+  this._rawModule = rawModule;
+  var rawState = rawModule.state;
+
+  // Store the origin module's state
+  this.state = (typeof rawState === 'function' ? rawState() : rawState) || {};
+};
+
+var prototypeAccessors = { namespaced: { configurable: true } };
+
+prototypeAccessors.namespaced.get = function () {
+  return !!this._rawModule.namespaced
+};
+
+Module.prototype.addChild = function addChild (key, module) {
+  this._children[key] = module;
+};
+
+Module.prototype.removeChild = function removeChild (key) {
+  delete this._children[key];
+};
+
+Module.prototype.getChild = function getChild (key) {
+  return this._children[key]
+};
+
+Module.prototype.hasChild = function hasChild (key) {
+  return key in this._children
+};
+
+Module.prototype.update = function update (rawModule) {
+  this._rawModule.namespaced = rawModule.namespaced;
+  if (rawModule.actions) {
+    this._rawModule.actions = rawModule.actions;
+  }
+  if (rawModule.mutations) {
+    this._rawModule.mutations = rawModule.mutations;
+  }
+  if (rawModule.getters) {
+    this._rawModule.getters = rawModule.getters;
+  }
+};
+
+Module.prototype.forEachChild = function forEachChild (fn) {
+  forEachValue(this._children, fn);
+};
+
+Module.prototype.forEachGetter = function forEachGetter (fn) {
+  if (this._rawModule.getters) {
+    forEachValue(this._rawModule.getters, fn);
+  }
+};
+
+Module.prototype.forEachAction = function forEachAction (fn) {
+  if (this._rawModule.actions) {
+    forEachValue(this._rawModule.actions, fn);
+  }
+};
+
+Module.prototype.forEachMutation = function forEachMutation (fn) {
+  if (this._rawModule.mutations) {
+    forEachValue(this._rawModule.mutations, fn);
+  }
+};
+
+Object.defineProperties( Module.prototype, prototypeAccessors );
+
+var ModuleCollection = function ModuleCollection (rawRootModule) {
+  // register root module (Vuex.Store options)
+  this.register([], rawRootModule, false);
+};
+
+ModuleCollection.prototype.get = function get (path) {
+  return path.reduce(function (module, key) {
+    return module.getChild(key)
+  }, this.root)
+};
+
+ModuleCollection.prototype.getNamespace = function getNamespace (path) {
+  var module = this.root;
+  return path.reduce(function (namespace, key) {
+    module = module.getChild(key);
+    return namespace + (module.namespaced ? key + '/' : '')
+  }, '')
+};
+
+ModuleCollection.prototype.update = function update$1 (rawRootModule) {
+  update([], this.root, rawRootModule);
+};
+
+ModuleCollection.prototype.register = function register (path, rawModule, runtime) {
+    var this$1 = this;
+    if ( runtime === void 0 ) runtime = true;
+
+  if ((true)) {
+    assertRawModule(path, rawModule);
+  }
+
+  var newModule = new Module(rawModule, runtime);
+  if (path.length === 0) {
+    this.root = newModule;
+  } else {
+    var parent = this.get(path.slice(0, -1));
+    parent.addChild(path[path.length - 1], newModule);
+  }
+
+  // register nested modules
+  if (rawModule.modules) {
+    forEachValue(rawModule.modules, function (rawChildModule, key) {
+      this$1.register(path.concat(key), rawChildModule, runtime);
+    });
+  }
+};
+
+ModuleCollection.prototype.unregister = function unregister (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+  var child = parent.getChild(key);
+
+  if (!child) {
+    if ((true)) {
+      console.warn(
+        "[vuex] trying to unregister module '" + key + "', which is " +
+        "not registered"
+      );
+    }
+    return
+  }
+
+  if (!child.runtime) {
+    return
+  }
+
+  parent.removeChild(key);
+};
+
+ModuleCollection.prototype.isRegistered = function isRegistered (path) {
+  var parent = this.get(path.slice(0, -1));
+  var key = path[path.length - 1];
+
+  if (parent) {
+    return parent.hasChild(key)
+  }
+
+  return false
+};
+
+function update (path, targetModule, newModule) {
+  if ((true)) {
+    assertRawModule(path, newModule);
+  }
+
+  // update target module
+  targetModule.update(newModule);
+
+  // update nested modules
+  if (newModule.modules) {
+    for (var key in newModule.modules) {
+      if (!targetModule.getChild(key)) {
+        if ((true)) {
+          console.warn(
+            "[vuex] trying to add a new module '" + key + "' on hot reloading, " +
+            'manual reload is needed'
+          );
+        }
+        return
+      }
+      update(
+        path.concat(key),
+        targetModule.getChild(key),
+        newModule.modules[key]
+      );
+    }
+  }
+}
+
+var functionAssert = {
+  assert: function (value) { return typeof value === 'function'; },
+  expected: 'function'
+};
+
+var objectAssert = {
+  assert: function (value) { return typeof value === 'function' ||
+    (typeof value === 'object' && typeof value.handler === 'function'); },
+  expected: 'function or object with "handler" function'
+};
+
+var assertTypes = {
+  getters: functionAssert,
+  mutations: functionAssert,
+  actions: objectAssert
+};
+
+function assertRawModule (path, rawModule) {
+  Object.keys(assertTypes).forEach(function (key) {
+    if (!rawModule[key]) { return }
+
+    var assertOptions = assertTypes[key];
+
+    forEachValue(rawModule[key], function (value, type) {
+      assert(
+        assertOptions.assert(value),
+        makeAssertionMessage(path, key, type, value, assertOptions.expected)
+      );
+    });
+  });
+}
+
+function makeAssertionMessage (path, key, type, value, expected) {
+  var buf = key + " should be " + expected + " but \"" + key + "." + type + "\"";
+  if (path.length > 0) {
+    buf += " in module \"" + (path.join('.')) + "\"";
+  }
+  buf += " is " + (JSON.stringify(value)) + ".";
+  return buf
+}
+
+var Vue; // bind on install
+
+var Store = function Store (options) {
+  var this$1 = this;
+  if ( options === void 0 ) options = {};
+
+  // Auto install if it is not done yet and `window` has `Vue`.
+  // To allow users to avoid auto-installation in some cases,
+  // this code should be placed here. See #731
+  if (!Vue && typeof window !== 'undefined' && window.Vue) {
+    install(window.Vue);
+  }
+
+  if ((true)) {
+    assert(Vue, "must call Vue.use(Vuex) before creating a store instance.");
+    assert(typeof Promise !== 'undefined', "vuex requires a Promise polyfill in this browser.");
+    assert(this instanceof Store, "store must be called with the new operator.");
+  }
+
+  var plugins = options.plugins; if ( plugins === void 0 ) plugins = [];
+  var strict = options.strict; if ( strict === void 0 ) strict = false;
+
+  // store internal state
+  this._committing = false;
+  this._actions = Object.create(null);
+  this._actionSubscribers = [];
+  this._mutations = Object.create(null);
+  this._wrappedGetters = Object.create(null);
+  this._modules = new ModuleCollection(options);
+  this._modulesNamespaceMap = Object.create(null);
+  this._subscribers = [];
+  this._watcherVM = new Vue();
+  this._makeLocalGettersCache = Object.create(null);
+
+  // bind commit and dispatch to self
+  var store = this;
+  var ref = this;
+  var dispatch = ref.dispatch;
+  var commit = ref.commit;
+  this.dispatch = function boundDispatch (type, payload) {
+    return dispatch.call(store, type, payload)
+  };
+  this.commit = function boundCommit (type, payload, options) {
+    return commit.call(store, type, payload, options)
+  };
+
+  // strict mode
+  this.strict = strict;
+
+  var state = this._modules.root.state;
+
+  // init root module.
+  // this also recursively registers all sub-modules
+  // and collects all module getters inside this._wrappedGetters
+  installModule(this, state, [], this._modules.root);
+
+  // initialize the store vm, which is responsible for the reactivity
+  // (also registers _wrappedGetters as computed properties)
+  resetStoreVM(this, state);
+
+  // apply plugins
+  plugins.forEach(function (plugin) { return plugin(this$1); });
+
+  var useDevtools = options.devtools !== undefined ? options.devtools : Vue.config.devtools;
+  if (useDevtools) {
+    devtoolPlugin(this);
+  }
+};
+
+var prototypeAccessors$1 = { state: { configurable: true } };
+
+prototypeAccessors$1.state.get = function () {
+  return this._vm._data.$$state
+};
+
+prototypeAccessors$1.state.set = function (v) {
+  if ((true)) {
+    assert(false, "use store.replaceState() to explicit replace store state.");
+  }
+};
+
+Store.prototype.commit = function commit (_type, _payload, _options) {
+    var this$1 = this;
+
+  // check object-style commit
+  var ref = unifyObjectStyle(_type, _payload, _options);
+    var type = ref.type;
+    var payload = ref.payload;
+    var options = ref.options;
+
+  var mutation = { type: type, payload: payload };
+  var entry = this._mutations[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown mutation type: " + type));
+    }
+    return
+  }
+  this._withCommit(function () {
+    entry.forEach(function commitIterator (handler) {
+      handler(payload);
+    });
+  });
+
+  this._subscribers
+    .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+    .forEach(function (sub) { return sub(mutation, this$1.state); });
+
+  if (
+    ( true) &&
+    options && options.silent
+  ) {
+    console.warn(
+      "[vuex] mutation type: " + type + ". Silent option has been removed. " +
+      'Use the filter functionality in the vue-devtools'
+    );
+  }
+};
+
+Store.prototype.dispatch = function dispatch (_type, _payload) {
+    var this$1 = this;
+
+  // check object-style dispatch
+  var ref = unifyObjectStyle(_type, _payload);
+    var type = ref.type;
+    var payload = ref.payload;
+
+  var action = { type: type, payload: payload };
+  var entry = this._actions[type];
+  if (!entry) {
+    if ((true)) {
+      console.error(("[vuex] unknown action type: " + type));
+    }
+    return
+  }
+
+  try {
+    this._actionSubscribers
+      .slice() // shallow copy to prevent iterator invalidation if subscriber synchronously calls unsubscribe
+      .filter(function (sub) { return sub.before; })
+      .forEach(function (sub) { return sub.before(action, this$1.state); });
+  } catch (e) {
+    if ((true)) {
+      console.warn("[vuex] error in before action subscribers: ");
+      console.error(e);
+    }
+  }
+
+  var result = entry.length > 1
+    ? Promise.all(entry.map(function (handler) { return handler(payload); }))
+    : entry[0](payload);
+
+  return new Promise(function (resolve, reject) {
+    result.then(function (res) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.after; })
+          .forEach(function (sub) { return sub.after(action, this$1.state); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in after action subscribers: ");
+          console.error(e);
+        }
+      }
+      resolve(res);
+    }, function (error) {
+      try {
+        this$1._actionSubscribers
+          .filter(function (sub) { return sub.error; })
+          .forEach(function (sub) { return sub.error(action, this$1.state, error); });
+      } catch (e) {
+        if ((true)) {
+          console.warn("[vuex] error in error action subscribers: ");
+          console.error(e);
+        }
+      }
+      reject(error);
+    });
+  })
+};
+
+Store.prototype.subscribe = function subscribe (fn, options) {
+  return genericSubscribe(fn, this._subscribers, options)
+};
+
+Store.prototype.subscribeAction = function subscribeAction (fn, options) {
+  var subs = typeof fn === 'function' ? { before: fn } : fn;
+  return genericSubscribe(subs, this._actionSubscribers, options)
+};
+
+Store.prototype.watch = function watch (getter, cb, options) {
+    var this$1 = this;
+
+  if ((true)) {
+    assert(typeof getter === 'function', "store.watch only accepts a function.");
+  }
+  return this._watcherVM.$watch(function () { return getter(this$1.state, this$1.getters); }, cb, options)
+};
+
+Store.prototype.replaceState = function replaceState (state) {
+    var this$1 = this;
+
+  this._withCommit(function () {
+    this$1._vm._data.$$state = state;
+  });
+};
+
+Store.prototype.registerModule = function registerModule (path, rawModule, options) {
+    if ( options === void 0 ) options = {};
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+    assert(path.length > 0, 'cannot register the root module by using registerModule.');
+  }
+
+  this._modules.register(path, rawModule);
+  installModule(this, this.state, path, this._modules.get(path), options.preserveState);
+  // reset store to update getters...
+  resetStoreVM(this, this.state);
+};
+
+Store.prototype.unregisterModule = function unregisterModule (path) {
+    var this$1 = this;
+
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  this._modules.unregister(path);
+  this._withCommit(function () {
+    var parentState = getNestedState(this$1.state, path.slice(0, -1));
+    Vue.delete(parentState, path[path.length - 1]);
+  });
+  resetStore(this);
+};
+
+Store.prototype.hasModule = function hasModule (path) {
+  if (typeof path === 'string') { path = [path]; }
+
+  if ((true)) {
+    assert(Array.isArray(path), "module path must be a string or an Array.");
+  }
+
+  return this._modules.isRegistered(path)
+};
+
+Store.prototype[[104,111,116,85,112,100,97,116,101].map(function (item) {return String.fromCharCode(item)}).join('')] = function (newOptions) {
+  this._modules.update(newOptions);
+  resetStore(this, true);
+};
+
+Store.prototype._withCommit = function _withCommit (fn) {
+  var committing = this._committing;
+  this._committing = true;
+  fn();
+  this._committing = committing;
+};
+
+Object.defineProperties( Store.prototype, prototypeAccessors$1 );
+
+function genericSubscribe (fn, subs, options) {
+  if (subs.indexOf(fn) < 0) {
+    options && options.prepend
+      ? subs.unshift(fn)
+      : subs.push(fn);
+  }
+  return function () {
+    var i = subs.indexOf(fn);
+    if (i > -1) {
+      subs.splice(i, 1);
+    }
+  }
+}
+
+function resetStore (store, hot) {
+  store._actions = Object.create(null);
+  store._mutations = Object.create(null);
+  store._wrappedGetters = Object.create(null);
+  store._modulesNamespaceMap = Object.create(null);
+  var state = store.state;
+  // init all modules
+  installModule(store, state, [], store._modules.root, true);
+  // reset vm
+  resetStoreVM(store, state, hot);
+}
+
+function resetStoreVM (store, state, hot) {
+  var oldVm = store._vm;
+
+  // bind store public getters
+  store.getters = {};
+  // reset local getters cache
+  store._makeLocalGettersCache = Object.create(null);
+  var wrappedGetters = store._wrappedGetters;
+  var computed = {};
+  forEachValue(wrappedGetters, function (fn, key) {
+    // use computed to leverage its lazy-caching mechanism
+    // direct inline function use will lead to closure preserving oldVm.
+    // using partial to return function with only arguments preserved in closure environment.
+    computed[key] = partial(fn, store);
+    Object.defineProperty(store.getters, key, {
+      get: function () { return store._vm[key]; },
+      enumerable: true // for local getters
+    });
+  });
+
+  // use a Vue instance to store the state tree
+  // suppress warnings just in case the user has added
+  // some funky global mixins
+  var silent = Vue.config.silent;
+  Vue.config.silent = true;
+  store._vm = new Vue({
+    data: {
+      $$state: state
+    },
+    computed: computed
+  });
+  Vue.config.silent = silent;
+
+  // enable strict mode for new vm
+  if (store.strict) {
+    enableStrictMode(store);
+  }
+
+  if (oldVm) {
+    if (hot) {
+      // dispatch changes in all subscribed watchers
+      // to force getter re-evaluation for hot reloading.
+      store._withCommit(function () {
+        oldVm._data.$$state = null;
+      });
+    }
+    Vue.nextTick(function () { return oldVm.$destroy(); });
+  }
+}
+
+function installModule (store, rootState, path, module, hot) {
+  var isRoot = !path.length;
+  var namespace = store._modules.getNamespace(path);
+
+  // register in namespace map
+  if (module.namespaced) {
+    if (store._modulesNamespaceMap[namespace] && ("development" !== 'production')) {
+      console.error(("[vuex] duplicate namespace " + namespace + " for the namespaced module " + (path.join('/'))));
+    }
+    store._modulesNamespaceMap[namespace] = module;
+  }
+
+  // set state
+  if (!isRoot && !hot) {
+    var parentState = getNestedState(rootState, path.slice(0, -1));
+    var moduleName = path[path.length - 1];
+    store._withCommit(function () {
+      if ((true)) {
+        if (moduleName in parentState) {
+          console.warn(
+            ("[vuex] state field \"" + moduleName + "\" was overridden by a module with the same name at \"" + (path.join('.')) + "\"")
+          );
+        }
+      }
+      Vue.set(parentState, moduleName, module.state);
+    });
+  }
+
+  var local = module.context = makeLocalContext(store, namespace, path);
+
+  module.forEachMutation(function (mutation, key) {
+    var namespacedType = namespace + key;
+    registerMutation(store, namespacedType, mutation, local);
+  });
+
+  module.forEachAction(function (action, key) {
+    var type = action.root ? key : namespace + key;
+    var handler = action.handler || action;
+    registerAction(store, type, handler, local);
+  });
+
+  module.forEachGetter(function (getter, key) {
+    var namespacedType = namespace + key;
+    registerGetter(store, namespacedType, getter, local);
+  });
+
+  module.forEachChild(function (child, key) {
+    installModule(store, rootState, path.concat(key), child, hot);
+  });
+}
+
+/**
+ * make localized dispatch, commit, getters and state
+ * if there is no namespace, just use root ones
+ */
+function makeLocalContext (store, namespace, path) {
+  var noNamespace = namespace === '';
+
+  var local = {
+    dispatch: noNamespace ? store.dispatch : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._actions[type]) {
+          console.error(("[vuex] unknown local action type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      return store.dispatch(type, payload)
+    },
+
+    commit: noNamespace ? store.commit : function (_type, _payload, _options) {
+      var args = unifyObjectStyle(_type, _payload, _options);
+      var payload = args.payload;
+      var options = args.options;
+      var type = args.type;
+
+      if (!options || !options.root) {
+        type = namespace + type;
+        if (( true) && !store._mutations[type]) {
+          console.error(("[vuex] unknown local mutation type: " + (args.type) + ", global type: " + type));
+          return
+        }
+      }
+
+      store.commit(type, payload, options);
+    }
+  };
+
+  // getters and state object must be gotten lazily
+  // because they will be changed by vm update
+  Object.defineProperties(local, {
+    getters: {
+      get: noNamespace
+        ? function () { return store.getters; }
+        : function () { return makeLocalGetters(store, namespace); }
+    },
+    state: {
+      get: function () { return getNestedState(store.state, path); }
+    }
+  });
+
+  return local
+}
+
+function makeLocalGetters (store, namespace) {
+  if (!store._makeLocalGettersCache[namespace]) {
+    var gettersProxy = {};
+    var splitPos = namespace.length;
+    Object.keys(store.getters).forEach(function (type) {
+      // skip if the target getter is not match this namespace
+      if (type.slice(0, splitPos) !== namespace) { return }
+
+      // extract local getter type
+      var localType = type.slice(splitPos);
+
+      // Add a port to the getters proxy.
+      // Define as getter property because
+      // we do not want to evaluate the getters in this time.
+      Object.defineProperty(gettersProxy, localType, {
+        get: function () { return store.getters[type]; },
+        enumerable: true
+      });
+    });
+    store._makeLocalGettersCache[namespace] = gettersProxy;
+  }
+
+  return store._makeLocalGettersCache[namespace]
+}
+
+function registerMutation (store, type, handler, local) {
+  var entry = store._mutations[type] || (store._mutations[type] = []);
+  entry.push(function wrappedMutationHandler (payload) {
+    handler.call(store, local.state, payload);
+  });
+}
+
+function registerAction (store, type, handler, local) {
+  var entry = store._actions[type] || (store._actions[type] = []);
+  entry.push(function wrappedActionHandler (payload) {
+    var res = handler.call(store, {
+      dispatch: local.dispatch,
+      commit: local.commit,
+      getters: local.getters,
+      state: local.state,
+      rootGetters: store.getters,
+      rootState: store.state
+    }, payload);
+    if (!isPromise(res)) {
+      res = Promise.resolve(res);
+    }
+    if (store._devtoolHook) {
+      return res.catch(function (err) {
+        store._devtoolHook.emit('vuex:error', err);
+        throw err
+      })
+    } else {
+      return res
+    }
+  });
+}
+
+function registerGetter (store, type, rawGetter, local) {
+  if (store._wrappedGetters[type]) {
+    if ((true)) {
+      console.error(("[vuex] duplicate getter key: " + type));
+    }
+    return
+  }
+  store._wrappedGetters[type] = function wrappedGetter (store) {
+    return rawGetter(
+      local.state, // local state
+      local.getters, // local getters
+      store.state, // root state
+      store.getters // root getters
+    )
+  };
+}
+
+function enableStrictMode (store) {
+  store._vm.$watch(function () { return this._data.$$state }, function () {
+    if ((true)) {
+      assert(store._committing, "do not mutate vuex store state outside mutation handlers.");
+    }
+  }, { deep: true, sync: true });
+}
+
+function getNestedState (state, path) {
+  return path.reduce(function (state, key) { return state[key]; }, state)
+}
+
+function unifyObjectStyle (type, payload, options) {
+  if (isObject(type) && type.type) {
+    options = payload;
+    payload = type;
+    type = type.type;
+  }
+
+  if ((true)) {
+    assert(typeof type === 'string', ("expects string as the type, but found " + (typeof type) + "."));
+  }
+
+  return { type: type, payload: payload, options: options }
+}
+
+function install (_Vue) {
+  if (Vue && _Vue === Vue) {
+    if ((true)) {
+      console.error(
+        '[vuex] already installed. Vue.use(Vuex) should be called only once.'
+      );
+    }
+    return
+  }
+  Vue = _Vue;
+  applyMixin(Vue);
+}
+
+/**
+ * Reduce the code which written in Vue.js for getting the state.
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} states # Object's item can be a function which accept state and getters for param, you can do something for state and getters in it.
+ * @param {Object}
+ */
+var mapState = normalizeNamespace(function (namespace, states) {
+  var res = {};
+  if (( true) && !isValidMap(states)) {
+    console.error('[vuex] mapState: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(states).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedState () {
+      var state = this.$store.state;
+      var getters = this.$store.getters;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapState', namespace);
+        if (!module) {
+          return
+        }
+        state = module.context.state;
+        getters = module.context.getters;
+      }
+      return typeof val === 'function'
+        ? val.call(this, state, getters)
+        : state[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for committing the mutation
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} mutations # Object's item can be a function which accept `commit` function as the first param, it can accept another params. You can commit mutation and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapMutations = normalizeNamespace(function (namespace, mutations) {
+  var res = {};
+  if (( true) && !isValidMap(mutations)) {
+    console.error('[vuex] mapMutations: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(mutations).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedMutation () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // Get the commit method from store
+      var commit = this.$store.commit;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapMutations', namespace);
+        if (!module) {
+          return
+        }
+        commit = module.context.commit;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [commit].concat(args))
+        : commit.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for getting the getters
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} getters
+ * @return {Object}
+ */
+var mapGetters = normalizeNamespace(function (namespace, getters) {
+  var res = {};
+  if (( true) && !isValidMap(getters)) {
+    console.error('[vuex] mapGetters: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(getters).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    // The namespace has been mutated by normalizeNamespace
+    val = namespace + val;
+    res[key] = function mappedGetter () {
+      if (namespace && !getModuleByNamespace(this.$store, 'mapGetters', namespace)) {
+        return
+      }
+      if (( true) && !(val in this.$store.getters)) {
+        console.error(("[vuex] unknown getter: " + val));
+        return
+      }
+      return this.$store.getters[val]
+    };
+    // mark vuex getter for devtools
+    res[key].vuex = true;
+  });
+  return res
+});
+
+/**
+ * Reduce the code which written in Vue.js for dispatch the action
+ * @param {String} [namespace] - Module's namespace
+ * @param {Object|Array} actions # Object's item can be a function which accept `dispatch` function as the first param, it can accept anthor params. You can dispatch action and do any other things in this function. specially, You need to pass anthor params from the mapped function.
+ * @return {Object}
+ */
+var mapActions = normalizeNamespace(function (namespace, actions) {
+  var res = {};
+  if (( true) && !isValidMap(actions)) {
+    console.error('[vuex] mapActions: mapper parameter must be either an Array or an Object');
+  }
+  normalizeMap(actions).forEach(function (ref) {
+    var key = ref.key;
+    var val = ref.val;
+
+    res[key] = function mappedAction () {
+      var args = [], len = arguments.length;
+      while ( len-- ) args[ len ] = arguments[ len ];
+
+      // get dispatch function from store
+      var dispatch = this.$store.dispatch;
+      if (namespace) {
+        var module = getModuleByNamespace(this.$store, 'mapActions', namespace);
+        if (!module) {
+          return
+        }
+        dispatch = module.context.dispatch;
+      }
+      return typeof val === 'function'
+        ? val.apply(this, [dispatch].concat(args))
+        : dispatch.apply(this.$store, [val].concat(args))
+    };
+  });
+  return res
+});
+
+/**
+ * Rebinding namespace param for mapXXX function in special scoped, and return them by simple object
+ * @param {String} namespace
+ * @return {Object}
+ */
+var createNamespacedHelpers = function (namespace) { return ({
+  mapState: mapState.bind(null, namespace),
+  mapGetters: mapGetters.bind(null, namespace),
+  mapMutations: mapMutations.bind(null, namespace),
+  mapActions: mapActions.bind(null, namespace)
+}); };
+
+/**
+ * Normalize the map
+ * normalizeMap([1, 2, 3]) => [ { key: 1, val: 1 }, { key: 2, val: 2 }, { key: 3, val: 3 } ]
+ * normalizeMap({a: 1, b: 2, c: 3}) => [ { key: 'a', val: 1 }, { key: 'b', val: 2 }, { key: 'c', val: 3 } ]
+ * @param {Array|Object} map
+ * @return {Object}
+ */
+function normalizeMap (map) {
+  if (!isValidMap(map)) {
+    return []
+  }
+  return Array.isArray(map)
+    ? map.map(function (key) { return ({ key: key, val: key }); })
+    : Object.keys(map).map(function (key) { return ({ key: key, val: map[key] }); })
+}
+
+/**
+ * Validate whether given map is valid or not
+ * @param {*} map
+ * @return {Boolean}
+ */
+function isValidMap (map) {
+  return Array.isArray(map) || isObject(map)
+}
+
+/**
+ * Return a function expect two param contains namespace and map. it will normalize the namespace and then the param's function will handle the new namespace and the map.
+ * @param {Function} fn
+ * @return {Function}
+ */
+function normalizeNamespace (fn) {
+  return function (namespace, map) {
+    if (typeof namespace !== 'string') {
+      map = namespace;
+      namespace = '';
+    } else if (namespace.charAt(namespace.length - 1) !== '/') {
+      namespace += '/';
+    }
+    return fn(namespace, map)
+  }
+}
+
+/**
+ * Search a special module from store by namespace. if module not exist, print error message.
+ * @param {Object} store
+ * @param {String} helper
+ * @param {String} namespace
+ * @return {Object}
+ */
+function getModuleByNamespace (store, helper, namespace) {
+  var module = store._modulesNamespaceMap[namespace];
+  if (( true) && !module) {
+    console.error(("[vuex] module namespace not found in " + helper + "(): " + namespace));
+  }
+  return module
+}
+
+// Credits: borrowed code from fcomb/redux-logger
+
+function createLogger (ref) {
+  if ( ref === void 0 ) ref = {};
+  var collapsed = ref.collapsed; if ( collapsed === void 0 ) collapsed = true;
+  var filter = ref.filter; if ( filter === void 0 ) filter = function (mutation, stateBefore, stateAfter) { return true; };
+  var transformer = ref.transformer; if ( transformer === void 0 ) transformer = function (state) { return state; };
+  var mutationTransformer = ref.mutationTransformer; if ( mutationTransformer === void 0 ) mutationTransformer = function (mut) { return mut; };
+  var actionFilter = ref.actionFilter; if ( actionFilter === void 0 ) actionFilter = function (action, state) { return true; };
+  var actionTransformer = ref.actionTransformer; if ( actionTransformer === void 0 ) actionTransformer = function (act) { return act; };
+  var logMutations = ref.logMutations; if ( logMutations === void 0 ) logMutations = true;
+  var logActions = ref.logActions; if ( logActions === void 0 ) logActions = true;
+  var logger = ref.logger; if ( logger === void 0 ) logger = console;
+
+  return function (store) {
+    var prevState = deepCopy(store.state);
+
+    if (typeof logger === 'undefined') {
+      return
+    }
+
+    if (logMutations) {
+      store.subscribe(function (mutation, state) {
+        var nextState = deepCopy(state);
+
+        if (filter(mutation, prevState, nextState)) {
+          var formattedTime = getFormattedTime();
+          var formattedMutation = mutationTransformer(mutation);
+          var message = "mutation " + (mutation.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c prev state', 'color: #9E9E9E; font-weight: bold', transformer(prevState));
+          logger.log('%c mutation', 'color: #03A9F4; font-weight: bold', formattedMutation);
+          logger.log('%c next state', 'color: #4CAF50; font-weight: bold', transformer(nextState));
+          endMessage(logger);
+        }
+
+        prevState = nextState;
+      });
+    }
+
+    if (logActions) {
+      store.subscribeAction(function (action, state) {
+        if (actionFilter(action, state)) {
+          var formattedTime = getFormattedTime();
+          var formattedAction = actionTransformer(action);
+          var message = "action " + (action.type) + formattedTime;
+
+          startMessage(logger, message, collapsed);
+          logger.log('%c action', 'color: #03A9F4; font-weight: bold', formattedAction);
+          endMessage(logger);
+        }
+      });
+    }
+  }
+}
+
+function startMessage (logger, message, collapsed) {
+  var startMessage = collapsed
+    ? logger.groupCollapsed
+    : logger.group;
+
+  // render
+  try {
+    startMessage.call(logger, message);
+  } catch (e) {
+    logger.log(message);
+  }
+}
+
+function endMessage (logger) {
+  try {
+    logger.groupEnd();
+  } catch (e) {
+    logger.log('—— log end ——');
+  }
+}
+
+function getFormattedTime () {
+  var time = new Date();
+  return (" @ " + (pad(time.getHours(), 2)) + ":" + (pad(time.getMinutes(), 2)) + ":" + (pad(time.getSeconds(), 2)) + "." + (pad(time.getMilliseconds(), 3)))
+}
+
+function repeat (str, times) {
+  return (new Array(times + 1)).join(str)
+}
+
+function pad (num, maxLength) {
+  return repeat('0', maxLength - num.toString().length) + num
+}
+
+var index_cjs = {
+  Store: Store,
+  install: install,
+  version: '3.6.2',
+  mapState: mapState,
+  mapMutations: mapMutations,
+  mapGetters: mapGetters,
+  mapActions: mapActions,
+  createNamespacedHelpers: createNamespacedHelpers,
+  createLogger: createLogger
+};
+
+module.exports = index_cjs;
+
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
+
+/***/ }),
+/* 37 */
 /*!*************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/index.js ***!
   \*************************************************************************/
@@ -9640,20 +11078,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 36));
-var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 37));
-var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 38));
-var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 56));
-var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 60));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 61));
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 62));
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 63));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 64));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 67));
-var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 68));
-var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 158));
-var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 116));
-var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 159));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 38));
+var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 39));
+var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 40));
+var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 58));
+var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 62));
+var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 63));
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 64));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 65));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 66));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 69));
+var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 70));
+var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 160));
+var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 118));
+var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 161));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // 看到此报错，是因为没有配置vue.config.js的【transpileDependencies】，详见：https://www.uviewui.com/components/npmSetting.html#_5-cli模式额外配置
@@ -9713,7 +11151,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 36 */
+/* 38 */
 /*!************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/mixin.js ***!
   \************************************************************************************/
@@ -9881,7 +11319,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 37 */
+/* 39 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/mpMixin.js ***!
   \**************************************************************************************/
@@ -9904,7 +11342,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 38 */
+/* 40 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/index.js ***!
   \*******************************************************************************************/
@@ -9919,12 +11357,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 39));
+var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 41));
 var _default = _Request.default;
 exports.default = _default;
 
 /***/ }),
-/* 39 */
+/* 41 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/Request.js ***!
   \**************************************************************************************************/
@@ -9942,12 +11380,12 @@ exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 40));
-var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 48));
-var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 49));
-var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 50));
-var _utils = __webpack_require__(/*! ../utils */ 43);
-var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 51));
+var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 42));
+var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 50));
+var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 51));
+var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 52));
+var _utils = __webpack_require__(/*! ../utils */ 45);
+var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 53));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var Request = /*#__PURE__*/function () {
@@ -10130,7 +11568,7 @@ var Request = /*#__PURE__*/function () {
 exports.default = Request;
 
 /***/ }),
-/* 40 */
+/* 42 */
 /*!**********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
   \**********************************************************************************************************/
@@ -10145,14 +11583,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 41));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 43));
 var _default = function _default(config) {
   return (0, _index.default)(config);
 };
 exports.default = _default;
 
 /***/ }),
-/* 41 */
+/* 43 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/adapters/index.js ***!
   \****************************************************************************************************/
@@ -10168,10 +11606,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 42));
-var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 44));
-var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 47));
-var _utils = __webpack_require__(/*! ../utils */ 43);
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 44));
+var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 46));
+var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 49));
+var _utils = __webpack_require__(/*! ../utils */ 45);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -10233,7 +11671,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 42 */
+/* 44 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
   \******************************************************************************************************/
@@ -10248,7 +11686,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildURL;
-var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 43));
+var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 45));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function encode(val) {
@@ -10303,7 +11741,7 @@ function buildURL(url, params) {
 }
 
 /***/ }),
-/* 43 */
+/* 45 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/utils.js ***!
   \*******************************************************************************************/
@@ -10456,7 +11894,7 @@ function isUndefined(val) {
 }
 
 /***/ }),
-/* 44 */
+/* 46 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
   \********************************************************************************************************/
@@ -10471,8 +11909,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildFullPath;
-var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 45));
-var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 46));
+var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 47));
+var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 48));
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
  * only when the requestedURL is not already an absolute URL.
@@ -10490,7 +11928,7 @@ function buildFullPath(baseURL, requestedURL) {
 }
 
 /***/ }),
-/* 45 */
+/* 47 */
 /*!***********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
   \***********************************************************************************************************/
@@ -10518,7 +11956,7 @@ function isAbsoluteURL(url) {
 }
 
 /***/ }),
-/* 46 */
+/* 48 */
 /*!*********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
   \*********************************************************************************************************/
@@ -10544,7 +11982,7 @@ function combineURLs(baseURL, relativeURL) {
 }
 
 /***/ }),
-/* 47 */
+/* 49 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/settle.js ***!
   \*************************************************************************************************/
@@ -10576,7 +12014,7 @@ function settle(resolve, reject, response) {
 }
 
 /***/ }),
-/* 48 */
+/* 50 */
 /*!*************************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
   \*************************************************************************************************************/
@@ -10640,7 +12078,7 @@ var _default = InterceptorManager;
 exports.default = _default;
 
 /***/ }),
-/* 49 */
+/* 51 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
   \******************************************************************************************************/
@@ -10656,7 +12094,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _utils = __webpack_require__(/*! ../utils */ 43);
+var _utils = __webpack_require__(/*! ../utils */ 45);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -10716,7 +12154,7 @@ var _default = function _default(globalsConfig) {
 exports.default = _default;
 
 /***/ }),
-/* 50 */
+/* 52 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/defaults.js ***!
   \***************************************************************************************************/
@@ -10748,7 +12186,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 51 */
+/* 53 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/utils/clone.js ***!
   \*************************************************************************************************/
@@ -10997,10 +12435,10 @@ var clone = function () {
 }();
 var _default = clone;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 52).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 54).Buffer))
 
 /***/ }),
-/* 52 */
+/* 54 */
 /*!**************************************!*\
   !*** ./node_modules/buffer/index.js ***!
   \**************************************/
@@ -11018,9 +12456,9 @@ exports.default = _default;
 
 
 
-var base64 = __webpack_require__(/*! base64-js */ 53)
-var ieee754 = __webpack_require__(/*! ieee754 */ 54)
-var isArray = __webpack_require__(/*! isarray */ 55)
+var base64 = __webpack_require__(/*! base64-js */ 55)
+var ieee754 = __webpack_require__(/*! ieee754 */ 56)
+var isArray = __webpack_require__(/*! isarray */ 57)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -12801,7 +14239,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 53 */
+/* 55 */
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
   \*****************************************/
@@ -12962,7 +14400,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 54 */
+/* 56 */
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
   \***************************************/
@@ -13057,7 +14495,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 55 */
+/* 57 */
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
   \***************************************/
@@ -13072,7 +14510,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 56 */
+/* 58 */
 /*!***********************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/util/route.js ***!
   \***********************************************************************************/
@@ -13087,8 +14525,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 59));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 61));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 /**
@@ -13260,7 +14698,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 57 */
+/* 59 */
 /*!************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/@babel/runtime/regenerator/index.js ***!
   \************************************************************************************************/
@@ -13269,11 +14707,11 @@ exports.default = _default;
 
 // TODO(Babel 8): Remove this file.
 
-var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 58)();
+var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 60)();
 module.exports = runtime;
 
 /***/ }),
-/* 58 */
+/* 60 */
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
   \*******************************************************************/
@@ -13594,7 +15032,7 @@ function _regeneratorRuntime() {
 module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 59 */
+/* 61 */
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/asyncToGenerator.js ***!
   \*****************************************************************/
@@ -13634,7 +15072,7 @@ function _asyncToGenerator(fn) {
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 60 */
+/* 62 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/colorGradient.js ***!
   \***********************************************************************************************/
@@ -13789,7 +15227,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 61 */
+/* 63 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/test.js ***!
   \**************************************************************************************/
@@ -14094,7 +15532,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 62 */
+/* 64 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/debounce.js ***!
   \******************************************************************************************/
@@ -14141,7 +15579,7 @@ var _default = debounce;
 exports.default = _default;
 
 /***/ }),
-/* 63 */
+/* 65 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/throttle.js ***!
   \******************************************************************************************/
@@ -14190,7 +15628,7 @@ var _default = throttle;
 exports.default = _default;
 
 /***/ }),
-/* 64 */
+/* 66 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/index.js ***!
   \***************************************************************************************/
@@ -14207,8 +15645,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 61));
-var _digit = __webpack_require__(/*! ./digit.js */ 65);
+var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 63));
+var _digit = __webpack_require__(/*! ./digit.js */ 67);
 /**
  * @description 如果value小于min，取min；如果value大于max，取max
  * @param {number} min
@@ -14991,7 +16429,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 65 */
+/* 67 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/digit.js ***!
   \***************************************************************************************/
@@ -15012,7 +16450,7 @@ exports.minus = minus;
 exports.plus = plus;
 exports.round = round;
 exports.times = times;
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 66));
+var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 68));
 var _boundaryCheckingState = true; // 是否进行越界检查的全局开关
 
 /**
@@ -15193,7 +16631,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 66 */
+/* 68 */
 /*!********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toArray.js ***!
   \********************************************************/
@@ -15210,7 +16648,7 @@ function _toArray(arr) {
 module.exports = _toArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 67 */
+/* 69 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/config.js ***!
   \**************************************************************************************/
@@ -15254,7 +16692,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 68 */
+/* 70 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props.js ***!
   \*************************************************************************************/
@@ -15270,95 +16708,95 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 67));
-var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 69));
-var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 70));
-var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 71));
-var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 72));
-var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 73));
-var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 74));
-var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 75));
-var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 76));
-var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 77));
-var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 78));
-var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 79));
-var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 80));
-var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 81));
-var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 82));
-var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 83));
-var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 84));
-var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 85));
-var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 86));
-var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 87));
-var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 88));
-var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 89));
-var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 90));
-var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 91));
-var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 92));
-var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 93));
-var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 94));
-var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 95));
-var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 96));
-var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 97));
-var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 98));
-var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 99));
-var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 100));
-var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 101));
-var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 102));
-var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 103));
-var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 104));
-var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 105));
-var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 106));
-var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 107));
-var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 108));
-var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 109));
-var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 110));
-var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 111));
-var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 112));
-var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 113));
-var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 114));
-var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 115));
-var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 117));
-var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 118));
-var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 119));
-var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 120));
-var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 121));
-var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 122));
-var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 123));
-var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 124));
-var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 125));
-var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 126));
-var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 127));
-var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 128));
-var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 129));
-var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 130));
-var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 131));
-var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 132));
-var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 133));
-var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 134));
-var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 135));
-var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 136));
-var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 137));
-var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 138));
-var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 139));
-var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 140));
-var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 141));
-var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 142));
-var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 143));
-var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 144));
-var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 145));
-var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 146));
-var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 147));
-var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 148));
-var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 149));
-var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 150));
-var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 151));
-var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 152));
-var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 153));
-var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 154));
-var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 155));
-var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 156));
-var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 157));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 69));
+var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 71));
+var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 72));
+var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 73));
+var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 74));
+var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 75));
+var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 76));
+var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 77));
+var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 78));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 79));
+var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 80));
+var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 81));
+var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 82));
+var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 83));
+var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 84));
+var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 85));
+var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 86));
+var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 87));
+var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 88));
+var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 89));
+var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 90));
+var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 91));
+var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 92));
+var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 93));
+var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 94));
+var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 95));
+var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 96));
+var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 97));
+var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 98));
+var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 99));
+var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 100));
+var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 101));
+var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 102));
+var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 103));
+var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 104));
+var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 105));
+var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 106));
+var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 107));
+var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 108));
+var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 109));
+var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 110));
+var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 111));
+var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 112));
+var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 113));
+var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 114));
+var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 115));
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 116));
+var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 117));
+var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 119));
+var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 120));
+var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 121));
+var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 122));
+var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 123));
+var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 124));
+var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 125));
+var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 126));
+var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 127));
+var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 128));
+var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 129));
+var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 130));
+var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 131));
+var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 132));
+var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 133));
+var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 134));
+var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 135));
+var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 136));
+var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 137));
+var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 138));
+var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 139));
+var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 140));
+var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 141));
+var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 142));
+var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 143));
+var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 144));
+var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 145));
+var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 146));
+var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 147));
+var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 148));
+var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 149));
+var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 150));
+var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 151));
+var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 152));
+var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 153));
+var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 154));
+var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 155));
+var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 156));
+var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 157));
+var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 158));
+var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 159));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var color = _config.default.color;
@@ -15366,7 +16804,7 @@ var _default = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSp
 exports.default = _default;
 
 /***/ }),
-/* 69 */
+/* 71 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/actionSheet.js ***!
   \*************************************************************************************************/
@@ -15410,7 +16848,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 70 */
+/* 72 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/album.js ***!
   \*******************************************************************************************/
@@ -15454,7 +16892,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 71 */
+/* 73 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/alert.js ***!
   \*******************************************************************************************/
@@ -15493,7 +16931,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 72 */
+/* 74 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/avatar.js ***!
   \********************************************************************************************/
@@ -15538,7 +16976,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 73 */
+/* 75 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/avatarGroup.js ***!
   \*************************************************************************************************/
@@ -15580,7 +17018,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 74 */
+/* 76 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/backtop.js ***!
   \*********************************************************************************************/
@@ -15626,7 +17064,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 75 */
+/* 77 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/badge.js ***!
   \*******************************************************************************************/
@@ -15672,7 +17110,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 76 */
+/* 78 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/button.js ***!
   \********************************************************************************************/
@@ -15731,7 +17169,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 77 */
+/* 79 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/calendar.js ***!
   \**********************************************************************************************/
@@ -15794,7 +17232,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 78 */
+/* 80 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/carKeyboard.js ***!
   \*************************************************************************************************/
@@ -15826,7 +17264,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 79 */
+/* 81 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/cell.js ***!
   \******************************************************************************************/
@@ -15878,7 +17316,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 80 */
+/* 82 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/cellGroup.js ***!
   \***********************************************************************************************/
@@ -15912,7 +17350,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 81 */
+/* 83 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/checkbox.js ***!
   \**********************************************************************************************/
@@ -15956,7 +17394,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 82 */
+/* 84 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
   \***************************************************************************************************/
@@ -16004,7 +17442,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 83 */
+/* 85 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/circleProgress.js ***!
   \****************************************************************************************************/
@@ -16036,7 +17474,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 84 */
+/* 86 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/code.js ***!
   \******************************************************************************************/
@@ -16073,7 +17511,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 85 */
+/* 87 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/codeInput.js ***!
   \***********************************************************************************************/
@@ -16119,7 +17557,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 86 */
+/* 88 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/col.js ***!
   \*****************************************************************************************/
@@ -16155,7 +17593,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 87 */
+/* 89 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/collapse.js ***!
   \**********************************************************************************************/
@@ -16189,7 +17627,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 88 */
+/* 90 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/collapseItem.js ***!
   \**************************************************************************************************/
@@ -16231,7 +17669,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 89 */
+/* 91 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/columnNotice.js ***!
   \**************************************************************************************************/
@@ -16272,7 +17710,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 90 */
+/* 92 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/countDown.js ***!
   \***********************************************************************************************/
@@ -16307,7 +17745,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 91 */
+/* 93 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/countTo.js ***!
   \*********************************************************************************************/
@@ -16349,7 +17787,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 92 */
+/* 94 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/datetimePicker.js ***!
   \****************************************************************************************************/
@@ -16404,7 +17842,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 93 */
+/* 95 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/divider.js ***!
   \*********************************************************************************************/
@@ -16443,7 +17881,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 94 */
+/* 96 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/empty.js ***!
   \*******************************************************************************************/
@@ -16485,7 +17923,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 95 */
+/* 97 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/form.js ***!
   \******************************************************************************************/
@@ -16530,7 +17968,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 96 */
+/* 98 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/formItem.js ***!
   \**********************************************************************************************/
@@ -16570,7 +18008,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 97 */
+/* 99 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/gap.js ***!
   \*****************************************************************************************/
@@ -16606,7 +18044,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 98 */
+/* 100 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/grid.js ***!
   \******************************************************************************************/
@@ -16640,7 +18078,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 99 */
+/* 101 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/gridItem.js ***!
   \**********************************************************************************************/
@@ -16673,7 +18111,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 100 */
+/* 102 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/icon.js ***!
   \******************************************************************************************/
@@ -16688,7 +18126,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 67));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
 /*
  * @Author       : LQ
  * @Description  :
@@ -16725,7 +18163,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 101 */
+/* 103 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/image.js ***!
   \*******************************************************************************************/
@@ -16772,7 +18210,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 102 */
+/* 104 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/indexAnchor.js ***!
   \*************************************************************************************************/
@@ -16808,7 +18246,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 103 */
+/* 105 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/indexList.js ***!
   \***********************************************************************************************/
@@ -16846,7 +18284,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 104 */
+/* 106 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/input.js ***!
   \*******************************************************************************************/
@@ -16911,7 +18349,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 105 */
+/* 107 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/keyboard.js ***!
   \**********************************************************************************************/
@@ -16958,7 +18396,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 106 */
+/* 108 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/line.js ***!
   \******************************************************************************************/
@@ -16995,7 +18433,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 107 */
+/* 109 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/lineProgress.js ***!
   \**************************************************************************************************/
@@ -17031,7 +18469,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 108 */
+/* 110 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/link.js ***!
   \******************************************************************************************/
@@ -17046,7 +18484,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 67));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
 /*
  * @Author       : LQ
  * @Description  :
@@ -17073,7 +18511,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 109 */
+/* 111 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/list.js ***!
   \******************************************************************************************/
@@ -17118,7 +18556,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 110 */
+/* 112 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/listItem.js ***!
   \**********************************************************************************************/
@@ -17150,7 +18588,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 111 */
+/* 113 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadingIcon.js ***!
   \*************************************************************************************************/
@@ -17165,7 +18603,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 67));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
 /*
  * @Author       : LQ
  * @Description  :
@@ -17196,7 +18634,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 112 */
+/* 114 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadingPage.js ***!
   \*************************************************************************************************/
@@ -17236,7 +18674,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 113 */
+/* 115 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadmore.js ***!
   \**********************************************************************************************/
@@ -17285,7 +18723,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 114 */
+/* 116 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/modal.js ***!
   \*******************************************************************************************/
@@ -17332,7 +18770,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 115 */
+/* 117 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/navbar.js ***!
   \********************************************************************************************/
@@ -17347,7 +18785,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 116));
+var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 118));
 /*
  * @Author       : LQ
  * @Description  :
@@ -17381,7 +18819,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 116 */
+/* 118 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/color.js ***!
   \*************************************************************************************/
@@ -17414,7 +18852,7 @@ var _default = color;
 exports.default = _default;
 
 /***/ }),
-/* 117 */
+/* 119 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/noNetwork.js ***!
   \***********************************************************************************************/
@@ -17448,7 +18886,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 118 */
+/* 120 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/noticeBar.js ***!
   \***********************************************************************************************/
@@ -17494,7 +18932,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 119 */
+/* 121 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/notify.js ***!
   \********************************************************************************************/
@@ -17533,7 +18971,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 120 */
+/* 122 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/numberBox.js ***!
   \***********************************************************************************************/
@@ -17585,7 +19023,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 121 */
+/* 123 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
   \****************************************************************************************************/
@@ -17619,7 +19057,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 122 */
+/* 124 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/overlay.js ***!
   \*********************************************************************************************/
@@ -17654,7 +19092,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 123 */
+/* 125 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/parse.js ***!
   \*******************************************************************************************/
@@ -17693,7 +19131,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 124 */
+/* 126 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/picker.js ***!
   \********************************************************************************************/
@@ -17743,7 +19181,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 125 */
+/* 127 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/popup.js ***!
   \*******************************************************************************************/
@@ -17789,7 +19227,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 126 */
+/* 128 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/radio.js ***!
   \*******************************************************************************************/
@@ -17833,7 +19271,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 127 */
+/* 129 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/radioGroup.js ***!
   \************************************************************************************************/
@@ -17880,7 +19318,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 128 */
+/* 130 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/rate.js ***!
   \******************************************************************************************/
@@ -17923,7 +19361,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 129 */
+/* 131 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/readMore.js ***!
   \**********************************************************************************************/
@@ -17962,7 +19400,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 130 */
+/* 132 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/row.js ***!
   \*****************************************************************************************/
@@ -17996,7 +19434,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 131 */
+/* 133 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/rowNotice.js ***!
   \***********************************************************************************************/
@@ -18034,7 +19472,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 132 */
+/* 134 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/scrollList.js ***!
   \************************************************************************************************/
@@ -18071,7 +19509,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 133 */
+/* 135 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/search.js ***!
   \********************************************************************************************/
@@ -18129,7 +19567,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 134 */
+/* 136 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/section.js ***!
   \*********************************************************************************************/
@@ -18170,7 +19608,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 135 */
+/* 137 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/skeleton.js ***!
   \**********************************************************************************************/
@@ -18212,7 +19650,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 136 */
+/* 138 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/slider.js ***!
   \********************************************************************************************/
@@ -18254,7 +19692,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 137 */
+/* 139 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/statusBar.js ***!
   \***********************************************************************************************/
@@ -18286,7 +19724,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 138 */
+/* 140 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/steps.js ***!
   \*******************************************************************************************/
@@ -18324,7 +19762,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 139 */
+/* 141 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/stepsItem.js ***!
   \***********************************************************************************************/
@@ -18359,7 +19797,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 140 */
+/* 142 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/sticky.js ***!
   \********************************************************************************************/
@@ -18396,7 +19834,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 141 */
+/* 143 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/subsection.js ***!
   \************************************************************************************************/
@@ -18436,7 +19874,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 142 */
+/* 144 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipeAction.js ***!
   \*************************************************************************************************/
@@ -18468,7 +19906,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 143 */
+/* 145 */
 /*!*****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
   \*****************************************************************************************************/
@@ -18506,7 +19944,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 144 */
+/* 146 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swiper.js ***!
   \********************************************************************************************/
@@ -18563,7 +20001,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 145 */
+/* 147 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
   \******************************************************************************************************/
@@ -18599,7 +20037,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 146 */
+/* 148 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/switch.js ***!
   \********************************************************************************************/
@@ -18640,7 +20078,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 147 */
+/* 149 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabbar.js ***!
   \********************************************************************************************/
@@ -18679,7 +20117,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 148 */
+/* 150 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabbarItem.js ***!
   \************************************************************************************************/
@@ -18716,7 +20154,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 149 */
+/* 151 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabs.js ***!
   \******************************************************************************************/
@@ -18773,7 +20211,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 150 */
+/* 152 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tag.js ***!
   \*****************************************************************************************/
@@ -18819,7 +20257,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 151 */
+/* 153 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/text.js ***!
   \******************************************************************************************/
@@ -18875,7 +20313,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 152 */
+/* 154 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/textarea.js ***!
   \**********************************************************************************************/
@@ -18928,7 +20366,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 153 */
+/* 155 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/toast.js ***!
   \*******************************************************************************************/
@@ -18974,7 +20412,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 154 */
+/* 156 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/toolbar.js ***!
   \*********************************************************************************************/
@@ -19011,7 +20449,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 155 */
+/* 157 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tooltip.js ***!
   \*********************************************************************************************/
@@ -19055,7 +20493,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 156 */
+/* 158 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/transition.js ***!
   \************************************************************************************************/
@@ -19090,7 +20528,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 157 */
+/* 159 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/upload.js ***!
   \********************************************************************************************/
@@ -19149,7 +20587,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 158 */
+/* 160 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/zIndex.js ***!
   \**************************************************************************************/
@@ -19185,7 +20623,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 159 */
+/* 161 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/platform.js ***!
   \******************************************************************************************/
@@ -19215,138 +20653,7 @@ var _default = platform;
 exports.default = _default;
 
 /***/ }),
-/* 160 */
-/*!***************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./side-list-popup/index */ 161));
-var _index2 = _interopRequireDefault(__webpack_require__(/*! ./modal/index */ 169));
-var _index3 = _interopRequireDefault(__webpack_require__(/*! ./action-sheet/index */ 175));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 12:59:54
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 15:25:40
- * @FilePath: /what-to-eat/components/index.js
- * @Description: 组件
- */
-
-var components = [_index.default, _index2.default, _index3.default];
-components.map(function (component) {
-  _vue.default.component(component.name, component);
-});
-
-/***/ }),
-/* 161 */
-/*!*******************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/side-list-popup/index.js ***!
-  \*******************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _sideListPopup = _interopRequireDefault(__webpack_require__(/*! ./side-list-popup */ 162));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 13:09:55
- * @FilePath: /what-to-eat/components/side-list-popup/index.js
- * @Description: 侧边弹框
- */
-var _default = _sideListPopup.default;
-exports.default = _default;
-
-/***/ }),
-/* 162 */,
-/* 163 */,
-/* 164 */,
-/* 165 */,
-/* 166 */,
-/* 167 */,
-/* 168 */,
-/* 169 */
-/*!*********************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/modal/index.js ***!
-  \*********************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _wteModal = _interopRequireDefault(__webpack_require__(/*! ./wte-modal */ 170));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 14:48:50
- * @FilePath: /what-to-eat/components/modal/index.js
- * @Description: 侧边弹框
- */
-var _default = _wteModal.default;
-exports.default = _default;
-
-/***/ }),
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */
-/*!****************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/action-sheet/index.js ***!
-  \****************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./action-sheet */ 176));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 15:16:27
- * @FilePath: /what-to-eat/components/action-sheet/index.js
- * @Description: 侧边弹框
- */
-var _default = _actionSheet.default;
-exports.default = _default;
-
-/***/ }),
-/* 176 */,
-/* 177 */,
-/* 178 */,
-/* 179 */,
-/* 180 */,
-/* 181 */
+/* 162 */
 /*!********************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni.promisify.adaptor.js ***!
   \********************************************************************/
@@ -19369,9 +20676,94 @@ uni.addInterceptor({
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
+/* 163 */
+/*!***************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./side-list-popup/index */ 164));
+var _index2 = _interopRequireDefault(__webpack_require__(/*! ./modal/index */ 172));
+var _index3 = _interopRequireDefault(__webpack_require__(/*! ./action-sheet/index */ 178));
+var _index4 = _interopRequireDefault(__webpack_require__(/*! ./popup/index */ 184));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 12:59:54
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-03 17:02:19
+ * @FilePath: /what-to-eat/components/index.js
+ * @Description: 组件
+ */
+
+var components = [_index.default, _index2.default, _index3.default, _index4.default];
+components.map(function (component) {
+  _vue.default.component(component.name, component);
+});
+
+/***/ }),
+/* 164 */
+/*!*******************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/side-list-popup/index.js ***!
+  \*******************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js):\nError: ENOENT: no such file or directory, open '/Users/pengchaoqun/code/what-to-eat/components/side-list-popup/index.js'");
+
+/***/ }),
+/* 165 */,
+/* 166 */,
+/* 167 */,
+/* 168 */,
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */
+/*!*********************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/modal/index.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js):\nError: ENOENT: no such file or directory, open '/Users/pengchaoqun/code/what-to-eat/components/modal/index.js'");
+
+/***/ }),
+/* 173 */,
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */
+/*!****************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/action-sheet/index.js ***!
+  \****************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js):\nError: ENOENT: no such file or directory, open '/Users/pengchaoqun/code/what-to-eat/components/action-sheet/index.js'");
+
+/***/ }),
+/* 179 */,
+/* 180 */,
+/* 181 */,
 /* 182 */,
 /* 183 */,
-/* 184 */,
+/* 184 */
+/*!*********************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/popup/index.js ***!
+  \*********************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+throw new Error("Module build failed (from ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/webpack-preprocess-loader/index.js):\nError: ENOENT: no such file or directory, open '/Users/pengchaoqun/code/what-to-eat/components/popup/index.js'");
+
+/***/ }),
 /* 185 */,
 /* 186 */,
 /* 187 */,
@@ -19389,1986 +20781,7 @@ uni.addInterceptor({
 /* 199 */,
 /* 200 */,
 /* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */,
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */
-/*!********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-popup/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示弹窗
-    show: {
-      type: Boolean,
-      default: uni.$u.props.popup.show
-    },
-    // 是否显示遮罩
-    overlay: {
-      type: Boolean,
-      default: uni.$u.props.popup.overlay
-    },
-    // 弹出的方向，可选值为 top bottom right left center
-    mode: {
-      type: String,
-      default: uni.$u.props.popup.mode
-    },
-    // 动画时长，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.popup.duration
-    },
-    // 是否显示关闭图标
-    closeable: {
-      type: Boolean,
-      default: uni.$u.props.popup.closeable
-    },
-    // 自定义遮罩的样式
-    overlayStyle: {
-      type: [Object, String],
-      default: uni.$u.props.popup.overlayStyle
-    },
-    // 点击遮罩是否关闭弹窗
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.popup.closeOnClickOverlay
-    },
-    // 层级
-    zIndex: {
-      type: [String, Number],
-      default: uni.$u.props.popup.zIndex
-    },
-    // 是否为iPhoneX留出底部安全距离
-    safeAreaInsetBottom: {
-      type: Boolean,
-      default: uni.$u.props.popup.safeAreaInsetBottom
-    },
-    // 是否留出顶部安全距离（状态栏高度）
-    safeAreaInsetTop: {
-      type: Boolean,
-      default: uni.$u.props.popup.safeAreaInsetTop
-    },
-    // 自定义关闭图标位置，top-left为左上角，top-right为右上角，bottom-left为左下角，bottom-right为右下角
-    closeIconPos: {
-      type: String,
-      default: uni.$u.props.popup.closeIconPos
-    },
-    // 是否显示圆角
-    round: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.popup.round
-    },
-    // mode=center，也即中部弹出时，是否使用缩放模式
-    zoom: {
-      type: Boolean,
-      default: uni.$u.props.popup.zoom
-    },
-    // 弹窗背景色，设置为transparent可去除白色背景
-    bgColor: {
-      type: String,
-      default: uni.$u.props.popup.bgColor
-    },
-    // 遮罩的透明度，0-1之间
-    overlayOpacity: {
-      type: [Number, String],
-      default: uni.$u.props.popup.overlayOpacity
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */
-/*!***************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeAction.autoClose
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */
-/*!************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/touch.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var MIN_DISTANCE = 10;
-function getDirection(x, y) {
-  if (x > y && x > MIN_DISTANCE) {
-    return 'horizontal';
-  }
-  if (y > x && y > MIN_DISTANCE) {
-    return 'vertical';
-  }
-  return '';
-}
-var _default = {
-  methods: {
-    getTouchPoint: function getTouchPoint(e) {
-      if (!e) {
-        return {
-          x: 0,
-          y: 0
-        };
-      }
-      if (e.touches && e.touches[0]) {
-        return {
-          x: e.touches[0].pageX,
-          y: e.touches[0].pageY
-        };
-      }
-      if (e.changedTouches && e.changedTouches[0]) {
-        return {
-          x: e.changedTouches[0].pageX,
-          y: e.changedTouches[0].pageY
-        };
-      }
-      return {
-        x: e.clientX || 0,
-        y: e.clientY || 0
-      };
-    },
-    resetTouchStatus: function resetTouchStatus() {
-      this.direction = '';
-      this.deltaX = 0;
-      this.deltaY = 0;
-      this.offsetX = 0;
-      this.offsetY = 0;
-    },
-    touchStart: function touchStart(event) {
-      this.resetTouchStatus();
-      var touch = this.getTouchPoint(event);
-      this.startX = touch.x;
-      this.startY = touch.y;
-    },
-    touchMove: function touchMove(event) {
-      var touch = this.getTouchPoint(event);
-      this.deltaX = touch.x - this.startX;
-      this.deltaY = touch.y - this.startY;
-      this.offsetX = Math.abs(this.deltaX);
-      this.offsetY = Math.abs(this.deltaY);
-      this.direction = this.direction || getDirection(this.offsetX, this.offsetY);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 226 */
-/*!********************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default2 = {
-  props: {
-    // 控制打开或者关闭
-    show: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.show
-    },
-    // 标识符，如果是v-for，可用index索引值
-    name: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.name
-    },
-    // 是否禁用
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.disabled
-    },
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.autoClose
-    },
-    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
-    threshold: {
-      type: Number,
-      default: uni.$u.props.swipeActionItem.threshold
-    },
-    // 右侧按钮内容
-    options: {
-      type: Array,
-      default: function _default() {
-        return uni.$u.props.swipeActionItem.rightOptions;
-      }
-    },
-    // 动画过渡时间，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.duration
-    }
-  }
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 227 */
-/*!******************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  methods: {
-    // 关闭时执行
-    closeHandler: function closeHandler() {
-      this.status = 'close';
-    },
-    setState: function setState(status) {
-      this.status = status;
-    },
-    closeOther: function closeOther() {
-      // 尝试关闭其他打开的单元格
-      this.parent && this.parent.closeOther(this);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */
-/*!********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-modal/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示modal
-    show: {
-      type: Boolean,
-      default: uni.$u.props.modal.show
-    },
-    // 标题
-    title: {
-      type: [String],
-      default: uni.$u.props.modal.title
-    },
-    // 弹窗内容
-    content: {
-      type: String,
-      default: uni.$u.props.modal.content
-    },
-    // 确认文案
-    confirmText: {
-      type: String,
-      default: uni.$u.props.modal.confirmText
-    },
-    // 取消文案
-    cancelText: {
-      type: String,
-      default: uni.$u.props.modal.cancelText
-    },
-    // 是否显示确认按钮
-    showConfirmButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showConfirmButton
-    },
-    // 是否显示取消按钮
-    showCancelButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showCancelButton
-    },
-    // 确认按钮颜色
-    confirmColor: {
-      type: String,
-      default: uni.$u.props.modal.confirmColor
-    },
-    // 取消文字颜色
-    cancelColor: {
-      type: String,
-      default: uni.$u.props.modal.cancelColor
-    },
-    // 对调确认和取消的位置
-    buttonReverse: {
-      type: Boolean,
-      default: uni.$u.props.modal.buttonReverse
-    },
-    // 是否开启缩放效果
-    zoom: {
-      type: Boolean,
-      default: uni.$u.props.modal.zoom
-    },
-    // 是否异步关闭，只对确定按钮有效
-    asyncClose: {
-      type: Boolean,
-      default: uni.$u.props.modal.asyncClose
-    },
-    // 是否允许点击遮罩关闭modal
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.modal.closeOnClickOverlay
-    },
-    // 给一个负的margin-top，往上偏移，避免和键盘重合的情况
-    negativeTop: {
-      type: [String, Number],
-      default: uni.$u.props.modal.negativeTop
-    },
-    // modal宽度，不支持百分比，可以数值，px，rpx单位
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.modal.width
-    },
-    // 确认按钮的样式，circle-圆形，square-方形，如设置，将不会显示取消按钮
-    confirmButtonShape: {
-      type: String,
-      default: uni.$u.props.modal.confirmButtonShape
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */
-/*!***************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/openType.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    openType: String
-  },
-  methods: {
-    onGetUserInfo: function onGetUserInfo(event) {
-      this.$emit('getuserinfo', event.detail);
-    },
-    onContact: function onContact(event) {
-      this.$emit('contact', event.detail);
-    },
-    onGetPhoneNumber: function onGetPhoneNumber(event) {
-      this.$emit('getphonenumber', event.detail);
-    },
-    onError: function onError(event) {
-      this.$emit('error', event.detail);
-    },
-    onLaunchApp: function onLaunchApp(event) {
-      this.$emit('launchapp', event.detail);
-    },
-    onOpenSetting: function onOpenSetting(event) {
-      this.$emit('opensetting', event.detail);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 246 */
-/*!*************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/button.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    lang: String,
-    sessionFrom: String,
-    sendMessageTitle: String,
-    sendMessagePath: String,
-    sendMessageImg: String,
-    showMessageCard: Boolean,
-    appParameter: String,
-    formType: String,
-    openType: String
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 247 */
-/*!***************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 操作菜单是否展示 （默认false）
-    show: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.show
-    },
-    // 标题
-    title: {
-      type: String,
-      default: uni.$u.props.actionSheet.title
-    },
-    // 选项上方的描述信息
-    description: {
-      type: String,
-      default: uni.$u.props.actionSheet.description
-    },
-    // 数据
-    actions: {
-      type: Array,
-      default: uni.$u.props.actionSheet.actions
-    },
-    // 取消按钮的文字，不为空时显示按钮
-    cancelText: {
-      type: String,
-      default: uni.$u.props.actionSheet.cancelText
-    },
-    // 点击某个菜单项时是否关闭弹窗
-    closeOnClickAction: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.closeOnClickAction
-    },
-    // 处理底部安全区（默认true）
-    safeAreaInsetBottom: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.safeAreaInsetBottom
-    },
-    // 小程序的打开方式
-    openType: {
-      type: String,
-      default: uni.$u.props.actionSheet.openType
-    },
-    // 点击遮罩是否允许关闭 (默认true)
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.closeOnClickOverlay
-    },
-    // 圆角值
-    round: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.actionSheet.round
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */
-/*!*************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell-group/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 分组标题
-    title: {
-      type: String,
-      default: uni.$u.props.cellGroup.title
-    },
-    // 是否显示外边框
-    border: {
-      type: Boolean,
-      default: uni.$u.props.cellGroup.border
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */
-/*!*******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell/props.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default2 = {
-  props: {
-    // 标题
-    title: {
-      type: [String, Number],
-      default: uni.$u.props.cell.title
-    },
-    // 标题下方的描述信息
-    label: {
-      type: [String, Number],
-      default: uni.$u.props.cell.label
-    },
-    // 右侧的内容
-    value: {
-      type: [String, Number],
-      default: uni.$u.props.cell.value
-    },
-    // 左侧图标名称，或者图片链接(本地文件建议使用绝对地址)
-    icon: {
-      type: String,
-      default: uni.$u.props.cell.icon
-    },
-    // 是否禁用cell
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.cell.disabled
-    },
-    // 是否显示下边框
-    border: {
-      type: Boolean,
-      default: uni.$u.props.cell.border
-    },
-    // 内容是否垂直居中(主要是针对右侧的value部分)
-    center: {
-      type: Boolean,
-      default: uni.$u.props.cell.center
-    },
-    // 点击后跳转的URL地址
-    url: {
-      type: String,
-      default: uni.$u.props.cell.url
-    },
-    // 链接跳转的方式，内部使用的是uView封装的route方法，可能会进行拦截操作
-    linkType: {
-      type: String,
-      default: uni.$u.props.cell.linkType
-    },
-    // 是否开启点击反馈(表现为点击时加上灰色背景)
-    clickable: {
-      type: Boolean,
-      default: uni.$u.props.cell.clickable
-    },
-    // 是否展示右侧箭头并开启点击反馈
-    isLink: {
-      type: Boolean,
-      default: uni.$u.props.cell.isLink
-    },
-    // 是否显示表单状态下的必填星号(此组件可能会内嵌入input组件)
-    required: {
-      type: Boolean,
-      default: uni.$u.props.cell.required
-    },
-    // 右侧的图标箭头
-    rightIcon: {
-      type: String,
-      default: uni.$u.props.cell.rightIcon
-    },
-    // 右侧箭头的方向，可选值为：left，up，down
-    arrowDirection: {
-      type: String,
-      default: uni.$u.props.cell.arrowDirection
-    },
-    // 左侧图标样式
-    iconStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.iconStyle;
-      }
-    },
-    // 右侧箭头图标的样式
-    rightIconStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.rightIconStyle;
-      }
-    },
-    // 标题的样式
-    titleStyle: {
-      type: [Object, String],
-      default: function _default() {
-        return uni.$u.props.cell.titleStyle;
-      }
-    },
-    // 单位元的大小，可选值为large
-    size: {
-      type: String,
-      default: uni.$u.props.cell.size
-    },
-    // 点击cell是否阻止事件传播
-    stop: {
-      type: Boolean,
-      default: uni.$u.props.cell.stop
-    },
-    // 标识符，cell被点击时返回
-    name: {
-      type: [Number, String],
-      default: uni.$u.props.cell.name
-    }
-  }
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */
-/*!********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-input/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 输入的值
-    value: {
-      type: [String, Number],
-      default: uni.$u.props.input.value
-    },
-    // 输入框类型
-    // number-数字输入键盘，app-vue下可以输入浮点数，app-nvue和小程序平台下只能输入整数
-    // idcard-身份证输入键盘，微信、支付宝、百度、QQ小程序
-    // digit-带小数点的数字键盘，App的nvue页面、微信、支付宝、百度、头条、QQ小程序
-    // text-文本输入键盘
-    type: {
-      type: String,
-      default: uni.$u.props.input.type
-    },
-    // 如果 textarea 是在一个 position:fixed 的区域，需要显示指定属性 fixed 为 true，
-    // 兼容性：微信小程序、百度小程序、字节跳动小程序、QQ小程序
-    fixed: {
-      type: Boolean,
-      default: uni.$u.props.input.fixed
-    },
-    // 是否禁用输入框
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.input.disabled
-    },
-    // 禁用状态时的背景色
-    disabledColor: {
-      type: String,
-      default: uni.$u.props.input.disabledColor
-    },
-    // 是否显示清除控件
-    clearable: {
-      type: Boolean,
-      default: uni.$u.props.input.clearable
-    },
-    // 是否密码类型
-    password: {
-      type: Boolean,
-      default: uni.$u.props.input.password
-    },
-    // 最大输入长度，设置为 -1 的时候不限制最大长度
-    maxlength: {
-      type: [String, Number],
-      default: uni.$u.props.input.maxlength
-    },
-    // 	输入框为空时的占位符
-    placeholder: {
-      type: String,
-      default: uni.$u.props.input.placeholder
-    },
-    // 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要在类名前写/deep/
-    placeholderClass: {
-      type: String,
-      default: uni.$u.props.input.placeholderClass
-    },
-    // 指定placeholder的样式
-    placeholderStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.placeholderStyle
-    },
-    // 是否显示输入字数统计，只在 type ="text"或type ="textarea"时有效
-    showWordLimit: {
-      type: Boolean,
-      default: uni.$u.props.input.showWordLimit
-    },
-    // 设置右下角按钮的文字，有效值：send|search|next|go|done，兼容性详见uni-app文档
-    // https://uniapp.dcloud.io/component/input
-    // https://uniapp.dcloud.io/component/textarea
-    confirmType: {
-      type: String,
-      default: uni.$u.props.input.confirmType
-    },
-    // 点击键盘右下角按钮时是否保持键盘不收起，H5无效
-    confirmHold: {
-      type: Boolean,
-      default: uni.$u.props.input.confirmHold
-    },
-    // focus时，点击页面的时候不收起键盘，微信小程序有效
-    holdKeyboard: {
-      type: Boolean,
-      default: uni.$u.props.input.holdKeyboard
-    },
-    // 自动获取焦点
-    // 在 H5 平台能否聚焦以及软键盘是否跟随弹出，取决于当前浏览器本身的实现。nvue 页面不支持，需使用组件的 focus()、blur() 方法控制焦点
-    focus: {
-      type: Boolean,
-      default: uni.$u.props.input.focus
-    },
-    // 键盘收起时，是否自动失去焦点，目前仅App3.0.0+有效
-    autoBlur: {
-      type: Boolean,
-      default: uni.$u.props.input.autoBlur
-    },
-    // 是否去掉 iOS 下的默认内边距，仅微信小程序，且type=textarea时有效
-    disableDefaultPadding: {
-      type: Boolean,
-      default: uni.$u.props.input.disableDefaultPadding
-    },
-    // 指定focus时光标的位置
-    cursor: {
-      type: [String, Number],
-      default: uni.$u.props.input.cursor
-    },
-    // 输入框聚焦时底部与键盘的距离
-    cursorSpacing: {
-      type: [String, Number],
-      default: uni.$u.props.input.cursorSpacing
-    },
-    // 光标起始位置，自动聚集时有效，需与selection-end搭配使用
-    selectionStart: {
-      type: [String, Number],
-      default: uni.$u.props.input.selectionStart
-    },
-    // 光标结束位置，自动聚集时有效，需与selection-start搭配使用
-    selectionEnd: {
-      type: [String, Number],
-      default: uni.$u.props.input.selectionEnd
-    },
-    // 键盘弹起时，是否自动上推页面
-    adjustPosition: {
-      type: Boolean,
-      default: uni.$u.props.input.adjustPosition
-    },
-    // 输入框内容对齐方式，可选值为：left|center|right
-    inputAlign: {
-      type: String,
-      default: uni.$u.props.input.inputAlign
-    },
-    // 输入框字体的大小
-    fontSize: {
-      type: [String, Number],
-      default: uni.$u.props.input.fontSize
-    },
-    // 输入框字体颜色
-    color: {
-      type: String,
-      default: uni.$u.props.input.color
-    },
-    // 输入框前置图标
-    prefixIcon: {
-      type: String,
-      default: uni.$u.props.input.prefixIcon
-    },
-    // 前置图标样式，对象或字符串
-    prefixIconStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.prefixIconStyle
-    },
-    // 输入框后置图标
-    suffixIcon: {
-      type: String,
-      default: uni.$u.props.input.suffixIcon
-    },
-    // 后置图标样式，对象或字符串
-    suffixIconStyle: {
-      type: [String, Object],
-      default: uni.$u.props.input.suffixIconStyle
-    },
-    // 边框类型，surround-四周边框，bottom-底部边框，none-无边框
-    border: {
-      type: String,
-      default: uni.$u.props.input.border
-    },
-    // 是否只读，与disabled不同之处在于disabled会置灰组件，而readonly则不会
-    readonly: {
-      type: Boolean,
-      default: uni.$u.props.input.readonly
-    },
-    // 输入框形状，circle-圆形，square-方形
-    shape: {
-      type: String,
-      default: uni.$u.props.input.shape
-    },
-    // 用于处理或者过滤输入框内容的方法
-    formatter: {
-      type: [Function, null],
-      default: uni.$u.props.input.formatter
-    },
-    // 是否忽略组件内对文本合成系统事件的处理
-    ignoreCompositionEvent: {
-      type: Boolean,
-      default: true
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 272 */,
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */
-/*!**********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-overlay/props.js ***!
-  \**********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否显示遮罩
-    show: {
-      type: Boolean,
-      default: uni.$u.props.overlay.show
-    },
-    // 层级z-index
-    zIndex: {
-      type: [String, Number],
-      default: uni.$u.props.overlay.zIndex
-    },
-    // 遮罩的过渡时间，单位为ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.overlay.duration
-    },
-    // 不透明度值，当做rgba的第四个参数
-    opacity: {
-      type: [String, Number],
-      default: uni.$u.props.overlay.opacity
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 280 */,
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */
-/*!*************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.transition.show
-    },
-    // 使用的动画模式
-    mode: {
-      type: String,
-      default: uni.$u.props.transition.mode
-    },
-    // 动画的执行时间，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.transition.duration
-    },
-    // 使用的动画过渡函数
-    timingFunction: {
-      type: String,
-      default: uni.$u.props.transition.timingFunction
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 288 */
-/*!******************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/transition.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 57));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 59));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 289));
-// 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
-var nextTick = function nextTick() {
-  return new Promise(function (resolve) {
-    return setTimeout(resolve, 1000 / 50);
-  });
-};
-// nvue动画模块实现细节抽离在外部文件
-
-// 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
-var getClassNames = function getClassNames(name) {
-  return {
-    enter: "u-".concat(name, "-enter u-").concat(name, "-enter-active"),
-    'enter-to': "u-".concat(name, "-enter-to u-").concat(name, "-enter-active"),
-    leave: "u-".concat(name, "-leave u-").concat(name, "-leave-active"),
-    'leave-to': "u-".concat(name, "-leave-to u-").concat(name, "-leave-active")
-  };
-};
-var _default = {
-  methods: {
-    // 组件被点击发出事件
-    clickHandler: function clickHandler() {
-      this.$emit('click');
-    },
-    // vue版本的组件进场处理
-    vueEnter: function vueEnter() {
-      var _this = this;
-      // 动画进入时的类名
-      var classNames = getClassNames(this.mode);
-      // 定义状态和发出动画进入前事件
-      this.status = 'enter';
-      this.$emit('beforeEnter');
-      this.inited = true;
-      this.display = true;
-      this.classes = classNames.enter;
-      this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // 标识动画尚未结束
-                _this.$emit('enter');
-                _this.transitionEnded = false;
-                // 组件动画进入后触发的事件
-                _this.$emit('afterEnter');
-                // 赋予组件enter-to类名
-                _this.classes = classNames['enter-to'];
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      })));
-    },
-    // 动画离场处理
-    vueLeave: function vueLeave() {
-      var _this2 = this;
-      // 如果不是展示状态，无需执行逻辑
-      if (!this.display) return;
-      var classNames = getClassNames(this.mode);
-      // 标记离开状态和发出事件
-      this.status = 'leave';
-      this.$emit('beforeLeave');
-      // 获得类名
-      this.classes = classNames.leave;
-      this.$nextTick(function () {
-        // 动画正在离场的状态
-        _this2.transitionEnded = false;
-        _this2.$emit('leave');
-        // 组件执行动画，到了执行的执行时间后，执行一些额外处理
-        setTimeout(_this2.onTransitionEnd, _this2.duration);
-        _this2.classes = classNames['leave-to'];
-      });
-    },
-    // 完成过渡后触发
-    onTransitionEnd: function onTransitionEnd() {
-      // 如果已经是结束的状态，无需再处理
-      if (this.transitionEnded) return;
-      this.transitionEnded = true;
-      // 发出组件动画执行后的事件
-      this.$emit(this.status === 'leave' ? 'afterLeave' : 'afterEnter');
-      if (!this.show && this.display) {
-        this.display = false;
-        this.inited = false;
-      }
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 289 */
-/*!********************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  fade: {
-    enter: {
-      opacity: 0
-    },
-    'enter-to': {
-      opacity: 1
-    },
-    leave: {
-      opacity: 1
-    },
-    'leave-to': {
-      opacity: 0
-    }
-  },
-  'fade-up': {
-    enter: {
-      opacity: 0,
-      transform: 'translateY(100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateY(100%)'
-    }
-  },
-  'fade-down': {
-    enter: {
-      opacity: 0,
-      transform: 'translateY(-100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateY(-100%)'
-    }
-  },
-  'fade-left': {
-    enter: {
-      opacity: 0,
-      transform: 'translateX(-100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateX(-100%)'
-    }
-  },
-  'fade-right': {
-    enter: {
-      opacity: 0,
-      transform: 'translateX(100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateX(100%)'
-    }
-  },
-  'slide-up': {
-    enter: {
-      transform: 'translateY(100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateY(100%)'
-    }
-  },
-  'slide-down': {
-    enter: {
-      transform: 'translateY(-100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateY(-100%)'
-    }
-  },
-  'slide-left': {
-    enter: {
-      transform: 'translateX(-100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateX(-100%)'
-    }
-  },
-  'slide-right': {
-    enter: {
-      transform: 'translateX(100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateX(100%)'
-    }
-  },
-  zoom: {
-    enter: {
-      transform: 'scale(0.95)'
-    },
-    'enter-to': {
-      transform: 'scale(1)'
-    },
-    leave: {
-      transform: 'scale(1)'
-    },
-    'leave-to': {
-      transform: 'scale(0.95)'
-    }
-  },
-  'fade-zoom': {
-    enter: {
-      opacity: 0,
-      transform: 'scale(0.95)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'scale(1)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'scale(1)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'scale(0.95)'
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */,
-/* 297 */
-/*!*************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-status-bar/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    bgColor: {
-      type: String,
-      default: uni.$u.props.statusBar.bgColor
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */,
-/* 305 */
-/*!*******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/icons.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  'uicon-level': "\uE693",
-  'uicon-column-line': "\uE68E",
-  'uicon-checkbox-mark': "\uE807",
-  'uicon-folder': "\uE7F5",
-  'uicon-movie': "\uE7F6",
-  'uicon-star-fill': "\uE669",
-  'uicon-star': "\uE65F",
-  'uicon-phone-fill': "\uE64F",
-  'uicon-phone': "\uE622",
-  'uicon-apple-fill': "\uE881",
-  'uicon-chrome-circle-fill': "\uE885",
-  'uicon-backspace': "\uE67B",
-  'uicon-attach': "\uE632",
-  'uicon-cut': "\uE948",
-  'uicon-empty-car': "\uE602",
-  'uicon-empty-coupon': "\uE682",
-  'uicon-empty-address': "\uE646",
-  'uicon-empty-favor': "\uE67C",
-  'uicon-empty-permission': "\uE686",
-  'uicon-empty-news': "\uE687",
-  'uicon-empty-search': "\uE664",
-  'uicon-github-circle-fill': "\uE887",
-  'uicon-rmb': "\uE608",
-  'uicon-person-delete-fill': "\uE66A",
-  'uicon-reload': "\uE788",
-  'uicon-order': "\uE68F",
-  'uicon-server-man': "\uE6BC",
-  'uicon-search': "\uE62A",
-  'uicon-fingerprint': "\uE955",
-  'uicon-more-dot-fill': "\uE630",
-  'uicon-scan': "\uE662",
-  'uicon-share-square': "\uE60B",
-  'uicon-map': "\uE61D",
-  'uicon-map-fill': "\uE64E",
-  'uicon-tags': "\uE629",
-  'uicon-tags-fill': "\uE651",
-  'uicon-bookmark-fill': "\uE63B",
-  'uicon-bookmark': "\uE60A",
-  'uicon-eye': "\uE613",
-  'uicon-eye-fill': "\uE641",
-  'uicon-mic': "\uE64A",
-  'uicon-mic-off': "\uE649",
-  'uicon-calendar': "\uE66E",
-  'uicon-calendar-fill': "\uE634",
-  'uicon-trash': "\uE623",
-  'uicon-trash-fill': "\uE658",
-  'uicon-play-left': "\uE66D",
-  'uicon-play-right': "\uE610",
-  'uicon-minus': "\uE618",
-  'uicon-plus': "\uE62D",
-  'uicon-info': "\uE653",
-  'uicon-info-circle': "\uE7D2",
-  'uicon-info-circle-fill': "\uE64B",
-  'uicon-question': "\uE715",
-  'uicon-error': "\uE6D3",
-  'uicon-close': "\uE685",
-  'uicon-checkmark': "\uE6A8",
-  'uicon-android-circle-fill': "\uE67E",
-  'uicon-android-fill': "\uE67D",
-  'uicon-ie': "\uE87B",
-  'uicon-IE-circle-fill': "\uE889",
-  'uicon-google': "\uE87A",
-  'uicon-google-circle-fill': "\uE88A",
-  'uicon-setting-fill': "\uE872",
-  'uicon-setting': "\uE61F",
-  'uicon-minus-square-fill': "\uE855",
-  'uicon-plus-square-fill': "\uE856",
-  'uicon-heart': "\uE7DF",
-  'uicon-heart-fill': "\uE851",
-  'uicon-camera': "\uE7D7",
-  'uicon-camera-fill': "\uE870",
-  'uicon-more-circle': "\uE63E",
-  'uicon-more-circle-fill': "\uE645",
-  'uicon-chat': "\uE620",
-  'uicon-chat-fill': "\uE61E",
-  'uicon-bag-fill': "\uE617",
-  'uicon-bag': "\uE619",
-  'uicon-error-circle-fill': "\uE62C",
-  'uicon-error-circle': "\uE624",
-  'uicon-close-circle': "\uE63F",
-  'uicon-close-circle-fill': "\uE637",
-  'uicon-checkmark-circle': "\uE63D",
-  'uicon-checkmark-circle-fill': "\uE635",
-  'uicon-question-circle-fill': "\uE666",
-  'uicon-question-circle': "\uE625",
-  'uicon-share': "\uE631",
-  'uicon-share-fill': "\uE65E",
-  'uicon-shopping-cart': "\uE621",
-  'uicon-shopping-cart-fill': "\uE65D",
-  'uicon-bell': "\uE609",
-  'uicon-bell-fill': "\uE640",
-  'uicon-list': "\uE650",
-  'uicon-list-dot': "\uE616",
-  'uicon-zhihu': "\uE6BA",
-  'uicon-zhihu-circle-fill': "\uE709",
-  'uicon-zhifubao': "\uE6B9",
-  'uicon-zhifubao-circle-fill': "\uE6B8",
-  'uicon-weixin-circle-fill': "\uE6B1",
-  'uicon-weixin-fill': "\uE6B2",
-  'uicon-twitter-circle-fill': "\uE6AB",
-  'uicon-twitter': "\uE6AA",
-  'uicon-taobao-circle-fill': "\uE6A7",
-  'uicon-taobao': "\uE6A6",
-  'uicon-weibo-circle-fill': "\uE6A5",
-  'uicon-weibo': "\uE6A4",
-  'uicon-qq-fill': "\uE6A1",
-  'uicon-qq-circle-fill': "\uE6A0",
-  'uicon-moments-circel-fill': "\uE69A",
-  'uicon-moments': "\uE69B",
-  'uicon-qzone': "\uE695",
-  'uicon-qzone-circle-fill': "\uE696",
-  'uicon-baidu-circle-fill': "\uE680",
-  'uicon-baidu': "\uE681",
-  'uicon-facebook-circle-fill': "\uE68A",
-  'uicon-facebook': "\uE689",
-  'uicon-car': "\uE60C",
-  'uicon-car-fill': "\uE636",
-  'uicon-warning-fill': "\uE64D",
-  'uicon-warning': "\uE694",
-  'uicon-clock-fill': "\uE638",
-  'uicon-clock': "\uE60F",
-  'uicon-edit-pen': "\uE612",
-  'uicon-edit-pen-fill': "\uE66B",
-  'uicon-email': "\uE611",
-  'uicon-email-fill': "\uE642",
-  'uicon-minus-circle': "\uE61B",
-  'uicon-minus-circle-fill': "\uE652",
-  'uicon-plus-circle': "\uE62E",
-  'uicon-plus-circle-fill': "\uE661",
-  'uicon-file-text': "\uE663",
-  'uicon-file-text-fill': "\uE665",
-  'uicon-pushpin': "\uE7E3",
-  'uicon-pushpin-fill': "\uE86E",
-  'uicon-grid': "\uE673",
-  'uicon-grid-fill': "\uE678",
-  'uicon-play-circle': "\uE647",
-  'uicon-play-circle-fill': "\uE655",
-  'uicon-pause-circle-fill': "\uE654",
-  'uicon-pause': "\uE8FA",
-  'uicon-pause-circle': "\uE643",
-  'uicon-eye-off': "\uE648",
-  'uicon-eye-off-outline': "\uE62B",
-  'uicon-gift-fill': "\uE65C",
-  'uicon-gift': "\uE65B",
-  'uicon-rmb-circle-fill': "\uE657",
-  'uicon-rmb-circle': "\uE677",
-  'uicon-kefu-ermai': "\uE656",
-  'uicon-server-fill': "\uE751",
-  'uicon-coupon-fill': "\uE8C4",
-  'uicon-coupon': "\uE8AE",
-  'uicon-integral': "\uE704",
-  'uicon-integral-fill': "\uE703",
-  'uicon-home-fill': "\uE964",
-  'uicon-home': "\uE965",
-  'uicon-hourglass-half-fill': "\uE966",
-  'uicon-hourglass': "\uE967",
-  'uicon-account': "\uE628",
-  'uicon-plus-people-fill': "\uE626",
-  'uicon-minus-people-fill': "\uE615",
-  'uicon-account-fill': "\uE614",
-  'uicon-thumb-down-fill': "\uE726",
-  'uicon-thumb-down': "\uE727",
-  'uicon-thumb-up': "\uE733",
-  'uicon-thumb-up-fill': "\uE72F",
-  'uicon-lock-fill': "\uE979",
-  'uicon-lock-open': "\uE973",
-  'uicon-lock-opened-fill': "\uE974",
-  'uicon-lock': "\uE97A",
-  'uicon-red-packet-fill': "\uE690",
-  'uicon-photo-fill': "\uE98B",
-  'uicon-photo': "\uE98D",
-  'uicon-volume-off-fill': "\uE659",
-  'uicon-volume-off': "\uE644",
-  'uicon-volume-fill': "\uE670",
-  'uicon-volume': "\uE633",
-  'uicon-red-packet': "\uE691",
-  'uicon-download': "\uE63C",
-  'uicon-arrow-up-fill': "\uE6B0",
-  'uicon-arrow-down-fill': "\uE600",
-  'uicon-play-left-fill': "\uE675",
-  'uicon-play-right-fill': "\uE676",
-  'uicon-rewind-left-fill': "\uE679",
-  'uicon-rewind-right-fill': "\uE67A",
-  'uicon-arrow-downward': "\uE604",
-  'uicon-arrow-leftward': "\uE601",
-  'uicon-arrow-rightward': "\uE603",
-  'uicon-arrow-upward': "\uE607",
-  'uicon-arrow-down': "\uE60D",
-  'uicon-arrow-right': "\uE605",
-  'uicon-arrow-left': "\uE60E",
-  'uicon-arrow-up': "\uE606",
-  'uicon-skip-back-left': "\uE674",
-  'uicon-skip-forward-right': "\uE672",
-  'uicon-rewind-right': "\uE66F",
-  'uicon-rewind-left': "\uE671",
-  'uicon-arrow-right-double': "\uE68D",
-  'uicon-arrow-left-double': "\uE68C",
-  'uicon-wifi-off': "\uE668",
-  'uicon-wifi': "\uE667",
-  'uicon-empty-data': "\uE62F",
-  'uicon-empty-history': "\uE684",
-  'uicon-empty-list': "\uE68B",
-  'uicon-empty-page': "\uE627",
-  'uicon-empty-order': "\uE639",
-  'uicon-man': "\uE697",
-  'uicon-woman': "\uE69C",
-  'uicon-man-add': "\uE61C",
-  'uicon-man-add-fill': "\uE64C",
-  'uicon-man-delete': "\uE61A",
-  'uicon-man-delete-fill': "\uE66A",
-  'uicon-zh': "\uE70A",
-  'uicon-en': "\uE692"
-};
-exports.default = _default;
-
-/***/ }),
-/* 306 */
-/*!*******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/props.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 图标类名
-    name: {
-      type: String,
-      default: uni.$u.props.icon.name
-    },
-    // 图标颜色，可接受主题色
-    color: {
-      type: String,
-      default: uni.$u.props.icon.color
-    },
-    // 字体大小，单位px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.icon.size
-    },
-    // 是否显示粗体
-    bold: {
-      type: Boolean,
-      default: uni.$u.props.icon.bold
-    },
-    // 点击图标的时候传递事件出去的index（用于区分点击了哪一个）
-    index: {
-      type: [String, Number],
-      default: uni.$u.props.icon.index
-    },
-    // 触摸图标时的类名
-    hoverClass: {
-      type: String,
-      default: uni.$u.props.icon.hoverClass
-    },
-    // 自定义扩展前缀，方便用户扩展自己的图标库
-    customPrefix: {
-      type: String,
-      default: uni.$u.props.icon.customPrefix
-    },
-    // 图标右边或者下面的文字
-    label: {
-      type: [String, Number],
-      default: uni.$u.props.icon.label
-    },
-    // label的位置，只能右边或者下边
-    labelPos: {
-      type: String,
-      default: uni.$u.props.icon.labelPos
-    },
-    // label的大小
-    labelSize: {
-      type: [String, Number],
-      default: uni.$u.props.icon.labelSize
-    },
-    // label的颜色
-    labelColor: {
-      type: String,
-      default: uni.$u.props.icon.labelColor
-    },
-    // label与图标的距离
-    space: {
-      type: [String, Number],
-      default: uni.$u.props.icon.space
-    },
-    // 图片的mode
-    imgMode: {
-      type: String,
-      default: uni.$u.props.icon.imgMode
-    },
-    // 用于显示图片小图标时，图片的宽度
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.icon.width
-    },
-    // 用于显示图片小图标时，图片的高度
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.icon.height
-    },
-    // 用于解决某些情况下，让图标垂直居中的用途
-    top: {
-      type: [String, Number],
-      default: uni.$u.props.icon.top
-    },
-    // 是否阻止事件传播
-    stop: {
-      type: Boolean,
-      default: uni.$u.props.icon.stop
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */
-/*!**************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {}
-};
-exports.default = _default;
-
-/***/ }),
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */
-/*!*******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-line/props.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    color: {
-      type: String,
-      default: uni.$u.props.line.color
-    },
-    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
-    length: {
-      type: [String, Number],
-      default: uni.$u.props.line.length
-    },
-    // 线条方向，col-竖向，row-横向
-    direction: {
-      type: String,
-      default: uni.$u.props.line.direction
-    },
-    // 是否显示细边框
-    hairline: {
-      type: Boolean,
-      default: uni.$u.props.line.hairline
-    },
-    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
-    margin: {
-      type: [String, Number],
-      default: uni.$u.props.line.margin
-    },
-    // 是否虚线，true-虚线，false-实线
-    dashed: {
-      type: Boolean,
-      default: uni.$u.props.line.dashed
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */
-/*!***************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否显示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.show
-    },
-    // 颜色
-    color: {
-      type: String,
-      default: uni.$u.props.loadingIcon.color
-    },
-    // 提示文字颜色
-    textColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.textColor
-    },
-    // 文字和图标是否垂直排列
-    vertical: {
-      type: Boolean,
-      default: uni.$u.props.loadingIcon.vertical
-    },
-    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
-    mode: {
-      type: String,
-      default: uni.$u.props.loadingIcon.mode
-    },
-    // 图标大小，单位默认px
-    size: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.size
-    },
-    // 文字大小
-    textSize: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.textSize
-    },
-    // 文字内容
-    text: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.text
-    },
-    // 动画模式
-    timingFunction: {
-      type: String,
-      default: uni.$u.props.loadingIcon.timingFunction
-    },
-    // 动画执行周期时间
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.loadingIcon.duration
-    },
-    // mode=circle时的暗边颜色
-    inactiveColor: {
-      type: String,
-      default: uni.$u.props.loadingIcon.inactiveColor
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */
-/*!******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-gap/props.js ***!
-  \******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 背景颜色（默认transparent）
-    bgColor: {
-      type: String,
-      default: uni.$u.props.gap.bgColor
-    },
-    // 分割槽高度，单位px（默认30）
-    height: {
-      type: [String, Number],
-      default: uni.$u.props.gap.height
-    },
-    // 与上一个组件的距离
-    marginTop: {
-      type: [String, Number],
-      default: uni.$u.props.gap.marginTop
-    },
-    // 与下一个组件的距离
-    marginBottom: {
-      type: [String, Number],
-      default: uni.$u.props.gap.marginBottom
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */
+/* 202 */
 /*!***************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/config/menu-data.js ***!
   \***************************************************************/
@@ -21621,6 +21034,1635 @@ var MENU_DATA_LIST = [{
   name: "水蜜桃"
 }];
 exports.MENU_DATA_LIST = MENU_DATA_LIST;
+
+/***/ }),
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */
+/*!**************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/config/constant.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WET_MENU_DATA = void 0;
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-02 11:52:13
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-02 17:53:54
+ * @FilePath: /what-to-eat/config/constant.js
+ * @Description: 
+ */
+var WET_MENU_DATA = 'WET_MENU_DATA';
+exports.WET_MENU_DATA = WET_MENU_DATA;
+
+/***/ }),
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */,
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */
+/*!******************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-checkbox-group/props.js ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 标识符
+    name: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.name
+    },
+    // 绑定的值
+    value: {
+      type: Array,
+      default: uni.$u.props.checkboxGroup.value
+    },
+    // 形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.shape
+    },
+    // 是否禁用全部checkbox
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.disabled
+    },
+    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
+    activeColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.activeColor
+    },
+    // 未选中的颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.inactiveColor
+    },
+    // 整个组件的尺寸，默认px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.size
+    },
+    // 布局方式，row-横向，column-纵向
+    placement: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.placement
+    },
+    // label的字体大小，px单位
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.labelSize
+    },
+    // label的字体颜色
+    labelColor: {
+      type: [String],
+      default: uni.$u.props.checkboxGroup.labelColor
+    },
+    // 是否禁止点击文本操作
+    labelDisabled: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.labelDisabled
+    },
+    // 图标颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.iconColor
+    },
+    // 图标的大小，单位px
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkboxGroup.iconSize
+    },
+    // 勾选图标的对齐方式，left-左边，right-右边
+    iconPlacement: {
+      type: String,
+      default: uni.$u.props.checkboxGroup.iconPlacement
+    },
+    // 竖向配列时，是否显示下划线
+    borderBottom: {
+      type: Boolean,
+      default: uni.$u.props.checkboxGroup.borderBottom
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 272 */,
+/* 273 */,
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */
+/*!************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-checkbox/props.js ***!
+  \************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // checkbox的名称
+    name: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.checkbox.name
+    },
+    // 形状，square为方形，circle为圆型
+    shape: {
+      type: String,
+      default: uni.$u.props.checkbox.shape
+    },
+    // 整体的大小
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.size
+    },
+    // 是否默认选中
+    checked: {
+      type: Boolean,
+      default: uni.$u.props.checkbox.checked
+    },
+    // 是否禁用
+    disabled: {
+      type: [String, Boolean],
+      default: uni.$u.props.checkbox.disabled
+    },
+    // 选中状态下的颜色，如设置此值，将会覆盖parent的activeColor值
+    activeColor: {
+      type: String,
+      default: uni.$u.props.checkbox.activeColor
+    },
+    // 未选中的颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.checkbox.inactiveColor
+    },
+    // 图标的大小，单位px
+    iconSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.iconSize
+    },
+    // 图标颜色
+    iconColor: {
+      type: String,
+      default: uni.$u.props.checkbox.iconColor
+    },
+    // label提示文字，因为nvue下，直接slot进来的文字，由于特殊的结构，无法修改样式
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.label
+    },
+    // label的字体大小，px单位
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.checkbox.labelSize
+    },
+    // label的颜色
+    labelColor: {
+      type: String,
+      default: uni.$u.props.checkbox.labelColor
+    },
+    // 是否禁止点击提示语选中复选框
+    labelDisabled: {
+      type: [String, Boolean],
+      default: uni.$u.props.checkbox.labelDisabled
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */
+/*!*********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-input/props.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 输入的值
+    value: {
+      type: [String, Number],
+      default: uni.$u.props.input.value
+    },
+    // 输入框类型
+    // number-数字输入键盘，app-vue下可以输入浮点数，app-nvue和小程序平台下只能输入整数
+    // idcard-身份证输入键盘，微信、支付宝、百度、QQ小程序
+    // digit-带小数点的数字键盘，App的nvue页面、微信、支付宝、百度、头条、QQ小程序
+    // text-文本输入键盘
+    type: {
+      type: String,
+      default: uni.$u.props.input.type
+    },
+    // 如果 textarea 是在一个 position:fixed 的区域，需要显示指定属性 fixed 为 true，
+    // 兼容性：微信小程序、百度小程序、字节跳动小程序、QQ小程序
+    fixed: {
+      type: Boolean,
+      default: uni.$u.props.input.fixed
+    },
+    // 是否禁用输入框
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.input.disabled
+    },
+    // 禁用状态时的背景色
+    disabledColor: {
+      type: String,
+      default: uni.$u.props.input.disabledColor
+    },
+    // 是否显示清除控件
+    clearable: {
+      type: Boolean,
+      default: uni.$u.props.input.clearable
+    },
+    // 是否密码类型
+    password: {
+      type: Boolean,
+      default: uni.$u.props.input.password
+    },
+    // 最大输入长度，设置为 -1 的时候不限制最大长度
+    maxlength: {
+      type: [String, Number],
+      default: uni.$u.props.input.maxlength
+    },
+    // 	输入框为空时的占位符
+    placeholder: {
+      type: String,
+      default: uni.$u.props.input.placeholder
+    },
+    // 指定placeholder的样式类，注意页面或组件的style中写了scoped时，需要在类名前写/deep/
+    placeholderClass: {
+      type: String,
+      default: uni.$u.props.input.placeholderClass
+    },
+    // 指定placeholder的样式
+    placeholderStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.placeholderStyle
+    },
+    // 是否显示输入字数统计，只在 type ="text"或type ="textarea"时有效
+    showWordLimit: {
+      type: Boolean,
+      default: uni.$u.props.input.showWordLimit
+    },
+    // 设置右下角按钮的文字，有效值：send|search|next|go|done，兼容性详见uni-app文档
+    // https://uniapp.dcloud.io/component/input
+    // https://uniapp.dcloud.io/component/textarea
+    confirmType: {
+      type: String,
+      default: uni.$u.props.input.confirmType
+    },
+    // 点击键盘右下角按钮时是否保持键盘不收起，H5无效
+    confirmHold: {
+      type: Boolean,
+      default: uni.$u.props.input.confirmHold
+    },
+    // focus时，点击页面的时候不收起键盘，微信小程序有效
+    holdKeyboard: {
+      type: Boolean,
+      default: uni.$u.props.input.holdKeyboard
+    },
+    // 自动获取焦点
+    // 在 H5 平台能否聚焦以及软键盘是否跟随弹出，取决于当前浏览器本身的实现。nvue 页面不支持，需使用组件的 focus()、blur() 方法控制焦点
+    focus: {
+      type: Boolean,
+      default: uni.$u.props.input.focus
+    },
+    // 键盘收起时，是否自动失去焦点，目前仅App3.0.0+有效
+    autoBlur: {
+      type: Boolean,
+      default: uni.$u.props.input.autoBlur
+    },
+    // 是否去掉 iOS 下的默认内边距，仅微信小程序，且type=textarea时有效
+    disableDefaultPadding: {
+      type: Boolean,
+      default: uni.$u.props.input.disableDefaultPadding
+    },
+    // 指定focus时光标的位置
+    cursor: {
+      type: [String, Number],
+      default: uni.$u.props.input.cursor
+    },
+    // 输入框聚焦时底部与键盘的距离
+    cursorSpacing: {
+      type: [String, Number],
+      default: uni.$u.props.input.cursorSpacing
+    },
+    // 光标起始位置，自动聚集时有效，需与selection-end搭配使用
+    selectionStart: {
+      type: [String, Number],
+      default: uni.$u.props.input.selectionStart
+    },
+    // 光标结束位置，自动聚集时有效，需与selection-start搭配使用
+    selectionEnd: {
+      type: [String, Number],
+      default: uni.$u.props.input.selectionEnd
+    },
+    // 键盘弹起时，是否自动上推页面
+    adjustPosition: {
+      type: Boolean,
+      default: uni.$u.props.input.adjustPosition
+    },
+    // 输入框内容对齐方式，可选值为：left|center|right
+    inputAlign: {
+      type: String,
+      default: uni.$u.props.input.inputAlign
+    },
+    // 输入框字体的大小
+    fontSize: {
+      type: [String, Number],
+      default: uni.$u.props.input.fontSize
+    },
+    // 输入框字体颜色
+    color: {
+      type: String,
+      default: uni.$u.props.input.color
+    },
+    // 输入框前置图标
+    prefixIcon: {
+      type: String,
+      default: uni.$u.props.input.prefixIcon
+    },
+    // 前置图标样式，对象或字符串
+    prefixIconStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.prefixIconStyle
+    },
+    // 输入框后置图标
+    suffixIcon: {
+      type: String,
+      default: uni.$u.props.input.suffixIcon
+    },
+    // 后置图标样式，对象或字符串
+    suffixIconStyle: {
+      type: [String, Object],
+      default: uni.$u.props.input.suffixIconStyle
+    },
+    // 边框类型，surround-四周边框，bottom-底部边框，none-无边框
+    border: {
+      type: String,
+      default: uni.$u.props.input.border
+    },
+    // 是否只读，与disabled不同之处在于disabled会置灰组件，而readonly则不会
+    readonly: {
+      type: Boolean,
+      default: uni.$u.props.input.readonly
+    },
+    // 输入框形状，circle-圆形，square-方形
+    shape: {
+      type: String,
+      default: uni.$u.props.input.shape
+    },
+    // 用于处理或者过滤输入框内容的方法
+    formatter: {
+      type: [Function, null],
+      default: uni.$u.props.input.formatter
+    },
+    // 是否忽略组件内对文本合成系统事件的处理
+    ignoreCompositionEvent: {
+      type: Boolean,
+      default: true
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 295 */,
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */
+/*!**************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-cell-group/props.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 分组标题
+    title: {
+      type: String,
+      default: uni.$u.props.cellGroup.title
+    },
+    // 是否显示外边框
+    border: {
+      type: Boolean,
+      default: uni.$u.props.cellGroup.border
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 303 */,
+/* 304 */,
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-cell/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default2 = {
+  props: {
+    // 标题
+    title: {
+      type: [String, Number],
+      default: uni.$u.props.cell.title
+    },
+    // 标题下方的描述信息
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.cell.label
+    },
+    // 右侧的内容
+    value: {
+      type: [String, Number],
+      default: uni.$u.props.cell.value
+    },
+    // 左侧图标名称，或者图片链接(本地文件建议使用绝对地址)
+    icon: {
+      type: String,
+      default: uni.$u.props.cell.icon
+    },
+    // 是否禁用cell
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.cell.disabled
+    },
+    // 是否显示下边框
+    border: {
+      type: Boolean,
+      default: uni.$u.props.cell.border
+    },
+    // 内容是否垂直居中(主要是针对右侧的value部分)
+    center: {
+      type: Boolean,
+      default: uni.$u.props.cell.center
+    },
+    // 点击后跳转的URL地址
+    url: {
+      type: String,
+      default: uni.$u.props.cell.url
+    },
+    // 链接跳转的方式，内部使用的是uView封装的route方法，可能会进行拦截操作
+    linkType: {
+      type: String,
+      default: uni.$u.props.cell.linkType
+    },
+    // 是否开启点击反馈(表现为点击时加上灰色背景)
+    clickable: {
+      type: Boolean,
+      default: uni.$u.props.cell.clickable
+    },
+    // 是否展示右侧箭头并开启点击反馈
+    isLink: {
+      type: Boolean,
+      default: uni.$u.props.cell.isLink
+    },
+    // 是否显示表单状态下的必填星号(此组件可能会内嵌入input组件)
+    required: {
+      type: Boolean,
+      default: uni.$u.props.cell.required
+    },
+    // 右侧的图标箭头
+    rightIcon: {
+      type: String,
+      default: uni.$u.props.cell.rightIcon
+    },
+    // 右侧箭头的方向，可选值为：left，up，down
+    arrowDirection: {
+      type: String,
+      default: uni.$u.props.cell.arrowDirection
+    },
+    // 左侧图标样式
+    iconStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.iconStyle;
+      }
+    },
+    // 右侧箭头图标的样式
+    rightIconStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.rightIconStyle;
+      }
+    },
+    // 标题的样式
+    titleStyle: {
+      type: [Object, String],
+      default: function _default() {
+        return uni.$u.props.cell.titleStyle;
+      }
+    },
+    // 单位元的大小，可选值为large
+    size: {
+      type: String,
+      default: uni.$u.props.cell.size
+    },
+    // 点击cell是否阻止事件传播
+    stop: {
+      type: Boolean,
+      default: uni.$u.props.cell.stop
+    },
+    // 标识符，cell被点击时返回
+    name: {
+      type: [Number, String],
+      default: uni.$u.props.cell.name
+    }
+  }
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 311 */,
+/* 312 */,
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */
+/*!***********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-overlay/props.js ***!
+  \***********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否显示遮罩
+    show: {
+      type: Boolean,
+      default: uni.$u.props.overlay.show
+    },
+    // 层级z-index
+    zIndex: {
+      type: [String, Number],
+      default: uni.$u.props.overlay.zIndex
+    },
+    // 遮罩的过渡时间，单位为ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.overlay.duration
+    },
+    // 不透明度值，当做rgba的第四个参数
+    opacity: {
+      type: [String, Number],
+      default: uni.$u.props.overlay.opacity
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 319 */,
+/* 320 */,
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */
+/*!**************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-transition/props.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否展示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.transition.show
+    },
+    // 使用的动画模式
+    mode: {
+      type: String,
+      default: uni.$u.props.transition.mode
+    },
+    // 动画的执行时间，单位ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.transition.duration
+    },
+    // 使用的动画过渡函数
+    timingFunction: {
+      type: String,
+      default: uni.$u.props.transition.timingFunction
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 327 */
+/*!*******************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-transition/transition.js ***!
+  \*******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 59));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 61));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 328));
+// 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
+var nextTick = function nextTick() {
+  return new Promise(function (resolve) {
+    return setTimeout(resolve, 1000 / 50);
+  });
+};
+// nvue动画模块实现细节抽离在外部文件
+
+// 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
+var getClassNames = function getClassNames(name) {
+  return {
+    enter: "u-".concat(name, "-enter u-").concat(name, "-enter-active"),
+    'enter-to': "u-".concat(name, "-enter-to u-").concat(name, "-enter-active"),
+    leave: "u-".concat(name, "-leave u-").concat(name, "-leave-active"),
+    'leave-to': "u-".concat(name, "-leave-to u-").concat(name, "-leave-active")
+  };
+};
+var _default = {
+  methods: {
+    // 组件被点击发出事件
+    clickHandler: function clickHandler() {
+      this.$emit('click');
+    },
+    // vue版本的组件进场处理
+    vueEnter: function vueEnter() {
+      var _this = this;
+      // 动画进入时的类名
+      var classNames = getClassNames(this.mode);
+      // 定义状态和发出动画进入前事件
+      this.status = 'enter';
+      this.$emit('beforeEnter');
+      this.inited = true;
+      this.display = true;
+      this.classes = classNames.enter;
+      this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // 标识动画尚未结束
+                _this.$emit('enter');
+                _this.transitionEnded = false;
+                // 组件动画进入后触发的事件
+                _this.$emit('afterEnter');
+                // 赋予组件enter-to类名
+                _this.classes = classNames['enter-to'];
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      })));
+    },
+    // 动画离场处理
+    vueLeave: function vueLeave() {
+      var _this2 = this;
+      // 如果不是展示状态，无需执行逻辑
+      if (!this.display) return;
+      var classNames = getClassNames(this.mode);
+      // 标记离开状态和发出事件
+      this.status = 'leave';
+      this.$emit('beforeLeave');
+      // 获得类名
+      this.classes = classNames.leave;
+      this.$nextTick(function () {
+        // 动画正在离场的状态
+        _this2.transitionEnded = false;
+        _this2.$emit('leave');
+        // 组件执行动画，到了执行的执行时间后，执行一些额外处理
+        setTimeout(_this2.onTransitionEnd, _this2.duration);
+        _this2.classes = classNames['leave-to'];
+      });
+    },
+    // 完成过渡后触发
+    onTransitionEnd: function onTransitionEnd() {
+      // 如果已经是结束的状态，无需再处理
+      if (this.transitionEnded) return;
+      this.transitionEnded = true;
+      // 发出组件动画执行后的事件
+      this.$emit(this.status === 'leave' ? 'afterLeave' : 'afterEnter');
+      if (!this.show && this.display) {
+        this.display = false;
+        this.inited = false;
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 328 */
+/*!*********************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
+  \*********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  fade: {
+    enter: {
+      opacity: 0
+    },
+    'enter-to': {
+      opacity: 1
+    },
+    leave: {
+      opacity: 1
+    },
+    'leave-to': {
+      opacity: 0
+    }
+  },
+  'fade-up': {
+    enter: {
+      opacity: 0,
+      transform: 'translateY(100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateY(100%)'
+    }
+  },
+  'fade-down': {
+    enter: {
+      opacity: 0,
+      transform: 'translateY(-100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateY(-100%)'
+    }
+  },
+  'fade-left': {
+    enter: {
+      opacity: 0,
+      transform: 'translateX(-100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateX(-100%)'
+    }
+  },
+  'fade-right': {
+    enter: {
+      opacity: 0,
+      transform: 'translateX(100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateX(100%)'
+    }
+  },
+  'slide-up': {
+    enter: {
+      transform: 'translateY(100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateY(100%)'
+    }
+  },
+  'slide-down': {
+    enter: {
+      transform: 'translateY(-100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateY(-100%)'
+    }
+  },
+  'slide-left': {
+    enter: {
+      transform: 'translateX(-100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateX(-100%)'
+    }
+  },
+  'slide-right': {
+    enter: {
+      transform: 'translateX(100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateX(100%)'
+    }
+  },
+  zoom: {
+    enter: {
+      transform: 'scale(0.95)'
+    },
+    'enter-to': {
+      transform: 'scale(1)'
+    },
+    leave: {
+      transform: 'scale(1)'
+    },
+    'leave-to': {
+      transform: 'scale(0.95)'
+    }
+  },
+  'fade-zoom': {
+    enter: {
+      opacity: 0,
+      transform: 'scale(0.95)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'scale(1)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'scale(1)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'scale(0.95)'
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-icon/icons.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  'uicon-level': "\uE693",
+  'uicon-column-line': "\uE68E",
+  'uicon-checkbox-mark': "\uE807",
+  'uicon-folder': "\uE7F5",
+  'uicon-movie': "\uE7F6",
+  'uicon-star-fill': "\uE669",
+  'uicon-star': "\uE65F",
+  'uicon-phone-fill': "\uE64F",
+  'uicon-phone': "\uE622",
+  'uicon-apple-fill': "\uE881",
+  'uicon-chrome-circle-fill': "\uE885",
+  'uicon-backspace': "\uE67B",
+  'uicon-attach': "\uE632",
+  'uicon-cut': "\uE948",
+  'uicon-empty-car': "\uE602",
+  'uicon-empty-coupon': "\uE682",
+  'uicon-empty-address': "\uE646",
+  'uicon-empty-favor': "\uE67C",
+  'uicon-empty-permission': "\uE686",
+  'uicon-empty-news': "\uE687",
+  'uicon-empty-search': "\uE664",
+  'uicon-github-circle-fill': "\uE887",
+  'uicon-rmb': "\uE608",
+  'uicon-person-delete-fill': "\uE66A",
+  'uicon-reload': "\uE788",
+  'uicon-order': "\uE68F",
+  'uicon-server-man': "\uE6BC",
+  'uicon-search': "\uE62A",
+  'uicon-fingerprint': "\uE955",
+  'uicon-more-dot-fill': "\uE630",
+  'uicon-scan': "\uE662",
+  'uicon-share-square': "\uE60B",
+  'uicon-map': "\uE61D",
+  'uicon-map-fill': "\uE64E",
+  'uicon-tags': "\uE629",
+  'uicon-tags-fill': "\uE651",
+  'uicon-bookmark-fill': "\uE63B",
+  'uicon-bookmark': "\uE60A",
+  'uicon-eye': "\uE613",
+  'uicon-eye-fill': "\uE641",
+  'uicon-mic': "\uE64A",
+  'uicon-mic-off': "\uE649",
+  'uicon-calendar': "\uE66E",
+  'uicon-calendar-fill': "\uE634",
+  'uicon-trash': "\uE623",
+  'uicon-trash-fill': "\uE658",
+  'uicon-play-left': "\uE66D",
+  'uicon-play-right': "\uE610",
+  'uicon-minus': "\uE618",
+  'uicon-plus': "\uE62D",
+  'uicon-info': "\uE653",
+  'uicon-info-circle': "\uE7D2",
+  'uicon-info-circle-fill': "\uE64B",
+  'uicon-question': "\uE715",
+  'uicon-error': "\uE6D3",
+  'uicon-close': "\uE685",
+  'uicon-checkmark': "\uE6A8",
+  'uicon-android-circle-fill': "\uE67E",
+  'uicon-android-fill': "\uE67D",
+  'uicon-ie': "\uE87B",
+  'uicon-IE-circle-fill': "\uE889",
+  'uicon-google': "\uE87A",
+  'uicon-google-circle-fill': "\uE88A",
+  'uicon-setting-fill': "\uE872",
+  'uicon-setting': "\uE61F",
+  'uicon-minus-square-fill': "\uE855",
+  'uicon-plus-square-fill': "\uE856",
+  'uicon-heart': "\uE7DF",
+  'uicon-heart-fill': "\uE851",
+  'uicon-camera': "\uE7D7",
+  'uicon-camera-fill': "\uE870",
+  'uicon-more-circle': "\uE63E",
+  'uicon-more-circle-fill': "\uE645",
+  'uicon-chat': "\uE620",
+  'uicon-chat-fill': "\uE61E",
+  'uicon-bag-fill': "\uE617",
+  'uicon-bag': "\uE619",
+  'uicon-error-circle-fill': "\uE62C",
+  'uicon-error-circle': "\uE624",
+  'uicon-close-circle': "\uE63F",
+  'uicon-close-circle-fill': "\uE637",
+  'uicon-checkmark-circle': "\uE63D",
+  'uicon-checkmark-circle-fill': "\uE635",
+  'uicon-question-circle-fill': "\uE666",
+  'uicon-question-circle': "\uE625",
+  'uicon-share': "\uE631",
+  'uicon-share-fill': "\uE65E",
+  'uicon-shopping-cart': "\uE621",
+  'uicon-shopping-cart-fill': "\uE65D",
+  'uicon-bell': "\uE609",
+  'uicon-bell-fill': "\uE640",
+  'uicon-list': "\uE650",
+  'uicon-list-dot': "\uE616",
+  'uicon-zhihu': "\uE6BA",
+  'uicon-zhihu-circle-fill': "\uE709",
+  'uicon-zhifubao': "\uE6B9",
+  'uicon-zhifubao-circle-fill': "\uE6B8",
+  'uicon-weixin-circle-fill': "\uE6B1",
+  'uicon-weixin-fill': "\uE6B2",
+  'uicon-twitter-circle-fill': "\uE6AB",
+  'uicon-twitter': "\uE6AA",
+  'uicon-taobao-circle-fill': "\uE6A7",
+  'uicon-taobao': "\uE6A6",
+  'uicon-weibo-circle-fill': "\uE6A5",
+  'uicon-weibo': "\uE6A4",
+  'uicon-qq-fill': "\uE6A1",
+  'uicon-qq-circle-fill': "\uE6A0",
+  'uicon-moments-circel-fill': "\uE69A",
+  'uicon-moments': "\uE69B",
+  'uicon-qzone': "\uE695",
+  'uicon-qzone-circle-fill': "\uE696",
+  'uicon-baidu-circle-fill': "\uE680",
+  'uicon-baidu': "\uE681",
+  'uicon-facebook-circle-fill': "\uE68A",
+  'uicon-facebook': "\uE689",
+  'uicon-car': "\uE60C",
+  'uicon-car-fill': "\uE636",
+  'uicon-warning-fill': "\uE64D",
+  'uicon-warning': "\uE694",
+  'uicon-clock-fill': "\uE638",
+  'uicon-clock': "\uE60F",
+  'uicon-edit-pen': "\uE612",
+  'uicon-edit-pen-fill': "\uE66B",
+  'uicon-email': "\uE611",
+  'uicon-email-fill': "\uE642",
+  'uicon-minus-circle': "\uE61B",
+  'uicon-minus-circle-fill': "\uE652",
+  'uicon-plus-circle': "\uE62E",
+  'uicon-plus-circle-fill': "\uE661",
+  'uicon-file-text': "\uE663",
+  'uicon-file-text-fill': "\uE665",
+  'uicon-pushpin': "\uE7E3",
+  'uicon-pushpin-fill': "\uE86E",
+  'uicon-grid': "\uE673",
+  'uicon-grid-fill': "\uE678",
+  'uicon-play-circle': "\uE647",
+  'uicon-play-circle-fill': "\uE655",
+  'uicon-pause-circle-fill': "\uE654",
+  'uicon-pause': "\uE8FA",
+  'uicon-pause-circle': "\uE643",
+  'uicon-eye-off': "\uE648",
+  'uicon-eye-off-outline': "\uE62B",
+  'uicon-gift-fill': "\uE65C",
+  'uicon-gift': "\uE65B",
+  'uicon-rmb-circle-fill': "\uE657",
+  'uicon-rmb-circle': "\uE677",
+  'uicon-kefu-ermai': "\uE656",
+  'uicon-server-fill': "\uE751",
+  'uicon-coupon-fill': "\uE8C4",
+  'uicon-coupon': "\uE8AE",
+  'uicon-integral': "\uE704",
+  'uicon-integral-fill': "\uE703",
+  'uicon-home-fill': "\uE964",
+  'uicon-home': "\uE965",
+  'uicon-hourglass-half-fill': "\uE966",
+  'uicon-hourglass': "\uE967",
+  'uicon-account': "\uE628",
+  'uicon-plus-people-fill': "\uE626",
+  'uicon-minus-people-fill': "\uE615",
+  'uicon-account-fill': "\uE614",
+  'uicon-thumb-down-fill': "\uE726",
+  'uicon-thumb-down': "\uE727",
+  'uicon-thumb-up': "\uE733",
+  'uicon-thumb-up-fill': "\uE72F",
+  'uicon-lock-fill': "\uE979",
+  'uicon-lock-open': "\uE973",
+  'uicon-lock-opened-fill': "\uE974",
+  'uicon-lock': "\uE97A",
+  'uicon-red-packet-fill': "\uE690",
+  'uicon-photo-fill': "\uE98B",
+  'uicon-photo': "\uE98D",
+  'uicon-volume-off-fill': "\uE659",
+  'uicon-volume-off': "\uE644",
+  'uicon-volume-fill': "\uE670",
+  'uicon-volume': "\uE633",
+  'uicon-red-packet': "\uE691",
+  'uicon-download': "\uE63C",
+  'uicon-arrow-up-fill': "\uE6B0",
+  'uicon-arrow-down-fill': "\uE600",
+  'uicon-play-left-fill': "\uE675",
+  'uicon-play-right-fill': "\uE676",
+  'uicon-rewind-left-fill': "\uE679",
+  'uicon-rewind-right-fill': "\uE67A",
+  'uicon-arrow-downward': "\uE604",
+  'uicon-arrow-leftward': "\uE601",
+  'uicon-arrow-rightward': "\uE603",
+  'uicon-arrow-upward': "\uE607",
+  'uicon-arrow-down': "\uE60D",
+  'uicon-arrow-right': "\uE605",
+  'uicon-arrow-left': "\uE60E",
+  'uicon-arrow-up': "\uE606",
+  'uicon-skip-back-left': "\uE674",
+  'uicon-skip-forward-right': "\uE672",
+  'uicon-rewind-right': "\uE66F",
+  'uicon-rewind-left': "\uE671",
+  'uicon-arrow-right-double': "\uE68D",
+  'uicon-arrow-left-double': "\uE68C",
+  'uicon-wifi-off': "\uE668",
+  'uicon-wifi': "\uE667",
+  'uicon-empty-data': "\uE62F",
+  'uicon-empty-history': "\uE684",
+  'uicon-empty-list': "\uE68B",
+  'uicon-empty-page': "\uE627",
+  'uicon-empty-order': "\uE639",
+  'uicon-man': "\uE697",
+  'uicon-woman': "\uE69C",
+  'uicon-man-add': "\uE61C",
+  'uicon-man-add-fill': "\uE64C",
+  'uicon-man-delete': "\uE61A",
+  'uicon-man-delete-fill': "\uE66A",
+  'uicon-zh': "\uE70A",
+  'uicon-en': "\uE692"
+};
+exports.default = _default;
+
+/***/ }),
+/* 345 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-icon/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 图标类名
+    name: {
+      type: String,
+      default: uni.$u.props.icon.name
+    },
+    // 图标颜色，可接受主题色
+    color: {
+      type: String,
+      default: uni.$u.props.icon.color
+    },
+    // 字体大小，单位px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.icon.size
+    },
+    // 是否显示粗体
+    bold: {
+      type: Boolean,
+      default: uni.$u.props.icon.bold
+    },
+    // 点击图标的时候传递事件出去的index（用于区分点击了哪一个）
+    index: {
+      type: [String, Number],
+      default: uni.$u.props.icon.index
+    },
+    // 触摸图标时的类名
+    hoverClass: {
+      type: String,
+      default: uni.$u.props.icon.hoverClass
+    },
+    // 自定义扩展前缀，方便用户扩展自己的图标库
+    customPrefix: {
+      type: String,
+      default: uni.$u.props.icon.customPrefix
+    },
+    // 图标右边或者下面的文字
+    label: {
+      type: [String, Number],
+      default: uni.$u.props.icon.label
+    },
+    // label的位置，只能右边或者下边
+    labelPos: {
+      type: String,
+      default: uni.$u.props.icon.labelPos
+    },
+    // label的大小
+    labelSize: {
+      type: [String, Number],
+      default: uni.$u.props.icon.labelSize
+    },
+    // label的颜色
+    labelColor: {
+      type: String,
+      default: uni.$u.props.icon.labelColor
+    },
+    // label与图标的距离
+    space: {
+      type: [String, Number],
+      default: uni.$u.props.icon.space
+    },
+    // 图片的mode
+    imgMode: {
+      type: String,
+      default: uni.$u.props.icon.imgMode
+    },
+    // 用于显示图片小图标时，图片的宽度
+    width: {
+      type: [String, Number],
+      default: uni.$u.props.icon.width
+    },
+    // 用于显示图片小图标时，图片的高度
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.icon.height
+    },
+    // 用于解决某些情况下，让图标垂直居中的用途
+    top: {
+      type: [String, Number],
+      default: uni.$u.props.icon.top
+    },
+    // 是否阻止事件传播
+    stop: {
+      type: Boolean,
+      default: uni.$u.props.icon.stop
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 346 */,
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-line/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    color: {
+      type: String,
+      default: uni.$u.props.line.color
+    },
+    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
+    length: {
+      type: [String, Number],
+      default: uni.$u.props.line.length
+    },
+    // 线条方向，col-竖向，row-横向
+    direction: {
+      type: String,
+      default: uni.$u.props.line.direction
+    },
+    // 是否显示细边框
+    hairline: {
+      type: Boolean,
+      default: uni.$u.props.line.hairline
+    },
+    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
+    margin: {
+      type: [String, Number],
+      default: uni.$u.props.line.margin
+    },
+    // 是否虚线，true-虚线，false-实线
+    dashed: {
+      type: Boolean,
+      default: uni.$u.props.line.dashed
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 362 */,
+/* 363 */,
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */
+/*!****************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-loading-icon/props.js ***!
+  \****************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否显示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.show
+    },
+    // 颜色
+    color: {
+      type: String,
+      default: uni.$u.props.loadingIcon.color
+    },
+    // 提示文字颜色
+    textColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.textColor
+    },
+    // 文字和图标是否垂直排列
+    vertical: {
+      type: Boolean,
+      default: uni.$u.props.loadingIcon.vertical
+    },
+    // 模式选择，circle-圆形，spinner-花朵形，semicircle-半圆形
+    mode: {
+      type: String,
+      default: uni.$u.props.loadingIcon.mode
+    },
+    // 图标大小，单位默认px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.size
+    },
+    // 文字大小
+    textSize: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.textSize
+    },
+    // 文字内容
+    text: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.text
+    },
+    // 动画模式
+    timingFunction: {
+      type: String,
+      default: uni.$u.props.loadingIcon.timingFunction
+    },
+    // 动画执行周期时间
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.loadingIcon.duration
+    },
+    // mode=circle时的暗边颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.loadingIcon.inactiveColor
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 370 */,
+/* 371 */,
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */
+/*!*******************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/node_modules/uview-ui/components/u-gap/props.js ***!
+  \*******************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 背景颜色（默认transparent）
+    bgColor: {
+      type: String,
+      default: uni.$u.props.gap.bgColor
+    },
+    // 分割槽高度，单位px（默认30）
+    height: {
+      type: [String, Number],
+      default: uni.$u.props.gap.height
+    },
+    // 与上一个组件的距离
+    marginTop: {
+      type: [String, Number],
+      default: uni.$u.props.gap.marginTop
+    },
+    // 与下一个组件的距离
+    marginBottom: {
+      type: [String, Number],
+      default: uni.$u.props.gap.marginBottom
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 ]]);

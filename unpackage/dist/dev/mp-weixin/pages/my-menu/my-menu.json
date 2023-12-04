@@ -2,6 +2,6 @@
   "navigationBarTitleText": "我的菜单",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "u-input": "/uni_modules/uview-ui/components/u-input/u-input"
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input"
   }
 }

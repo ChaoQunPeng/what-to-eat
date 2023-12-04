@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 21:03:44
+ * @LastEditTime: 2023-12-04 17:06:25
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss">
 /* 注意要写在第一行，同时给style标签加入lang="scss"属性 */
-@import '@/uni_modules/uview-ui/index.scss';
+@import "@/uni_modules/uview-ui/index.scss";
 </style>
 
 <style>

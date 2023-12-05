@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 18:07:05
+ * @LastEditTime: 2023-12-05 20:20:23
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -188,7 +188,7 @@ export default {
         if (this.menuText != randomList[randomIndex]) {
           this.menuText = randomList[randomIndex];
         }
-      }, 100);
+      }, 50);
     },
     /**
      * @description: 修改范围

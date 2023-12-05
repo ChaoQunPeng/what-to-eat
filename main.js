@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-04-07 15:12:06
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 21:21:28
+ * @LastEditTime: 2023-12-05 16:27:09
  * @FilePath: /what-to-eat/main.js
  * @Description:
  */
@@ -17,8 +17,7 @@ import './uni.promisify.adaptor';
 
 import './components/index';
 
-
-Vue.prototype.$clone = (data) => {
+Vue.prototype.$clone = data => {
   return JSON.parse(JSON.stringify(data));
 };
 
@@ -27,10 +26,8 @@ Vue.config.productionTip = false;
 App.mpType = 'app';
 
 const app = new Vue({
-  ...App,
-  store
+  store,
+  ...App
 });
-
-console.log(app);
 
 app.$mount();

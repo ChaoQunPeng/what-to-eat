@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 20:54:25
+ * @LastEditTime: 2023-12-05 21:44:07
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
@@ -22,17 +22,17 @@ const setLocalData = data => {
   return uni.setStorageSync(WET_MENU_DATA, data);
 };
 
+const guid = () => {
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = (Math.random() * 16) | 0,
+      v = c == 'x' ? r : (r & 0x3) | 0x8;
+    return v.toString(16);
+  });
+};
+
 const store = new Vuex.Store({
   state: {
-    dataList: [
-      { foodId: 'banfen', food: '拌粉', categoryId: 'zaocan', category: '早餐' },
-      { foodId: 'banfen', food: '拌粉', categoryId: 'wucan', category: '午餐' },
-      { foodId: 'banfen', food: '拌粉', categoryId: 'wancan', category: '晚餐' },
-      { foodId: 'zhujiaofan', food: '猪脚饭', categoryId: 'wucan', category: '午餐' },
-      { foodId: 'zhujiaofan', food: '猪脚饭', categoryId: 'wancan', category: '晚餐' },
-      { foodId: 'jirou', food: '鸡肉', categoryId: 'huangmenji', category: '黄焖鸡' },
-      { foodId: 'jirou', food: '鸡肉', categoryId: 'kendeji', category: '肯德基' }
-    ]
+    dataList: []
   },
 
   getters: {
@@ -68,6 +68,7 @@ const store = new Vuex.Store({
      */
     categoryMap(state) {
       const categoryGroup = {};
+
       state.dataList.forEach(item => {
         const { categoryId } = item;
         if (!categoryGroup[categoryId]) {
@@ -142,6 +143,69 @@ const store = new Vuex.Store({
   },
 
   mutations: {
+    setDataList(state, dataList) {
+      state.dataList = dataList;
+    },
+    /**
+     * @description:
+     * @param {*} state
+     * @param {*} menuId
+     * @param {*} foodName
+     * @return {*}
+     */
+    createFood(state, { menuId, menuName, foodName }) {
+      let list = getLocalData();
+      
+      let newData = {
+        categoryId: menuId,
+        category: menuName,
+        foodId: guid(),
+        food: foodName
+      };
+
+      setLocalData([...list, newData]);
+
+      store.commit('updateDataList', [...list, newData]);
+    },
+    deleteFood(state) {
+      let list = getLocalData();
+    },
+    /**
+     * @description: 创建菜单
+     * @param {*} state
+     * @param {*} categoryList
+     * @param {*} foodName
+     * @return {*}
+     */
+    createMenu(state, { menuName }) {
+      let list = getLocalData();
+
+      let newData = {
+        categoryId: guid(),
+        category: menuName,
+        foodId: '',
+        food: ''
+      };
+
+      setLocalData([...list, newData]);
+
+      store.commit('updateDataList', [...list, newData]);
+    },
+    /**
+     * @description: 删除菜单
+     * @param {*} state
+     * @param {*} menuId
+     * @return {*}
+     */
+    deleteMenu(state, menuId) {
+      let list = getLocalData();
+
+      list = list.filter(e => e.categoryId != menuId);
+
+      setLocalData(list);
+
+      store.commit('updateDataList', list);
+    },
     /**
      * @description: 更新dataList
      * @param {*} state
@@ -182,7 +246,7 @@ const store = new Vuex.Store({
      * @param {*} newData
      * @return {*}
      */
-    updateCategoryData(state, newData) {
+    updateMenuData(state, newData) {
       let list = getLocalData();
       let index = list.findIndex(e => e.categoryId == newData.categoryId);
 
@@ -203,5 +267,7 @@ const store = new Vuex.Store({
 
   actions: {}
 });
+
+store.commit('setDataList', uni.getStorageSync(WET_MENU_DATA));
 
 export default store;

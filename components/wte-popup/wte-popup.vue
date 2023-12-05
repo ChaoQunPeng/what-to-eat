@@ -2,16 +2,14 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-03 16:47:03
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 17:45:28
+ * @LastEditTime: 2023-12-05 10:57:21
  * @FilePath: /what-to-eat/components/wte-popup/wte-popup.vue
  * @Description: 
 -->
 <template>
-  <view class="AAABBB">
-    <u-popup :show="show" mode="right" :closeOnClickOverlay="true" @open="onOpen" @close="onClose">
-      <slot></slot>
-    </u-popup>
-  </view>
+  <u-popup :show="show" mode="right" :closeOnClickOverlay="true" @open="onOpen" @close="onClose">
+    <slot></slot>
+  </u-popup>
 </template>
 
 <script>

@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-01 12:55:17
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 21:58:37
+ * @LastEditTime: 2023-12-05 10:59:39
  * @FilePath: /what-to-eat/components/wte-side-list-popup/wte-side-list-popup.vue
  * @Description: 
 -->
@@ -104,9 +104,7 @@ export default {
     },
     setChecked() {
       this.listData.forEach(e => {
-        if (this.checkedKeys.includes(e.id)) {
-          e.isChecked = true;
-        }
+        e.isChecked = this.checkedKeys.includes(e.id);
       });
     },
     clickItem(item) {

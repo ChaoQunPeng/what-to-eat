@@ -71,7 +71,7 @@
 				config: {
 					message: '', // 显示文本
 					type: '', // 主题类型，primary，success，error，warning，black
-					duration: 2000, // 显示的时间，毫秒
+					duration: 1000, // 显示的时间，毫秒
 					icon: true, // 显示的图标
 					position: 'center', // toast出现的位置
 					complete: null, // 执行完后的回调函数

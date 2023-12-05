@@ -1,0 +1,11 @@
+@import "tailwindcss-dist.css";
+@import "common.css";
+:root {
+  --wte-page-bg-color: #fafafa;
+  --wte-color-red: #ee0a24;
+  --wte-color-black: #121212;
+  --wte-color-black-85: rgba(18, 18, 18, 0.85);
+  --wte-color-black-65: rgba(18, 18, 18, 0.65);
+  --wte-color-black-45: rgba(18, 18, 18, 0.45);
+  --wte-color-black-25: rgba(18, 18, 18, 0.25);
+}

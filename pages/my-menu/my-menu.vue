@@ -2,62 +2,49 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 18:03:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 20:54:20
+ * @LastEditTime: 2023-12-05 21:50:03
  * @FilePath: /what-to-eat/pages/my-menu/my-menu.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="flex items-center h-60 mx-40 mb-20">
-      <view class="tabs flex items-end">
+      <!-- <view class="tabs flex items-end">
         <view :class="{ actived: viewType == 'byCategory' }" @click="viewType = 'byCategory'">
           <view>菜单</view>
         </view>
         <view :class="{ actived: viewType == 'byMenu' }" @click="viewType = 'byMenu'">
           <view>食物</view>
         </view>
-      </view>
+      </view> -->
 
-      <view class="iconfont icon-tianjia ml-auto" @click="goMenuForm"></view>
+      <view class="iconfont icon-tianjia ml-auto text-size-36" @click="goMenuForm"></view>
     </view>
 
     <!-- 菜单分组 -->
     <view class="menu-group-area px-40">
       <template v-for="(item, index) in pageDataList">
-        <view v-if="viewType == 'byMenu'" :key="index" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
+        <view :key="index" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
           <view class="header flex items-center">
             <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
             <view class="iconfont icon-gengduo ml-auto" @click="clickCardMore({ source: 'food', item })"> </view>
           </view>
 
-          <div class="mt-30 font-normal text-size-24 text-black-45">分类：{{ parseToText(item.list, 'category') }}</div>
-        </view>
-
-        <view
-          v-else-if="viewType == 'byCategory'"
-          :key="index"
-          class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20"
-          @click="clickCardMore({ source: 'category', item })"
-        >
-          <view class="header flex items-center">
-            <view class="text-size-36 font-medium leading-none">{{ item.name }}</view>
-            <view class="iconfont icon-gengduo ml-auto"></view>
-          </view>
-
-          <div class="mt-30 font-normal text-size-24 text-black-45">食物：{{ parseToText(item.list, 'food') }}</div>
+          <div class="mt-30 font-normal text-size-24 text-black-45">{{ parseToText(item.list, 'category') }}</div>
         </view>
       </template>
     </view>
 
     <wte-action-sheet ref="actionSheet" :actions="list"></wte-action-sheet>
     <wte-modal ref="confirmDeleteModal"></wte-modal>
-    <wte-modal ref="renameModal">
+    <wte-modal ref="nameModal">
       <u-input
         placeholder="请输入"
         placeholder-class="placeholder-text-right"
         class="name-input"
         border="bottom"
-        v-model="itemName"
+        v-model.trim="menuName"
+        maxlength="10"
       ></u-input>
     </wte-modal>
   </view>
@@ -73,6 +60,10 @@ export default {
       dataList: [],
       list: [
         {
+          name: '编辑食物',
+          code: 'editFood'
+        },
+        {
           name: '重命名',
           code: 'rename'
         },
@@ -82,21 +73,17 @@ export default {
         }
       ],
       showActionSheet: false,
-      itemName: ''
+      menuName: ''
     };
   },
 
   computed: {
     pageDataList() {
-      if (this.viewType == 'byMenu') {
-        return this.$store.getters.foodList;
-      } else if (this.viewType == 'byCategory') {
-        return this.$store.getters.categoryList;
-      }
+      return this.$store.getters.categoryList;
     },
     parseToText() {
       return function (list, type) {
-        return list.map(e => e[type]).join('、');
+        return list.map(e => e.food).join('、');
       };
     }
   },
@@ -118,7 +105,15 @@ export default {
      * @return {*}
      */
     goMenuForm() {
-      uni.navigateTo({ url: '/pages/menu-form/menu-form' });
+      this.$refs.nameModal.open({
+        title: `新建菜单`,
+        showCancelButton: true,
+        onConfirm: () => {
+          this.$store.commit('createMenu', { menuName: this.menuName });
+          this.menuName = '';
+        }
+      });
+      // uni.navigateTo({ url: '/pages/menu-form/menu-form' });
     },
     /**
      * @description: 点击卡片更多操作
@@ -128,23 +123,32 @@ export default {
      */
     clickCardMore({ source, item }) {
       this.$refs.actionSheet.open({
-        title: item.name ?? '菜单或食材',
+        title: item.name,
         onSelect: selectItem => {
-          if (selectItem.code == 'delete') {
+          if (selectItem.code == 'editFood') {
+            let params = {
+              menuId: item.id,
+              menuName: item.name
+            };
+            
+            uni.navigateTo({
+              url: `/pages/food-form/food-form?params=${encodeURIComponent(JSON.stringify(params))}`
+            });
+          } else if (selectItem.code == 'delete') {
             this.$refs.confirmDeleteModal.open({
               content: `确定要删除${item.name}吗？`,
-              showCancelButton: true
-            });
-          } else if (selectItem.code == 'rename') {
-            this.$refs.renameModal.open({
-              title: `重命名 ${item.name}`,
               showCancelButton: true,
               onConfirm: () => {
-                if (source == 'food') {
-                  this.$store.commit('updateFoodData', { foodId: item.id, food: this.itemName });
-                } else {
-                  this.$store.commit('updateCategoryData', { categoryId: item.id, category: this.itemName });
-                }
+                this.$store.commit('deleteMenu', item.id);
+              }
+            });
+          } else if (selectItem.code == 'rename') {
+            this.menuName = item.name;
+            this.$refs.nameModal.open({
+              title: `重命名`,
+              showCancelButton: true,
+              onConfirm: () => {
+                this.$store.commit('updateMenuData', { categoryId: item.id, category: this.menuName });
               }
             });
           }

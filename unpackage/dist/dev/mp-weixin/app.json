@@ -2,7 +2,8 @@
   "pages": [
     "pages/index/index",
     "pages/my-menu/my-menu",
-    "pages/menu-form/menu-form"
+    "pages/menu-form/menu-form",
+    "pages/food-form/food-form"
   ],
   "subPackages": [],
   "window": {

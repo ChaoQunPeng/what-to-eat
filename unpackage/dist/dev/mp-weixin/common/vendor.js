@@ -9489,11 +9489,37 @@ internalMixin(Vue);
 /* 27 */,
 /* 28 */,
 /* 29 */,
-/* 30 */,
+/* 30 */
+/*!**************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/config/constant.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.WET_MENU_DATA = void 0;
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-02 11:52:13
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-02 17:53:54
+ * @FilePath: /what-to-eat/config/constant.js
+ * @Description: 
+ */
+var WET_MENU_DATA = 'WET_MENU_DATA';
+exports.WET_MENU_DATA = WET_MENU_DATA;
+
+/***/ }),
 /* 31 */,
 /* 32 */,
 /* 33 */,
-/* 34 */
+/* 34 */,
+/* 35 */
 /*!**********************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vue-loader/lib/runtime/componentNormalizer.js ***!
   \**********************************************************************************************************/
@@ -9624,7 +9650,7 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 35 */
+/* 36 */
 /*!**********************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/store/store.js ***!
   \**********************************************************/
@@ -9639,14 +9665,15 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 36));
-var _constant = __webpack_require__(/*! ../config/constant */ 178);
+var _vuex = _interopRequireDefault(__webpack_require__(/*! vuex */ 37));
+var _constant = __webpack_require__(/*! ../config/constant */ 30);
 /*
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 20:54:25
+ * @LastEditTime: 2023-12-05 21:44:07
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
@@ -9659,44 +9686,16 @@ var getLocalData = function getLocalData() {
 var setLocalData = function setLocalData(data) {
   return uni.setStorageSync(_constant.WET_MENU_DATA, data);
 };
+var guid = function guid() {
+  return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+    var r = Math.random() * 16 | 0,
+      v = c == 'x' ? r : r & 0x3 | 0x8;
+    return v.toString(16);
+  });
+};
 var store = new _vuex.default.Store({
   state: {
-    dataList: [{
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'zaocan',
-      category: '早餐'
-    }, {
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'wucan',
-      category: '午餐'
-    }, {
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'wancan',
-      category: '晚餐'
-    }, {
-      foodId: 'zhujiaofan',
-      food: '猪脚饭',
-      categoryId: 'wucan',
-      category: '午餐'
-    }, {
-      foodId: 'zhujiaofan',
-      food: '猪脚饭',
-      categoryId: 'wancan',
-      category: '晚餐'
-    }, {
-      foodId: 'jirou',
-      food: '鸡肉',
-      categoryId: 'huangmenji',
-      category: '黄焖鸡'
-    }, {
-      foodId: 'jirou',
-      food: '鸡肉',
-      categoryId: 'kendeji',
-      category: '肯德基'
-    }]
+    dataList: []
   },
   getters: {
     /**
@@ -9803,6 +9802,66 @@ var store = new _vuex.default.Store({
     }
   },
   mutations: {
+    setDataList: function setDataList(state, dataList) {
+      state.dataList = dataList;
+    },
+    /**
+     * @description:
+     * @param {*} state
+     * @param {*} menuId
+     * @param {*} foodName
+     * @return {*}
+     */
+    createFood: function createFood(state, _ref) {
+      var menuId = _ref.menuId,
+        menuName = _ref.menuName,
+        foodName = _ref.foodName;
+      var list = getLocalData();
+      var newData = {
+        categoryId: menuId,
+        category: menuName,
+        foodId: guid(),
+        food: foodName
+      };
+      setLocalData([].concat((0, _toConsumableArray2.default)(list), [newData]));
+      store.commit('updateDataList', [].concat((0, _toConsumableArray2.default)(list), [newData]));
+    },
+    deleteFood: function deleteFood(state) {
+      var list = getLocalData();
+    },
+    /**
+     * @description: 创建菜单
+     * @param {*} state
+     * @param {*} categoryList
+     * @param {*} foodName
+     * @return {*}
+     */
+    createMenu: function createMenu(state, _ref2) {
+      var menuName = _ref2.menuName;
+      var list = getLocalData();
+      var newData = {
+        categoryId: guid(),
+        category: menuName,
+        foodId: '',
+        food: ''
+      };
+      setLocalData([].concat((0, _toConsumableArray2.default)(list), [newData]));
+      store.commit('updateDataList', [].concat((0, _toConsumableArray2.default)(list), [newData]));
+    },
+    /**
+     * @description: 删除菜单
+     * @param {*} state
+     * @param {*} menuId
+     * @return {*}
+     */
+    deleteMenu: function deleteMenu(state, menuId) {
+      var list = getLocalData();
+      list = list.filter(function (e) {
+        return e.categoryId != menuId;
+      });
+      setLocalData(list);
+      store.commit('updateDataList', list);
+    },
     /**
      * @description: 更新dataList
      * @param {*} state
@@ -9843,7 +9902,7 @@ var store = new _vuex.default.Store({
      * @param {*} newData
      * @return {*}
      */
-    updateCategoryData: function updateCategoryData(state, newData) {
+    updateMenuData: function updateMenuData(state, newData) {
       var list = getLocalData();
       var index = list.findIndex(function (e) {
         return e.categoryId == newData.categoryId;
@@ -9863,12 +9922,13 @@ var store = new _vuex.default.Store({
   },
   actions: {}
 });
+store.commit('setDataList', uni.getStorageSync(_constant.WET_MENU_DATA));
 var _default = store;
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 36 */
+/* 37 */
 /*!**************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/vuex3/dist/vuex.common.js ***!
   \**************************************************************************************/
@@ -11124,7 +11184,7 @@ module.exports = index_cjs;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 37 */
+/* 38 */
 /*!*************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/index.js ***!
   \*************************************************************************/
@@ -11140,20 +11200,20 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 38));
-var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 39));
-var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 40));
-var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 58));
-var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 62));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 63));
-var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 64));
-var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 65));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 66));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 69));
-var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 70));
-var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 160));
-var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 118));
-var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 161));
+var _mixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mixin.js */ 39));
+var _mpMixin = _interopRequireDefault(__webpack_require__(/*! ./libs/mixin/mpMixin.js */ 40));
+var _luchRequest = _interopRequireDefault(__webpack_require__(/*! ./libs/luch-request */ 41));
+var _route = _interopRequireDefault(__webpack_require__(/*! ./libs/util/route.js */ 59));
+var _colorGradient = _interopRequireDefault(__webpack_require__(/*! ./libs/function/colorGradient.js */ 63));
+var _test = _interopRequireDefault(__webpack_require__(/*! ./libs/function/test.js */ 64));
+var _debounce = _interopRequireDefault(__webpack_require__(/*! ./libs/function/debounce.js */ 65));
+var _throttle = _interopRequireDefault(__webpack_require__(/*! ./libs/function/throttle.js */ 66));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./libs/function/index.js */ 67));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./libs/config/config.js */ 70));
+var _props = _interopRequireDefault(__webpack_require__(/*! ./libs/config/props.js */ 71));
+var _zIndex = _interopRequireDefault(__webpack_require__(/*! ./libs/config/zIndex.js */ 161));
+var _color = _interopRequireDefault(__webpack_require__(/*! ./libs/config/color.js */ 119));
+var _platform = _interopRequireDefault(__webpack_require__(/*! ./libs/function/platform */ 162));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 // 看到此报错，是因为没有配置vue.config.js的【transpileDependencies】，详见：https://www.uviewui.com/components/npmSetting.html#_5-cli模式额外配置
@@ -11213,7 +11273,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 38 */
+/* 39 */
 /*!************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/mixin.js ***!
   \************************************************************************************/
@@ -11381,7 +11441,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/mpMixin.js ***!
   \**************************************************************************************/
@@ -11404,7 +11464,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 40 */
+/* 41 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/index.js ***!
   \*******************************************************************************************/
@@ -11419,12 +11479,12 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 41));
+var _Request = _interopRequireDefault(__webpack_require__(/*! ./core/Request */ 42));
 var _default = _Request.default;
 exports.default = _default;
 
 /***/ }),
-/* 41 */
+/* 42 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/Request.js ***!
   \**************************************************************************************************/
@@ -11442,12 +11502,12 @@ exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
-var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 42));
-var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 50));
-var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 51));
-var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 52));
-var _utils = __webpack_require__(/*! ../utils */ 45);
-var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 53));
+var _dispatchRequest = _interopRequireDefault(__webpack_require__(/*! ./dispatchRequest */ 43));
+var _InterceptorManager = _interopRequireDefault(__webpack_require__(/*! ./InterceptorManager */ 51));
+var _mergeConfig = _interopRequireDefault(__webpack_require__(/*! ./mergeConfig */ 52));
+var _defaults = _interopRequireDefault(__webpack_require__(/*! ./defaults */ 53));
+var _utils = __webpack_require__(/*! ../utils */ 46);
+var _clone = _interopRequireDefault(__webpack_require__(/*! ../utils/clone */ 54));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var Request = /*#__PURE__*/function () {
@@ -11630,7 +11690,7 @@ var Request = /*#__PURE__*/function () {
 exports.default = Request;
 
 /***/ }),
-/* 42 */
+/* 43 */
 /*!**********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
   \**********************************************************************************************************/
@@ -11645,14 +11705,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 43));
+var _index = _interopRequireDefault(__webpack_require__(/*! ../adapters/index */ 44));
 var _default = function _default(config) {
   return (0, _index.default)(config);
 };
 exports.default = _default;
 
 /***/ }),
-/* 43 */
+/* 44 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/adapters/index.js ***!
   \****************************************************************************************************/
@@ -11668,10 +11728,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 44));
-var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 46));
-var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 49));
-var _utils = __webpack_require__(/*! ../utils */ 45);
+var _buildURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/buildURL */ 45));
+var _buildFullPath = _interopRequireDefault(__webpack_require__(/*! ../core/buildFullPath */ 47));
+var _settle = _interopRequireDefault(__webpack_require__(/*! ../core/settle */ 50));
+var _utils = __webpack_require__(/*! ../utils */ 46);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -11733,7 +11793,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 44 */
+/* 45 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
   \******************************************************************************************************/
@@ -11748,7 +11808,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildURL;
-var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 45));
+var utils = _interopRequireWildcard(__webpack_require__(/*! ../utils */ 46));
 function _getRequireWildcardCache(nodeInterop) { if (typeof WeakMap !== "function") return null; var cacheBabelInterop = new WeakMap(); var cacheNodeInterop = new WeakMap(); return (_getRequireWildcardCache = function _getRequireWildcardCache(nodeInterop) { return nodeInterop ? cacheNodeInterop : cacheBabelInterop; })(nodeInterop); }
 function _interopRequireWildcard(obj, nodeInterop) { if (!nodeInterop && obj && obj.__esModule) { return obj; } if (obj === null || _typeof(obj) !== "object" && typeof obj !== "function") { return { default: obj }; } var cache = _getRequireWildcardCache(nodeInterop); if (cache && cache.has(obj)) { return cache.get(obj); } var newObj = {}; var hasPropertyDescriptor = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var key in obj) { if (key !== "default" && Object.prototype.hasOwnProperty.call(obj, key)) { var desc = hasPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : null; if (desc && (desc.get || desc.set)) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } newObj.default = obj; if (cache) { cache.set(obj, newObj); } return newObj; }
 function encode(val) {
@@ -11803,7 +11863,7 @@ function buildURL(url, params) {
 }
 
 /***/ }),
-/* 45 */
+/* 46 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/utils.js ***!
   \*******************************************************************************************/
@@ -11956,7 +12016,7 @@ function isUndefined(val) {
 }
 
 /***/ }),
-/* 46 */
+/* 47 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
   \********************************************************************************************************/
@@ -11971,8 +12031,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = buildFullPath;
-var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 47));
-var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 48));
+var _isAbsoluteURL = _interopRequireDefault(__webpack_require__(/*! ../helpers/isAbsoluteURL */ 48));
+var _combineURLs = _interopRequireDefault(__webpack_require__(/*! ../helpers/combineURLs */ 49));
 /**
  * Creates a new URL by combining the baseURL with the requestedURL,
  * only when the requestedURL is not already an absolute URL.
@@ -11990,7 +12050,7 @@ function buildFullPath(baseURL, requestedURL) {
 }
 
 /***/ }),
-/* 47 */
+/* 48 */
 /*!***********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
   \***********************************************************************************************************/
@@ -12018,7 +12078,7 @@ function isAbsoluteURL(url) {
 }
 
 /***/ }),
-/* 48 */
+/* 49 */
 /*!*********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
   \*********************************************************************************************************/
@@ -12044,7 +12104,7 @@ function combineURLs(baseURL, relativeURL) {
 }
 
 /***/ }),
-/* 49 */
+/* 50 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/settle.js ***!
   \*************************************************************************************************/
@@ -12076,7 +12136,7 @@ function settle(resolve, reject, response) {
 }
 
 /***/ }),
-/* 50 */
+/* 51 */
 /*!*************************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
   \*************************************************************************************************************/
@@ -12140,7 +12200,7 @@ var _default = InterceptorManager;
 exports.default = _default;
 
 /***/ }),
-/* 51 */
+/* 52 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
   \******************************************************************************************************/
@@ -12156,7 +12216,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _utils = __webpack_require__(/*! ../utils */ 45);
+var _utils = __webpack_require__(/*! ../utils */ 46);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 /**
@@ -12216,7 +12276,7 @@ var _default = function _default(globalsConfig) {
 exports.default = _default;
 
 /***/ }),
-/* 52 */
+/* 53 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/core/defaults.js ***!
   \***************************************************************************************************/
@@ -12248,7 +12308,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/luch-request/utils/clone.js ***!
   \*************************************************************************************************/
@@ -12497,10 +12557,10 @@ var clone = function () {
 }();
 var _default = clone;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 54).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../../../Applications/HBuilderX.app/Contents/HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 55).Buffer))
 
 /***/ }),
-/* 54 */
+/* 55 */
 /*!**************************************!*\
   !*** ./node_modules/buffer/index.js ***!
   \**************************************/
@@ -12518,9 +12578,9 @@ exports.default = _default;
 
 
 
-var base64 = __webpack_require__(/*! base64-js */ 55)
-var ieee754 = __webpack_require__(/*! ieee754 */ 56)
-var isArray = __webpack_require__(/*! isarray */ 57)
+var base64 = __webpack_require__(/*! base64-js */ 56)
+var ieee754 = __webpack_require__(/*! ieee754 */ 57)
+var isArray = __webpack_require__(/*! isarray */ 58)
 
 exports.Buffer = Buffer
 exports.SlowBuffer = SlowBuffer
@@ -14301,7 +14361,7 @@ function isnan (val) {
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../webpack/buildin/global.js */ 3)))
 
 /***/ }),
-/* 55 */
+/* 56 */
 /*!*****************************************!*\
   !*** ./node_modules/base64-js/index.js ***!
   \*****************************************/
@@ -14462,7 +14522,7 @@ function fromByteArray (uint8) {
 
 
 /***/ }),
-/* 56 */
+/* 57 */
 /*!***************************************!*\
   !*** ./node_modules/ieee754/index.js ***!
   \***************************************/
@@ -14557,7 +14617,7 @@ exports.write = function (buffer, value, offset, isLE, mLen, nBytes) {
 
 
 /***/ }),
-/* 57 */
+/* 58 */
 /*!***************************************!*\
   !*** ./node_modules/isarray/index.js ***!
   \***************************************/
@@ -14572,7 +14632,7 @@ module.exports = Array.isArray || function (arr) {
 
 
 /***/ }),
-/* 58 */
+/* 59 */
 /*!***********************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/util/route.js ***!
   \***********************************************************************************/
@@ -14587,8 +14647,8 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 59));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 61));
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 60));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 62));
 var _classCallCheck2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/classCallCheck */ 23));
 var _createClass2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/createClass */ 24));
 /**
@@ -14760,7 +14820,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 59 */
+/* 60 */
 /*!************************************************************************************************!*\
   !*** ./node_modules/@dcloudio/vue-cli-plugin-uni/packages/@babel/runtime/regenerator/index.js ***!
   \************************************************************************************************/
@@ -14769,11 +14829,11 @@ exports.default = _default;
 
 // TODO(Babel 8): Remove this file.
 
-var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 60)();
+var runtime = __webpack_require__(/*! @babel/runtime/helpers/regeneratorRuntime */ 61)();
 module.exports = runtime;
 
 /***/ }),
-/* 60 */
+/* 61 */
 /*!*******************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/regeneratorRuntime.js ***!
   \*******************************************************************/
@@ -15094,7 +15154,7 @@ function _regeneratorRuntime() {
 module.exports = _regeneratorRuntime, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 61 */
+/* 62 */
 /*!*****************************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/asyncToGenerator.js ***!
   \*****************************************************************/
@@ -15134,7 +15194,7 @@ function _asyncToGenerator(fn) {
 module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 62 */
+/* 63 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/colorGradient.js ***!
   \***********************************************************************************************/
@@ -15289,7 +15349,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 63 */
+/* 64 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/test.js ***!
   \**************************************************************************************/
@@ -15594,7 +15654,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 64 */
+/* 65 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/debounce.js ***!
   \******************************************************************************************/
@@ -15641,7 +15701,7 @@ var _default = debounce;
 exports.default = _default;
 
 /***/ }),
-/* 65 */
+/* 66 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/throttle.js ***!
   \******************************************************************************************/
@@ -15690,7 +15750,7 @@ var _default = throttle;
 exports.default = _default;
 
 /***/ }),
-/* 66 */
+/* 67 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/index.js ***!
   \***************************************************************************************/
@@ -15707,8 +15767,8 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _slicedToArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/slicedToArray */ 5));
 var _typeof2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/typeof */ 13));
-var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 63));
-var _digit = __webpack_require__(/*! ./digit.js */ 67);
+var _test = _interopRequireDefault(__webpack_require__(/*! ./test.js */ 64));
+var _digit = __webpack_require__(/*! ./digit.js */ 68);
 /**
  * @description 如果value小于min，取min；如果value大于max，取max
  * @param {number} min
@@ -16491,7 +16551,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 67 */
+/* 68 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/digit.js ***!
   \***************************************************************************************/
@@ -16512,7 +16572,7 @@ exports.minus = minus;
 exports.plus = plus;
 exports.round = round;
 exports.times = times;
-var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 68));
+var _toArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toArray */ 69));
 var _boundaryCheckingState = true; // 是否进行越界检查的全局开关
 
 /**
@@ -16693,7 +16753,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 68 */
+/* 69 */
 /*!********************************************************!*\
   !*** ./node_modules/@babel/runtime/helpers/toArray.js ***!
   \********************************************************/
@@ -16710,7 +16770,7 @@ function _toArray(arr) {
 module.exports = _toArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
 
 /***/ }),
-/* 69 */
+/* 70 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/config.js ***!
   \**************************************************************************************/
@@ -16754,7 +16814,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 70 */
+/* 71 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props.js ***!
   \*************************************************************************************/
@@ -16770,95 +16830,95 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
-var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 69));
-var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 71));
-var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 72));
-var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 73));
-var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 74));
-var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 75));
-var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 76));
-var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 77));
-var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 78));
-var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 79));
-var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 80));
-var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 81));
-var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 82));
-var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 83));
-var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 84));
-var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 85));
-var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 86));
-var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 87));
-var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 88));
-var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 89));
-var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 90));
-var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 91));
-var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 92));
-var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 93));
-var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 94));
-var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 95));
-var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 96));
-var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 97));
-var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 98));
-var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 99));
-var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 100));
-var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 101));
-var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 102));
-var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 103));
-var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 104));
-var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 105));
-var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 106));
-var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 107));
-var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 108));
-var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 109));
-var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 110));
-var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 111));
-var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 112));
-var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 113));
-var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 114));
-var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 115));
-var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 116));
-var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 117));
-var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 119));
-var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 120));
-var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 121));
-var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 122));
-var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 123));
-var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 124));
-var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 125));
-var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 126));
-var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 127));
-var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 128));
-var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 129));
-var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 130));
-var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 131));
-var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 132));
-var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 133));
-var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 134));
-var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 135));
-var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 136));
-var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 137));
-var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 138));
-var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 139));
-var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 140));
-var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 141));
-var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 142));
-var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 143));
-var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 144));
-var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 145));
-var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 146));
-var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 147));
-var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 148));
-var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 149));
-var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 150));
-var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 151));
-var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 152));
-var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 153));
-var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 154));
-var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 155));
-var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 156));
-var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 157));
-var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 158));
-var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 159));
+var _config = _interopRequireDefault(__webpack_require__(/*! ./config */ 70));
+var _actionSheet = _interopRequireDefault(__webpack_require__(/*! ./props/actionSheet.js */ 72));
+var _album = _interopRequireDefault(__webpack_require__(/*! ./props/album.js */ 73));
+var _alert = _interopRequireDefault(__webpack_require__(/*! ./props/alert.js */ 74));
+var _avatar = _interopRequireDefault(__webpack_require__(/*! ./props/avatar */ 75));
+var _avatarGroup = _interopRequireDefault(__webpack_require__(/*! ./props/avatarGroup */ 76));
+var _backtop = _interopRequireDefault(__webpack_require__(/*! ./props/backtop */ 77));
+var _badge = _interopRequireDefault(__webpack_require__(/*! ./props/badge */ 78));
+var _button = _interopRequireDefault(__webpack_require__(/*! ./props/button */ 79));
+var _calendar = _interopRequireDefault(__webpack_require__(/*! ./props/calendar */ 80));
+var _carKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/carKeyboard */ 81));
+var _cell = _interopRequireDefault(__webpack_require__(/*! ./props/cell */ 82));
+var _cellGroup = _interopRequireDefault(__webpack_require__(/*! ./props/cellGroup */ 83));
+var _checkbox = _interopRequireDefault(__webpack_require__(/*! ./props/checkbox */ 84));
+var _checkboxGroup = _interopRequireDefault(__webpack_require__(/*! ./props/checkboxGroup */ 85));
+var _circleProgress = _interopRequireDefault(__webpack_require__(/*! ./props/circleProgress */ 86));
+var _code = _interopRequireDefault(__webpack_require__(/*! ./props/code */ 87));
+var _codeInput = _interopRequireDefault(__webpack_require__(/*! ./props/codeInput */ 88));
+var _col = _interopRequireDefault(__webpack_require__(/*! ./props/col */ 89));
+var _collapse = _interopRequireDefault(__webpack_require__(/*! ./props/collapse */ 90));
+var _collapseItem = _interopRequireDefault(__webpack_require__(/*! ./props/collapseItem */ 91));
+var _columnNotice = _interopRequireDefault(__webpack_require__(/*! ./props/columnNotice */ 92));
+var _countDown = _interopRequireDefault(__webpack_require__(/*! ./props/countDown */ 93));
+var _countTo = _interopRequireDefault(__webpack_require__(/*! ./props/countTo */ 94));
+var _datetimePicker = _interopRequireDefault(__webpack_require__(/*! ./props/datetimePicker */ 95));
+var _divider = _interopRequireDefault(__webpack_require__(/*! ./props/divider */ 96));
+var _empty = _interopRequireDefault(__webpack_require__(/*! ./props/empty */ 97));
+var _form = _interopRequireDefault(__webpack_require__(/*! ./props/form */ 98));
+var _formItem = _interopRequireDefault(__webpack_require__(/*! ./props/formItem */ 99));
+var _gap = _interopRequireDefault(__webpack_require__(/*! ./props/gap */ 100));
+var _grid = _interopRequireDefault(__webpack_require__(/*! ./props/grid */ 101));
+var _gridItem = _interopRequireDefault(__webpack_require__(/*! ./props/gridItem */ 102));
+var _icon = _interopRequireDefault(__webpack_require__(/*! ./props/icon */ 103));
+var _image = _interopRequireDefault(__webpack_require__(/*! ./props/image */ 104));
+var _indexAnchor = _interopRequireDefault(__webpack_require__(/*! ./props/indexAnchor */ 105));
+var _indexList = _interopRequireDefault(__webpack_require__(/*! ./props/indexList */ 106));
+var _input = _interopRequireDefault(__webpack_require__(/*! ./props/input */ 107));
+var _keyboard = _interopRequireDefault(__webpack_require__(/*! ./props/keyboard */ 108));
+var _line = _interopRequireDefault(__webpack_require__(/*! ./props/line */ 109));
+var _lineProgress = _interopRequireDefault(__webpack_require__(/*! ./props/lineProgress */ 110));
+var _link = _interopRequireDefault(__webpack_require__(/*! ./props/link */ 111));
+var _list = _interopRequireDefault(__webpack_require__(/*! ./props/list */ 112));
+var _listItem = _interopRequireDefault(__webpack_require__(/*! ./props/listItem */ 113));
+var _loadingIcon = _interopRequireDefault(__webpack_require__(/*! ./props/loadingIcon */ 114));
+var _loadingPage = _interopRequireDefault(__webpack_require__(/*! ./props/loadingPage */ 115));
+var _loadmore = _interopRequireDefault(__webpack_require__(/*! ./props/loadmore */ 116));
+var _modal = _interopRequireDefault(__webpack_require__(/*! ./props/modal */ 117));
+var _navbar = _interopRequireDefault(__webpack_require__(/*! ./props/navbar */ 118));
+var _noNetwork = _interopRequireDefault(__webpack_require__(/*! ./props/noNetwork */ 120));
+var _noticeBar = _interopRequireDefault(__webpack_require__(/*! ./props/noticeBar */ 121));
+var _notify = _interopRequireDefault(__webpack_require__(/*! ./props/notify */ 122));
+var _numberBox = _interopRequireDefault(__webpack_require__(/*! ./props/numberBox */ 123));
+var _numberKeyboard = _interopRequireDefault(__webpack_require__(/*! ./props/numberKeyboard */ 124));
+var _overlay = _interopRequireDefault(__webpack_require__(/*! ./props/overlay */ 125));
+var _parse = _interopRequireDefault(__webpack_require__(/*! ./props/parse */ 126));
+var _picker = _interopRequireDefault(__webpack_require__(/*! ./props/picker */ 127));
+var _popup = _interopRequireDefault(__webpack_require__(/*! ./props/popup */ 128));
+var _radio = _interopRequireDefault(__webpack_require__(/*! ./props/radio */ 129));
+var _radioGroup = _interopRequireDefault(__webpack_require__(/*! ./props/radioGroup */ 130));
+var _rate = _interopRequireDefault(__webpack_require__(/*! ./props/rate */ 131));
+var _readMore = _interopRequireDefault(__webpack_require__(/*! ./props/readMore */ 132));
+var _row = _interopRequireDefault(__webpack_require__(/*! ./props/row */ 133));
+var _rowNotice = _interopRequireDefault(__webpack_require__(/*! ./props/rowNotice */ 134));
+var _scrollList = _interopRequireDefault(__webpack_require__(/*! ./props/scrollList */ 135));
+var _search = _interopRequireDefault(__webpack_require__(/*! ./props/search */ 136));
+var _section = _interopRequireDefault(__webpack_require__(/*! ./props/section */ 137));
+var _skeleton = _interopRequireDefault(__webpack_require__(/*! ./props/skeleton */ 138));
+var _slider = _interopRequireDefault(__webpack_require__(/*! ./props/slider */ 139));
+var _statusBar = _interopRequireDefault(__webpack_require__(/*! ./props/statusBar */ 140));
+var _steps = _interopRequireDefault(__webpack_require__(/*! ./props/steps */ 141));
+var _stepsItem = _interopRequireDefault(__webpack_require__(/*! ./props/stepsItem */ 142));
+var _sticky = _interopRequireDefault(__webpack_require__(/*! ./props/sticky */ 143));
+var _subsection = _interopRequireDefault(__webpack_require__(/*! ./props/subsection */ 144));
+var _swipeAction = _interopRequireDefault(__webpack_require__(/*! ./props/swipeAction */ 145));
+var _swipeActionItem = _interopRequireDefault(__webpack_require__(/*! ./props/swipeActionItem */ 146));
+var _swiper = _interopRequireDefault(__webpack_require__(/*! ./props/swiper */ 147));
+var _swipterIndicator = _interopRequireDefault(__webpack_require__(/*! ./props/swipterIndicator */ 148));
+var _switch2 = _interopRequireDefault(__webpack_require__(/*! ./props/switch */ 149));
+var _tabbar = _interopRequireDefault(__webpack_require__(/*! ./props/tabbar */ 150));
+var _tabbarItem = _interopRequireDefault(__webpack_require__(/*! ./props/tabbarItem */ 151));
+var _tabs = _interopRequireDefault(__webpack_require__(/*! ./props/tabs */ 152));
+var _tag = _interopRequireDefault(__webpack_require__(/*! ./props/tag */ 153));
+var _text = _interopRequireDefault(__webpack_require__(/*! ./props/text */ 154));
+var _textarea = _interopRequireDefault(__webpack_require__(/*! ./props/textarea */ 155));
+var _toast = _interopRequireDefault(__webpack_require__(/*! ./props/toast */ 156));
+var _toolbar = _interopRequireDefault(__webpack_require__(/*! ./props/toolbar */ 157));
+var _tooltip = _interopRequireDefault(__webpack_require__(/*! ./props/tooltip */ 158));
+var _transition = _interopRequireDefault(__webpack_require__(/*! ./props/transition */ 159));
+var _upload = _interopRequireDefault(__webpack_require__(/*! ./props/upload */ 160));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var color = _config.default.color;
@@ -16866,7 +16926,7 @@ var _default = _objectSpread(_objectSpread(_objectSpread(_objectSpread(_objectSp
 exports.default = _default;
 
 /***/ }),
-/* 71 */
+/* 72 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/actionSheet.js ***!
   \*************************************************************************************************/
@@ -16910,7 +16970,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 72 */
+/* 73 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/album.js ***!
   \*******************************************************************************************/
@@ -16954,7 +17014,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 73 */
+/* 74 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/alert.js ***!
   \*******************************************************************************************/
@@ -16993,7 +17053,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 74 */
+/* 75 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/avatar.js ***!
   \********************************************************************************************/
@@ -17038,7 +17098,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 75 */
+/* 76 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/avatarGroup.js ***!
   \*************************************************************************************************/
@@ -17080,7 +17140,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 76 */
+/* 77 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/backtop.js ***!
   \*********************************************************************************************/
@@ -17126,7 +17186,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 77 */
+/* 78 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/badge.js ***!
   \*******************************************************************************************/
@@ -17172,7 +17232,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 78 */
+/* 79 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/button.js ***!
   \********************************************************************************************/
@@ -17231,7 +17291,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 79 */
+/* 80 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/calendar.js ***!
   \**********************************************************************************************/
@@ -17294,7 +17354,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 80 */
+/* 81 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/carKeyboard.js ***!
   \*************************************************************************************************/
@@ -17326,7 +17386,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 81 */
+/* 82 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/cell.js ***!
   \******************************************************************************************/
@@ -17378,7 +17438,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 82 */
+/* 83 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/cellGroup.js ***!
   \***********************************************************************************************/
@@ -17412,7 +17472,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 83 */
+/* 84 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/checkbox.js ***!
   \**********************************************************************************************/
@@ -17456,7 +17516,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 84 */
+/* 85 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
   \***************************************************************************************************/
@@ -17504,7 +17564,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 85 */
+/* 86 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/circleProgress.js ***!
   \****************************************************************************************************/
@@ -17536,7 +17596,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 86 */
+/* 87 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/code.js ***!
   \******************************************************************************************/
@@ -17573,7 +17633,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 87 */
+/* 88 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/codeInput.js ***!
   \***********************************************************************************************/
@@ -17619,7 +17679,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 88 */
+/* 89 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/col.js ***!
   \*****************************************************************************************/
@@ -17655,7 +17715,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 89 */
+/* 90 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/collapse.js ***!
   \**********************************************************************************************/
@@ -17689,7 +17749,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 90 */
+/* 91 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/collapseItem.js ***!
   \**************************************************************************************************/
@@ -17731,7 +17791,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 91 */
+/* 92 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/columnNotice.js ***!
   \**************************************************************************************************/
@@ -17772,7 +17832,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 92 */
+/* 93 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/countDown.js ***!
   \***********************************************************************************************/
@@ -17807,7 +17867,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 93 */
+/* 94 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/countTo.js ***!
   \*********************************************************************************************/
@@ -17849,7 +17909,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 94 */
+/* 95 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/datetimePicker.js ***!
   \****************************************************************************************************/
@@ -17904,7 +17964,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 95 */
+/* 96 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/divider.js ***!
   \*********************************************************************************************/
@@ -17943,7 +18003,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 96 */
+/* 97 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/empty.js ***!
   \*******************************************************************************************/
@@ -17985,7 +18045,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 97 */
+/* 98 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/form.js ***!
   \******************************************************************************************/
@@ -18030,7 +18090,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 98 */
+/* 99 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/formItem.js ***!
   \**********************************************************************************************/
@@ -18070,7 +18130,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 99 */
+/* 100 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/gap.js ***!
   \*****************************************************************************************/
@@ -18106,7 +18166,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 100 */
+/* 101 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/grid.js ***!
   \******************************************************************************************/
@@ -18140,7 +18200,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 101 */
+/* 102 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/gridItem.js ***!
   \**********************************************************************************************/
@@ -18173,7 +18233,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 102 */
+/* 103 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/icon.js ***!
   \******************************************************************************************/
@@ -18188,7 +18248,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 70));
 /*
  * @Author       : LQ
  * @Description  :
@@ -18225,7 +18285,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 103 */
+/* 104 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/image.js ***!
   \*******************************************************************************************/
@@ -18272,7 +18332,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 104 */
+/* 105 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/indexAnchor.js ***!
   \*************************************************************************************************/
@@ -18308,7 +18368,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 105 */
+/* 106 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/indexList.js ***!
   \***********************************************************************************************/
@@ -18346,7 +18406,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 106 */
+/* 107 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/input.js ***!
   \*******************************************************************************************/
@@ -18411,7 +18471,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 107 */
+/* 108 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/keyboard.js ***!
   \**********************************************************************************************/
@@ -18458,7 +18518,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 108 */
+/* 109 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/line.js ***!
   \******************************************************************************************/
@@ -18495,7 +18555,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 109 */
+/* 110 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/lineProgress.js ***!
   \**************************************************************************************************/
@@ -18531,7 +18591,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 110 */
+/* 111 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/link.js ***!
   \******************************************************************************************/
@@ -18546,7 +18606,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 70));
 /*
  * @Author       : LQ
  * @Description  :
@@ -18573,7 +18633,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 111 */
+/* 112 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/list.js ***!
   \******************************************************************************************/
@@ -18618,7 +18678,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 112 */
+/* 113 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/listItem.js ***!
   \**********************************************************************************************/
@@ -18650,7 +18710,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 113 */
+/* 114 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadingIcon.js ***!
   \*************************************************************************************************/
@@ -18665,7 +18725,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 69));
+var _config = _interopRequireDefault(__webpack_require__(/*! ../config */ 70));
 /*
  * @Author       : LQ
  * @Description  :
@@ -18696,7 +18756,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 114 */
+/* 115 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadingPage.js ***!
   \*************************************************************************************************/
@@ -18736,7 +18796,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 115 */
+/* 116 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/loadmore.js ***!
   \**********************************************************************************************/
@@ -18785,7 +18845,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 116 */
+/* 117 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/modal.js ***!
   \*******************************************************************************************/
@@ -18832,7 +18892,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 117 */
+/* 118 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/navbar.js ***!
   \********************************************************************************************/
@@ -18847,7 +18907,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
-var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 118));
+var _color = _interopRequireDefault(__webpack_require__(/*! ../color */ 119));
 /*
  * @Author       : LQ
  * @Description  :
@@ -18881,7 +18941,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 118 */
+/* 119 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/color.js ***!
   \*************************************************************************************/
@@ -18914,7 +18974,7 @@ var _default = color;
 exports.default = _default;
 
 /***/ }),
-/* 119 */
+/* 120 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/noNetwork.js ***!
   \***********************************************************************************************/
@@ -18948,7 +19008,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 120 */
+/* 121 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/noticeBar.js ***!
   \***********************************************************************************************/
@@ -18994,7 +19054,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 121 */
+/* 122 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/notify.js ***!
   \********************************************************************************************/
@@ -19033,7 +19093,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 122 */
+/* 123 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/numberBox.js ***!
   \***********************************************************************************************/
@@ -19085,7 +19145,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 123 */
+/* 124 */
 /*!****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
   \****************************************************************************************************/
@@ -19119,7 +19179,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 124 */
+/* 125 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/overlay.js ***!
   \*********************************************************************************************/
@@ -19154,7 +19214,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 125 */
+/* 126 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/parse.js ***!
   \*******************************************************************************************/
@@ -19193,7 +19253,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 126 */
+/* 127 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/picker.js ***!
   \********************************************************************************************/
@@ -19243,7 +19303,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 127 */
+/* 128 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/popup.js ***!
   \*******************************************************************************************/
@@ -19289,7 +19349,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 128 */
+/* 129 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/radio.js ***!
   \*******************************************************************************************/
@@ -19333,7 +19393,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 129 */
+/* 130 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/radioGroup.js ***!
   \************************************************************************************************/
@@ -19380,7 +19440,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 130 */
+/* 131 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/rate.js ***!
   \******************************************************************************************/
@@ -19423,7 +19483,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 131 */
+/* 132 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/readMore.js ***!
   \**********************************************************************************************/
@@ -19462,7 +19522,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 132 */
+/* 133 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/row.js ***!
   \*****************************************************************************************/
@@ -19496,7 +19556,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 133 */
+/* 134 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/rowNotice.js ***!
   \***********************************************************************************************/
@@ -19534,7 +19594,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 134 */
+/* 135 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/scrollList.js ***!
   \************************************************************************************************/
@@ -19571,7 +19631,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 135 */
+/* 136 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/search.js ***!
   \********************************************************************************************/
@@ -19629,7 +19689,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 136 */
+/* 137 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/section.js ***!
   \*********************************************************************************************/
@@ -19670,7 +19730,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 137 */
+/* 138 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/skeleton.js ***!
   \**********************************************************************************************/
@@ -19712,7 +19772,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 138 */
+/* 139 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/slider.js ***!
   \********************************************************************************************/
@@ -19754,7 +19814,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 139 */
+/* 140 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/statusBar.js ***!
   \***********************************************************************************************/
@@ -19786,7 +19846,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 140 */
+/* 141 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/steps.js ***!
   \*******************************************************************************************/
@@ -19824,7 +19884,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 141 */
+/* 142 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/stepsItem.js ***!
   \***********************************************************************************************/
@@ -19859,7 +19919,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 142 */
+/* 143 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/sticky.js ***!
   \********************************************************************************************/
@@ -19896,7 +19956,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 143 */
+/* 144 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/subsection.js ***!
   \************************************************************************************************/
@@ -19936,7 +19996,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 144 */
+/* 145 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipeAction.js ***!
   \*************************************************************************************************/
@@ -19968,7 +20028,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 145 */
+/* 146 */
 /*!*****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
   \*****************************************************************************************************/
@@ -20006,7 +20066,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 146 */
+/* 147 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swiper.js ***!
   \********************************************************************************************/
@@ -20063,7 +20123,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 147 */
+/* 148 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
   \******************************************************************************************************/
@@ -20099,7 +20159,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 148 */
+/* 149 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/switch.js ***!
   \********************************************************************************************/
@@ -20140,7 +20200,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 149 */
+/* 150 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabbar.js ***!
   \********************************************************************************************/
@@ -20179,7 +20239,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 150 */
+/* 151 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabbarItem.js ***!
   \************************************************************************************************/
@@ -20216,7 +20276,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 151 */
+/* 152 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tabs.js ***!
   \******************************************************************************************/
@@ -20273,7 +20333,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 152 */
+/* 153 */
 /*!*****************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tag.js ***!
   \*****************************************************************************************/
@@ -20319,7 +20379,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 153 */
+/* 154 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/text.js ***!
   \******************************************************************************************/
@@ -20375,7 +20435,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 154 */
+/* 155 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/textarea.js ***!
   \**********************************************************************************************/
@@ -20428,7 +20488,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 155 */
+/* 156 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/toast.js ***!
   \*******************************************************************************************/
@@ -20474,7 +20534,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 156 */
+/* 157 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/toolbar.js ***!
   \*********************************************************************************************/
@@ -20511,7 +20571,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 157 */
+/* 158 */
 /*!*********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/tooltip.js ***!
   \*********************************************************************************************/
@@ -20555,7 +20615,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 158 */
+/* 159 */
 /*!************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/transition.js ***!
   \************************************************************************************************/
@@ -20590,7 +20650,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 159 */
+/* 160 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/props/upload.js ***!
   \********************************************************************************************/
@@ -20649,7 +20709,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 160 */
+/* 161 */
 /*!**************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/config/zIndex.js ***!
   \**************************************************************************************/
@@ -20685,7 +20745,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 161 */
+/* 162 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/function/platform.js ***!
   \******************************************************************************************/
@@ -20715,7 +20775,7 @@ var _default = platform;
 exports.default = _default;
 
 /***/ }),
-/* 162 */
+/* 163 */
 /*!********************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni.promisify.adaptor.js ***!
   \********************************************************************/
@@ -20738,13 +20798,178 @@ uni.addInterceptor({
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 163 */,
-/* 164 */,
-/* 165 */,
+/* 164 */
+/*!***************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/index.js ***!
+  \***************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
+var _index = _interopRequireDefault(__webpack_require__(/*! ./wte-side-list-popup/index */ 165));
+var _index2 = _interopRequireDefault(__webpack_require__(/*! ./wte-modal/index */ 173));
+var _index3 = _interopRequireDefault(__webpack_require__(/*! ./wte-action-sheet/index */ 179));
+var _index4 = _interopRequireDefault(__webpack_require__(/*! ./wte-popup/index */ 185));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 12:59:54
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-04 18:53:25
+ * @FilePath: /what-to-eat/components/index.js
+ * @Description: 组件
+ */
+
+var components = [_index.default, _index2.default, _index3.default, _index4.default];
+components.map(function (component) {
+  _vue.default.component(component.name, component);
+});
+
+/***/ }),
+/* 165 */
+/*!***********************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-side-list-popup/index.js ***!
+  \***********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _wteSideListPopup = _interopRequireDefault(__webpack_require__(/*! ./wte-side-list-popup */ 166));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 13:09:36
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-04 18:53:57
+ * @FilePath: /what-to-eat/components/wte-side-list-popup/index.js
+ * @Description: 侧边弹框
+ */
+var _default = _wteSideListPopup.default;
+exports.default = _default;
+
+/***/ }),
 /* 166 */,
 /* 167 */,
 /* 168 */,
-/* 169 */
+/* 169 */,
+/* 170 */,
+/* 171 */,
+/* 172 */,
+/* 173 */
+/*!*************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-modal/index.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _wteModal = _interopRequireDefault(__webpack_require__(/*! ./wte-modal */ 174));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 13:09:36
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-01 14:48:50
+ * @FilePath: /what-to-eat/components/modal/index.js
+ * @Description: 侧边弹框
+ */
+var _default = _wteModal.default;
+exports.default = _default;
+
+/***/ }),
+/* 174 */,
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */,
+/* 179 */
+/*!********************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-action-sheet/index.js ***!
+  \********************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _wteActionSheet = _interopRequireDefault(__webpack_require__(/*! ./wte-action-sheet */ 180));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 13:09:36
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-04 18:54:14
+ * @FilePath: /what-to-eat/components/wte-action-sheet/index.js
+ * @Description: 侧边弹框
+ */
+var _default = _wteActionSheet.default;
+exports.default = _default;
+
+/***/ }),
+/* 180 */,
+/* 181 */,
+/* 182 */,
+/* 183 */,
+/* 184 */,
+/* 185 */
+/*!*************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-popup/index.js ***!
+  \*************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _wtePopup = _interopRequireDefault(__webpack_require__(/*! ./wte-popup */ 186));
+/*
+ * @Author: PengChaoQun 1152684231@qq.com
+ * @Date: 2023-12-01 13:09:36
+ * @LastEditors: PengChaoQun 1152684231@qq.com
+ * @LastEditTime: 2023-12-04 18:54:18
+ * @FilePath: /what-to-eat/components/wte-popup/index.js
+ * @Description: 侧边弹框
+ */
+var _default = _wtePopup.default;
+exports.default = _default;
+
+/***/ }),
+/* 186 */,
+/* 187 */,
+/* 188 */,
+/* 189 */,
+/* 190 */,
+/* 191 */,
+/* 192 */,
+/* 193 */,
+/* 194 */,
+/* 195 */,
+/* 196 */,
+/* 197 */
 /*!***************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/config/menu-data.js ***!
   \***************************************************************/
@@ -20999,18 +21224,169 @@ var MENU_DATA_LIST = [{
 exports.MENU_DATA_LIST = MENU_DATA_LIST;
 
 /***/ }),
-/* 170 */,
-/* 171 */,
-/* 172 */,
-/* 173 */,
-/* 174 */,
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */
-/*!**************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/config/constant.js ***!
-  \**************************************************************/
+/* 198 */,
+/* 199 */,
+/* 200 */,
+/* 201 */,
+/* 202 */,
+/* 203 */,
+/* 204 */,
+/* 205 */,
+/* 206 */,
+/* 207 */,
+/* 208 */,
+/* 209 */,
+/* 210 */,
+/* 211 */,
+/* 212 */,
+/* 213 */,
+/* 214 */,
+/* 215 */,
+/* 216 */,
+/* 217 */,
+/* 218 */,
+/* 219 */,
+/* 220 */,
+/* 221 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-popup/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否展示弹窗
+    show: {
+      type: Boolean,
+      default: uni.$u.props.popup.show
+    },
+    // 是否显示遮罩
+    overlay: {
+      type: Boolean,
+      default: uni.$u.props.popup.overlay
+    },
+    // 弹出的方向，可选值为 top bottom right left center
+    mode: {
+      type: String,
+      default: uni.$u.props.popup.mode
+    },
+    // 动画时长，单位ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.popup.duration
+    },
+    // 是否显示关闭图标
+    closeable: {
+      type: Boolean,
+      default: uni.$u.props.popup.closeable
+    },
+    // 自定义遮罩的样式
+    overlayStyle: {
+      type: [Object, String],
+      default: uni.$u.props.popup.overlayStyle
+    },
+    // 点击遮罩是否关闭弹窗
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: uni.$u.props.popup.closeOnClickOverlay
+    },
+    // 层级
+    zIndex: {
+      type: [String, Number],
+      default: uni.$u.props.popup.zIndex
+    },
+    // 是否为iPhoneX留出底部安全距离
+    safeAreaInsetBottom: {
+      type: Boolean,
+      default: uni.$u.props.popup.safeAreaInsetBottom
+    },
+    // 是否留出顶部安全距离（状态栏高度）
+    safeAreaInsetTop: {
+      type: Boolean,
+      default: uni.$u.props.popup.safeAreaInsetTop
+    },
+    // 自定义关闭图标位置，top-left为左上角，top-right为右上角，bottom-left为左下角，bottom-right为右下角
+    closeIconPos: {
+      type: String,
+      default: uni.$u.props.popup.closeIconPos
+    },
+    // 是否显示圆角
+    round: {
+      type: [Boolean, String, Number],
+      default: uni.$u.props.popup.round
+    },
+    // mode=center，也即中部弹出时，是否使用缩放模式
+    zoom: {
+      type: Boolean,
+      default: uni.$u.props.popup.zoom
+    },
+    // 弹窗背景色，设置为transparent可去除白色背景
+    bgColor: {
+      type: String,
+      default: uni.$u.props.popup.bgColor
+    },
+    // 遮罩的透明度，0-1之间
+    overlayOpacity: {
+      type: [Number, String],
+      default: uni.$u.props.popup.overlayOpacity
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */
+/*!***************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否自动关闭其他swipe按钮组
+    autoClose: {
+      type: Boolean,
+      default: uni.$u.props.swipeAction.autoClose
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */
+/*!************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/touch.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21020,40 +21396,430 @@ exports.MENU_DATA_LIST = MENU_DATA_LIST;
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.WET_MENU_DATA = void 0;
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-02 11:52:13
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-02 17:53:54
- * @FilePath: /what-to-eat/config/constant.js
- * @Description: 
- */
-var WET_MENU_DATA = 'WET_MENU_DATA';
-exports.WET_MENU_DATA = WET_MENU_DATA;
+exports.default = void 0;
+var MIN_DISTANCE = 10;
+function getDirection(x, y) {
+  if (x > y && x > MIN_DISTANCE) {
+    return 'horizontal';
+  }
+  if (y > x && y > MIN_DISTANCE) {
+    return 'vertical';
+  }
+  return '';
+}
+var _default = {
+  methods: {
+    getTouchPoint: function getTouchPoint(e) {
+      if (!e) {
+        return {
+          x: 0,
+          y: 0
+        };
+      }
+      if (e.touches && e.touches[0]) {
+        return {
+          x: e.touches[0].pageX,
+          y: e.touches[0].pageY
+        };
+      }
+      if (e.changedTouches && e.changedTouches[0]) {
+        return {
+          x: e.changedTouches[0].pageX,
+          y: e.changedTouches[0].pageY
+        };
+      }
+      return {
+        x: e.clientX || 0,
+        y: e.clientY || 0
+      };
+    },
+    resetTouchStatus: function resetTouchStatus() {
+      this.direction = '';
+      this.deltaX = 0;
+      this.deltaY = 0;
+      this.offsetX = 0;
+      this.offsetY = 0;
+    },
+    touchStart: function touchStart(event) {
+      this.resetTouchStatus();
+      var touch = this.getTouchPoint(event);
+      this.startX = touch.x;
+      this.startY = touch.y;
+    },
+    touchMove: function touchMove(event) {
+      var touch = this.getTouchPoint(event);
+      this.deltaX = touch.x - this.startX;
+      this.deltaY = touch.y - this.startY;
+      this.offsetX = Math.abs(this.deltaX);
+      this.offsetY = Math.abs(this.deltaY);
+      this.direction = this.direction || getDirection(this.offsetX, this.offsetY);
+    }
+  }
+};
+exports.default = _default;
 
 /***/ }),
-/* 179 */,
-/* 180 */,
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */,
-/* 185 */,
-/* 186 */,
-/* 187 */,
-/* 188 */,
-/* 189 */,
-/* 190 */,
-/* 191 */,
-/* 192 */,
-/* 193 */,
-/* 194 */,
-/* 195 */,
-/* 196 */,
-/* 197 */,
-/* 198 */,
-/* 199 */
+/* 236 */
+/*!********************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default2 = {
+  props: {
+    // 控制打开或者关闭
+    show: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.show
+    },
+    // 标识符，如果是v-for，可用index索引值
+    name: {
+      type: [String, Number],
+      default: uni.$u.props.swipeActionItem.name
+    },
+    // 是否禁用
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.disabled
+    },
+    // 是否自动关闭其他swipe按钮组
+    autoClose: {
+      type: Boolean,
+      default: uni.$u.props.swipeActionItem.autoClose
+    },
+    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
+    threshold: {
+      type: Number,
+      default: uni.$u.props.swipeActionItem.threshold
+    },
+    // 右侧按钮内容
+    options: {
+      type: Array,
+      default: function _default() {
+        return uni.$u.props.swipeActionItem.rightOptions;
+      }
+    },
+    // 动画过渡时间，单位ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.swipeActionItem.duration
+    }
+  }
+};
+exports.default = _default2;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 237 */
+/*!******************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  methods: {
+    // 关闭时执行
+    closeHandler: function closeHandler() {
+      this.status = 'close';
+    },
+    setState: function setState(status) {
+      this.status = status;
+    },
+    closeOther: function closeOther() {
+      // 尝试关闭其他打开的单元格
+      this.parent && this.parent.closeOther(this);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */,
+/* 246 */,
+/* 247 */
+/*!********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-modal/props.js ***!
+  \********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否展示modal
+    show: {
+      type: Boolean,
+      default: uni.$u.props.modal.show
+    },
+    // 标题
+    title: {
+      type: [String],
+      default: uni.$u.props.modal.title
+    },
+    // 弹窗内容
+    content: {
+      type: String,
+      default: uni.$u.props.modal.content
+    },
+    // 确认文案
+    confirmText: {
+      type: String,
+      default: uni.$u.props.modal.confirmText
+    },
+    // 取消文案
+    cancelText: {
+      type: String,
+      default: uni.$u.props.modal.cancelText
+    },
+    // 是否显示确认按钮
+    showConfirmButton: {
+      type: Boolean,
+      default: uni.$u.props.modal.showConfirmButton
+    },
+    // 是否显示取消按钮
+    showCancelButton: {
+      type: Boolean,
+      default: uni.$u.props.modal.showCancelButton
+    },
+    // 确认按钮颜色
+    confirmColor: {
+      type: String,
+      default: uni.$u.props.modal.confirmColor
+    },
+    // 取消文字颜色
+    cancelColor: {
+      type: String,
+      default: uni.$u.props.modal.cancelColor
+    },
+    // 对调确认和取消的位置
+    buttonReverse: {
+      type: Boolean,
+      default: uni.$u.props.modal.buttonReverse
+    },
+    // 是否开启缩放效果
+    zoom: {
+      type: Boolean,
+      default: uni.$u.props.modal.zoom
+    },
+    // 是否异步关闭，只对确定按钮有效
+    asyncClose: {
+      type: Boolean,
+      default: uni.$u.props.modal.asyncClose
+    },
+    // 是否允许点击遮罩关闭modal
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: uni.$u.props.modal.closeOnClickOverlay
+    },
+    // 给一个负的margin-top，往上偏移，避免和键盘重合的情况
+    negativeTop: {
+      type: [String, Number],
+      default: uni.$u.props.modal.negativeTop
+    },
+    // modal宽度，不支持百分比，可以数值，px，rpx单位
+    width: {
+      type: [String, Number],
+      default: uni.$u.props.modal.width
+    },
+    // 确认按钮的样式，circle-圆形，square-方形，如设置，将不会显示取消按钮
+    confirmButtonShape: {
+      type: String,
+      default: uni.$u.props.modal.confirmButtonShape
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */
+/*!***************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/openType.js ***!
+  \***************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    openType: String
+  },
+  methods: {
+    onGetUserInfo: function onGetUserInfo(event) {
+      this.$emit('getuserinfo', event.detail);
+    },
+    onContact: function onContact(event) {
+      this.$emit('contact', event.detail);
+    },
+    onGetPhoneNumber: function onGetPhoneNumber(event) {
+      this.$emit('getphonenumber', event.detail);
+    },
+    onError: function onError(event) {
+      this.$emit('error', event.detail);
+    },
+    onLaunchApp: function onLaunchApp(event) {
+      this.$emit('launchapp', event.detail);
+    },
+    onOpenSetting: function onOpenSetting(event) {
+      this.$emit('opensetting', event.detail);
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 256 */
+/*!*************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/button.js ***!
+  \*************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    lang: String,
+    sessionFrom: String,
+    sendMessageTitle: String,
+    sendMessagePath: String,
+    sendMessageImg: String,
+    showMessageCard: Boolean,
+    appParameter: String,
+    formType: String,
+    openType: String
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 257 */
+/*!***************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
+  \***************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 操作菜单是否展示 （默认false）
+    show: {
+      type: Boolean,
+      default: uni.$u.props.actionSheet.show
+    },
+    // 标题
+    title: {
+      type: String,
+      default: uni.$u.props.actionSheet.title
+    },
+    // 选项上方的描述信息
+    description: {
+      type: String,
+      default: uni.$u.props.actionSheet.description
+    },
+    // 数据
+    actions: {
+      type: Array,
+      default: uni.$u.props.actionSheet.actions
+    },
+    // 取消按钮的文字，不为空时显示按钮
+    cancelText: {
+      type: String,
+      default: uni.$u.props.actionSheet.cancelText
+    },
+    // 点击某个菜单项时是否关闭弹窗
+    closeOnClickAction: {
+      type: Boolean,
+      default: uni.$u.props.actionSheet.closeOnClickAction
+    },
+    // 处理底部安全区（默认true）
+    safeAreaInsetBottom: {
+      type: Boolean,
+      default: uni.$u.props.actionSheet.safeAreaInsetBottom
+    },
+    // 小程序的打开方式
+    openType: {
+      type: String,
+      default: uni.$u.props.actionSheet.openType
+    },
+    // 点击遮罩是否允许关闭 (默认true)
+    closeOnClickOverlay: {
+      type: Boolean,
+      default: uni.$u.props.actionSheet.closeOnClickOverlay
+    },
+    // 圆角值
+    round: {
+      type: [Boolean, String, Number],
+      default: uni.$u.props.actionSheet.round
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */,
+/* 264 */,
+/* 265 */
 /*!*****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox-group/props.js ***!
   \*****************************************************************************************************/
@@ -21150,14 +21916,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 200 */,
-/* 201 */,
-/* 202 */,
-/* 203 */,
-/* 204 */,
-/* 205 */,
-/* 206 */,
-/* 207 */
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox/props.js ***!
   \***********************************************************************************************/
@@ -21244,31 +22010,21 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 208 */,
-/* 209 */,
-/* 210 */,
-/* 211 */,
-/* 212 */,
-/* 213 */,
-/* 214 */,
-/* 215 */,
-/* 216 */,
-/* 217 */,
-/* 218 */,
-/* 219 */,
-/* 220 */,
-/* 221 */,
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */,
-/* 230 */,
-/* 231 */,
-/* 232 */
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */,
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-input/props.js ***!
   \********************************************************************************************/
@@ -21473,14 +22229,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */,
-/* 238 */,
-/* 239 */,
-/* 240 */
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell-group/props.js ***!
   \*************************************************************************************************/
@@ -21512,14 +22268,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
-/* 246 */,
-/* 247 */,
-/* 248 */
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell/props.js ***!
   \*******************************************************************************************/
@@ -21647,24 +22403,17 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */,
-/* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */
-/*!********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-popup/props.js ***!
-  \********************************************************************************************/
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */
+/*!**********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-overlay/props.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21677,80 +22426,25 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   props: {
-    // 是否展示弹窗
+    // 是否显示遮罩
     show: {
       type: Boolean,
-      default: uni.$u.props.popup.show
+      default: uni.$u.props.overlay.show
     },
-    // 是否显示遮罩
-    overlay: {
-      type: Boolean,
-      default: uni.$u.props.popup.overlay
-    },
-    // 弹出的方向，可选值为 top bottom right left center
-    mode: {
-      type: String,
-      default: uni.$u.props.popup.mode
-    },
-    // 动画时长，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.popup.duration
-    },
-    // 是否显示关闭图标
-    closeable: {
-      type: Boolean,
-      default: uni.$u.props.popup.closeable
-    },
-    // 自定义遮罩的样式
-    overlayStyle: {
-      type: [Object, String],
-      default: uni.$u.props.popup.overlayStyle
-    },
-    // 点击遮罩是否关闭弹窗
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.popup.closeOnClickOverlay
-    },
-    // 层级
+    // 层级z-index
     zIndex: {
       type: [String, Number],
-      default: uni.$u.props.popup.zIndex
+      default: uni.$u.props.overlay.zIndex
     },
-    // 是否为iPhoneX留出底部安全距离
-    safeAreaInsetBottom: {
-      type: Boolean,
-      default: uni.$u.props.popup.safeAreaInsetBottom
+    // 遮罩的过渡时间，单位为ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.overlay.duration
     },
-    // 是否留出顶部安全距离（状态栏高度）
-    safeAreaInsetTop: {
-      type: Boolean,
-      default: uni.$u.props.popup.safeAreaInsetTop
-    },
-    // 自定义关闭图标位置，top-left为左上角，top-right为右上角，bottom-left为左下角，bottom-right为右下角
-    closeIconPos: {
-      type: String,
-      default: uni.$u.props.popup.closeIconPos
-    },
-    // 是否显示圆角
-    round: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.popup.round
-    },
-    // mode=center，也即中部弹出时，是否使用缩放模式
-    zoom: {
-      type: Boolean,
-      default: uni.$u.props.popup.zoom
-    },
-    // 弹窗背景色，设置为transparent可去除白色背景
-    bgColor: {
-      type: String,
-      default: uni.$u.props.popup.bgColor
-    },
-    // 遮罩的透明度，0-1之间
-    overlayOpacity: {
-      type: [Number, String],
-      default: uni.$u.props.popup.overlayOpacity
+    // 不透明度值，当做rgba的第四个参数
+    opacity: {
+      type: [String, Number],
+      default: uni.$u.props.overlay.opacity
     }
   }
 };
@@ -21758,14 +22452,398 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 264 */,
-/* 265 */,
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */
+/*!*************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否展示组件
+    show: {
+      type: Boolean,
+      default: uni.$u.props.transition.show
+    },
+    // 使用的动画模式
+    mode: {
+      type: String,
+      default: uni.$u.props.transition.mode
+    },
+    // 动画的执行时间，单位ms
+    duration: {
+      type: [String, Number],
+      default: uni.$u.props.transition.duration
+    },
+    // 使用的动画过渡函数
+    timingFunction: {
+      type: String,
+      default: uni.$u.props.transition.timingFunction
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 321 */
+/*!******************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/transition.js ***!
+  \******************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 60));
+var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 62));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 322));
+// 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
+var nextTick = function nextTick() {
+  return new Promise(function (resolve) {
+    return setTimeout(resolve, 1000 / 50);
+  });
+};
+// nvue动画模块实现细节抽离在外部文件
+
+// 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
+var getClassNames = function getClassNames(name) {
+  return {
+    enter: "u-".concat(name, "-enter u-").concat(name, "-enter-active"),
+    'enter-to': "u-".concat(name, "-enter-to u-").concat(name, "-enter-active"),
+    leave: "u-".concat(name, "-leave u-").concat(name, "-leave-active"),
+    'leave-to': "u-".concat(name, "-leave-to u-").concat(name, "-leave-active")
+  };
+};
+var _default = {
+  methods: {
+    // 组件被点击发出事件
+    clickHandler: function clickHandler() {
+      this.$emit('click');
+    },
+    // vue版本的组件进场处理
+    vueEnter: function vueEnter() {
+      var _this = this;
+      // 动画进入时的类名
+      var classNames = getClassNames(this.mode);
+      // 定义状态和发出动画进入前事件
+      this.status = 'enter';
+      this.$emit('beforeEnter');
+      this.inited = true;
+      this.display = true;
+      this.classes = classNames.enter;
+      this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                // 标识动画尚未结束
+                _this.$emit('enter');
+                _this.transitionEnded = false;
+                // 组件动画进入后触发的事件
+                _this.$emit('afterEnter');
+                // 赋予组件enter-to类名
+                _this.classes = classNames['enter-to'];
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee);
+      })));
+    },
+    // 动画离场处理
+    vueLeave: function vueLeave() {
+      var _this2 = this;
+      // 如果不是展示状态，无需执行逻辑
+      if (!this.display) return;
+      var classNames = getClassNames(this.mode);
+      // 标记离开状态和发出事件
+      this.status = 'leave';
+      this.$emit('beforeLeave');
+      // 获得类名
+      this.classes = classNames.leave;
+      this.$nextTick(function () {
+        // 动画正在离场的状态
+        _this2.transitionEnded = false;
+        _this2.$emit('leave');
+        // 组件执行动画，到了执行的执行时间后，执行一些额外处理
+        setTimeout(_this2.onTransitionEnd, _this2.duration);
+        _this2.classes = classNames['leave-to'];
+      });
+    },
+    // 完成过渡后触发
+    onTransitionEnd: function onTransitionEnd() {
+      // 如果已经是结束的状态，无需再处理
+      if (this.transitionEnded) return;
+      this.transitionEnded = true;
+      // 发出组件动画执行后的事件
+      this.$emit(this.status === 'leave' ? 'afterLeave' : 'afterEnter');
+      if (!this.show && this.display) {
+        this.display = false;
+        this.inited = false;
+      }
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 322 */
+/*!********************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
+  \********************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  fade: {
+    enter: {
+      opacity: 0
+    },
+    'enter-to': {
+      opacity: 1
+    },
+    leave: {
+      opacity: 1
+    },
+    'leave-to': {
+      opacity: 0
+    }
+  },
+  'fade-up': {
+    enter: {
+      opacity: 0,
+      transform: 'translateY(100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateY(100%)'
+    }
+  },
+  'fade-down': {
+    enter: {
+      opacity: 0,
+      transform: 'translateY(-100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateY(-100%)'
+    }
+  },
+  'fade-left': {
+    enter: {
+      opacity: 0,
+      transform: 'translateX(-100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateX(-100%)'
+    }
+  },
+  'fade-right': {
+    enter: {
+      opacity: 0,
+      transform: 'translateX(100%)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'translateX(100%)'
+    }
+  },
+  'slide-up': {
+    enter: {
+      transform: 'translateY(100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateY(100%)'
+    }
+  },
+  'slide-down': {
+    enter: {
+      transform: 'translateY(-100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateY(-100%)'
+    }
+  },
+  'slide-left': {
+    enter: {
+      transform: 'translateX(-100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateX(-100%)'
+    }
+  },
+  'slide-right': {
+    enter: {
+      transform: 'translateX(100%)'
+    },
+    'enter-to': {
+      transform: 'translateY(0)'
+    },
+    leave: {
+      transform: 'translateY(0)'
+    },
+    'leave-to': {
+      transform: 'translateX(100%)'
+    }
+  },
+  zoom: {
+    enter: {
+      transform: 'scale(0.95)'
+    },
+    'enter-to': {
+      transform: 'scale(1)'
+    },
+    leave: {
+      transform: 'scale(1)'
+    },
+    'leave-to': {
+      transform: 'scale(0.95)'
+    }
+  },
+  'fade-zoom': {
+    enter: {
+      opacity: 0,
+      transform: 'scale(0.95)'
+    },
+    'enter-to': {
+      opacity: 1,
+      transform: 'scale(1)'
+    },
+    leave: {
+      opacity: 1,
+      transform: 'scale(1)'
+    },
+    'leave-to': {
+      opacity: 0,
+      transform: 'scale(0.95)'
+    }
+  }
+};
+exports.default = _default;
+
+/***/ }),
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */,
+/* 329 */,
+/* 330 */
+/*!*************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-status-bar/props.js ***!
+  \*************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    bgColor: {
+      type: String,
+      default: uni.$u.props.statusBar.bgColor
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \*******************************************************************************************/
@@ -21996,7 +23074,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 272 */
+/* 339 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/props.js ***!
   \*******************************************************************************************/
@@ -22103,17 +23181,44 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 273 */,
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */
-/*!**********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-overlay/props.js ***!
-  \**********************************************************************************************/
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */,
+/* 347 */
+/*!**************************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
+  \**************************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {}
+};
+exports.default = _default;
+
+/***/ }),
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */
+/*!*******************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-line/props.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22126,25 +23231,34 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   props: {
-    // 是否显示遮罩
-    show: {
+    color: {
+      type: String,
+      default: uni.$u.props.line.color
+    },
+    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
+    length: {
+      type: [String, Number],
+      default: uni.$u.props.line.length
+    },
+    // 线条方向，col-竖向，row-横向
+    direction: {
+      type: String,
+      default: uni.$u.props.line.direction
+    },
+    // 是否显示细边框
+    hairline: {
       type: Boolean,
-      default: uni.$u.props.overlay.show
+      default: uni.$u.props.line.hairline
     },
-    // 层级z-index
-    zIndex: {
+    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
+    margin: {
       type: [String, Number],
-      default: uni.$u.props.overlay.zIndex
+      default: uni.$u.props.line.margin
     },
-    // 遮罩的过渡时间，单位为ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.overlay.duration
-    },
-    // 不透明度值，当做rgba的第四个参数
-    opacity: {
-      type: [String, Number],
-      default: uni.$u.props.overlay.opacity
+    // 是否虚线，true-虚线，false-实线
+    dashed: {
+      type: Boolean,
+      default: uni.$u.props.line.dashed
     }
   }
 };
@@ -22152,14 +23266,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 281 */,
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \***************************************************************************************************/
@@ -22236,14 +23350,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-gap/props.js ***!
   \******************************************************************************************/
@@ -22283,1091 +23397,6 @@ var _default = {
 };
 exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */
-/*!***************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/openType.js ***!
-  \***************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    openType: String
-  },
-  methods: {
-    onGetUserInfo: function onGetUserInfo(event) {
-      this.$emit('getuserinfo', event.detail);
-    },
-    onContact: function onContact(event) {
-      this.$emit('contact', event.detail);
-    },
-    onGetPhoneNumber: function onGetPhoneNumber(event) {
-      this.$emit('getphonenumber', event.detail);
-    },
-    onError: function onError(event) {
-      this.$emit('error', event.detail);
-    },
-    onLaunchApp: function onLaunchApp(event) {
-      this.$emit('launchapp', event.detail);
-    },
-    onOpenSetting: function onOpenSetting(event) {
-      this.$emit('opensetting', event.detail);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 305 */
-/*!*************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/button.js ***!
-  \*************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    lang: String,
-    sessionFrom: String,
-    sendMessageTitle: String,
-    sendMessagePath: String,
-    sendMessageImg: String,
-    showMessageCard: Boolean,
-    appParameter: String,
-    formType: String,
-    openType: String
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 306 */
-/*!***************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 操作菜单是否展示 （默认false）
-    show: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.show
-    },
-    // 标题
-    title: {
-      type: String,
-      default: uni.$u.props.actionSheet.title
-    },
-    // 选项上方的描述信息
-    description: {
-      type: String,
-      default: uni.$u.props.actionSheet.description
-    },
-    // 数据
-    actions: {
-      type: Array,
-      default: uni.$u.props.actionSheet.actions
-    },
-    // 取消按钮的文字，不为空时显示按钮
-    cancelText: {
-      type: String,
-      default: uni.$u.props.actionSheet.cancelText
-    },
-    // 点击某个菜单项时是否关闭弹窗
-    closeOnClickAction: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.closeOnClickAction
-    },
-    // 处理底部安全区（默认true）
-    safeAreaInsetBottom: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.safeAreaInsetBottom
-    },
-    // 小程序的打开方式
-    openType: {
-      type: String,
-      default: uni.$u.props.actionSheet.openType
-    },
-    // 点击遮罩是否允许关闭 (默认true)
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.actionSheet.closeOnClickOverlay
-    },
-    // 圆角值
-    round: {
-      type: [Boolean, String, Number],
-      default: uni.$u.props.actionSheet.round
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */,
-/* 313 */,
-/* 314 */
-/*!********************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-modal/props.js ***!
-  \********************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示modal
-    show: {
-      type: Boolean,
-      default: uni.$u.props.modal.show
-    },
-    // 标题
-    title: {
-      type: [String],
-      default: uni.$u.props.modal.title
-    },
-    // 弹窗内容
-    content: {
-      type: String,
-      default: uni.$u.props.modal.content
-    },
-    // 确认文案
-    confirmText: {
-      type: String,
-      default: uni.$u.props.modal.confirmText
-    },
-    // 取消文案
-    cancelText: {
-      type: String,
-      default: uni.$u.props.modal.cancelText
-    },
-    // 是否显示确认按钮
-    showConfirmButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showConfirmButton
-    },
-    // 是否显示取消按钮
-    showCancelButton: {
-      type: Boolean,
-      default: uni.$u.props.modal.showCancelButton
-    },
-    // 确认按钮颜色
-    confirmColor: {
-      type: String,
-      default: uni.$u.props.modal.confirmColor
-    },
-    // 取消文字颜色
-    cancelColor: {
-      type: String,
-      default: uni.$u.props.modal.cancelColor
-    },
-    // 对调确认和取消的位置
-    buttonReverse: {
-      type: Boolean,
-      default: uni.$u.props.modal.buttonReverse
-    },
-    // 是否开启缩放效果
-    zoom: {
-      type: Boolean,
-      default: uni.$u.props.modal.zoom
-    },
-    // 是否异步关闭，只对确定按钮有效
-    asyncClose: {
-      type: Boolean,
-      default: uni.$u.props.modal.asyncClose
-    },
-    // 是否允许点击遮罩关闭modal
-    closeOnClickOverlay: {
-      type: Boolean,
-      default: uni.$u.props.modal.closeOnClickOverlay
-    },
-    // 给一个负的margin-top，往上偏移，避免和键盘重合的情况
-    negativeTop: {
-      type: [String, Number],
-      default: uni.$u.props.modal.negativeTop
-    },
-    // modal宽度，不支持百分比，可以数值，px，rpx单位
-    width: {
-      type: [String, Number],
-      default: uni.$u.props.modal.width
-    },
-    // 确认按钮的样式，circle-圆形，square-方形，如设置，将不会显示取消按钮
-    confirmButtonShape: {
-      type: String,
-      default: uni.$u.props.modal.confirmButtonShape
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */,
-/* 321 */,
-/* 322 */
-/*!*******************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-line/props.js ***!
-  \*******************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    color: {
-      type: String,
-      default: uni.$u.props.line.color
-    },
-    // 长度，竖向时表现为高度，横向时表现为长度，可以为百分比，带px单位的值等
-    length: {
-      type: [String, Number],
-      default: uni.$u.props.line.length
-    },
-    // 线条方向，col-竖向，row-横向
-    direction: {
-      type: String,
-      default: uni.$u.props.line.direction
-    },
-    // 是否显示细边框
-    hairline: {
-      type: Boolean,
-      default: uni.$u.props.line.hairline
-    },
-    // 线条与上下左右元素的间距，字符串形式，如"30px"、"20px 30px"
-    margin: {
-      type: [String, Number],
-      default: uni.$u.props.line.margin
-    },
-    // 是否虚线，true-虚线，false-实线
-    dashed: {
-      type: Boolean,
-      default: uni.$u.props.line.dashed
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */
-/*!***************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
-  \***************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeAction.autoClose
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */
-/*!************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/touch.js ***!
-  \************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var MIN_DISTANCE = 10;
-function getDirection(x, y) {
-  if (x > y && x > MIN_DISTANCE) {
-    return 'horizontal';
-  }
-  if (y > x && y > MIN_DISTANCE) {
-    return 'vertical';
-  }
-  return '';
-}
-var _default = {
-  methods: {
-    getTouchPoint: function getTouchPoint(e) {
-      if (!e) {
-        return {
-          x: 0,
-          y: 0
-        };
-      }
-      if (e.touches && e.touches[0]) {
-        return {
-          x: e.touches[0].pageX,
-          y: e.touches[0].pageY
-        };
-      }
-      if (e.changedTouches && e.changedTouches[0]) {
-        return {
-          x: e.changedTouches[0].pageX,
-          y: e.changedTouches[0].pageY
-        };
-      }
-      return {
-        x: e.clientX || 0,
-        y: e.clientY || 0
-      };
-    },
-    resetTouchStatus: function resetTouchStatus() {
-      this.direction = '';
-      this.deltaX = 0;
-      this.deltaY = 0;
-      this.offsetX = 0;
-      this.offsetY = 0;
-    },
-    touchStart: function touchStart(event) {
-      this.resetTouchStatus();
-      var touch = this.getTouchPoint(event);
-      this.startX = touch.x;
-      this.startY = touch.y;
-    },
-    touchMove: function touchMove(event) {
-      var touch = this.getTouchPoint(event);
-      this.deltaX = touch.x - this.startX;
-      this.deltaY = touch.y - this.startY;
-      this.offsetX = Math.abs(this.deltaX);
-      this.offsetY = Math.abs(this.deltaY);
-      this.direction = this.direction || getDirection(this.offsetX, this.offsetY);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 337 */
-/*!********************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default2 = {
-  props: {
-    // 控制打开或者关闭
-    show: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.show
-    },
-    // 标识符，如果是v-for，可用index索引值
-    name: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.name
-    },
-    // 是否禁用
-    disabled: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.disabled
-    },
-    // 是否自动关闭其他swipe按钮组
-    autoClose: {
-      type: Boolean,
-      default: uni.$u.props.swipeActionItem.autoClose
-    },
-    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
-    threshold: {
-      type: Number,
-      default: uni.$u.props.swipeActionItem.threshold
-    },
-    // 右侧按钮内容
-    options: {
-      type: Array,
-      default: function _default() {
-        return uni.$u.props.swipeActionItem.rightOptions;
-      }
-    },
-    // 动画过渡时间，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.swipeActionItem.duration
-    }
-  }
-};
-exports.default = _default2;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 338 */
-/*!******************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  methods: {
-    // 关闭时执行
-    closeHandler: function closeHandler() {
-      this.status = 'close';
-    },
-    setState: function setState(status) {
-      this.status = status;
-    },
-    closeOther: function closeOther() {
-      // 尝试关闭其他打开的单元格
-      this.parent && this.parent.closeOther(this);
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */,
-/* 348 */
-/*!*************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    // 是否展示组件
-    show: {
-      type: Boolean,
-      default: uni.$u.props.transition.show
-    },
-    // 使用的动画模式
-    mode: {
-      type: String,
-      default: uni.$u.props.transition.mode
-    },
-    // 动画的执行时间，单位ms
-    duration: {
-      type: [String, Number],
-      default: uni.$u.props.transition.duration
-    },
-    // 使用的动画过渡函数
-    timingFunction: {
-      type: String,
-      default: uni.$u.props.transition.timingFunction
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 349 */
-/*!******************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/transition.js ***!
-  \******************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 59));
-var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 61));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 350));
-// 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
-var nextTick = function nextTick() {
-  return new Promise(function (resolve) {
-    return setTimeout(resolve, 1000 / 50);
-  });
-};
-// nvue动画模块实现细节抽离在外部文件
-
-// 定义类名，通过给元素动态切换类名，赋予元素一定的css动画样式
-var getClassNames = function getClassNames(name) {
-  return {
-    enter: "u-".concat(name, "-enter u-").concat(name, "-enter-active"),
-    'enter-to': "u-".concat(name, "-enter-to u-").concat(name, "-enter-active"),
-    leave: "u-".concat(name, "-leave u-").concat(name, "-leave-active"),
-    'leave-to': "u-".concat(name, "-leave-to u-").concat(name, "-leave-active")
-  };
-};
-var _default = {
-  methods: {
-    // 组件被点击发出事件
-    clickHandler: function clickHandler() {
-      this.$emit('click');
-    },
-    // vue版本的组件进场处理
-    vueEnter: function vueEnter() {
-      var _this = this;
-      // 动画进入时的类名
-      var classNames = getClassNames(this.mode);
-      // 定义状态和发出动画进入前事件
-      this.status = 'enter';
-      this.$emit('beforeEnter');
-      this.inited = true;
-      this.display = true;
-      this.classes = classNames.enter;
-      this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        return _regenerator.default.wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                // 标识动画尚未结束
-                _this.$emit('enter');
-                _this.transitionEnded = false;
-                // 组件动画进入后触发的事件
-                _this.$emit('afterEnter');
-                // 赋予组件enter-to类名
-                _this.classes = classNames['enter-to'];
-              case 4:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      })));
-    },
-    // 动画离场处理
-    vueLeave: function vueLeave() {
-      var _this2 = this;
-      // 如果不是展示状态，无需执行逻辑
-      if (!this.display) return;
-      var classNames = getClassNames(this.mode);
-      // 标记离开状态和发出事件
-      this.status = 'leave';
-      this.$emit('beforeLeave');
-      // 获得类名
-      this.classes = classNames.leave;
-      this.$nextTick(function () {
-        // 动画正在离场的状态
-        _this2.transitionEnded = false;
-        _this2.$emit('leave');
-        // 组件执行动画，到了执行的执行时间后，执行一些额外处理
-        setTimeout(_this2.onTransitionEnd, _this2.duration);
-        _this2.classes = classNames['leave-to'];
-      });
-    },
-    // 完成过渡后触发
-    onTransitionEnd: function onTransitionEnd() {
-      // 如果已经是结束的状态，无需再处理
-      if (this.transitionEnded) return;
-      this.transitionEnded = true;
-      // 发出组件动画执行后的事件
-      this.$emit(this.status === 'leave' ? 'afterLeave' : 'afterEnter');
-      if (!this.show && this.display) {
-        this.display = false;
-        this.inited = false;
-      }
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 350 */
-/*!********************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
-  \********************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  fade: {
-    enter: {
-      opacity: 0
-    },
-    'enter-to': {
-      opacity: 1
-    },
-    leave: {
-      opacity: 1
-    },
-    'leave-to': {
-      opacity: 0
-    }
-  },
-  'fade-up': {
-    enter: {
-      opacity: 0,
-      transform: 'translateY(100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateY(100%)'
-    }
-  },
-  'fade-down': {
-    enter: {
-      opacity: 0,
-      transform: 'translateY(-100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateY(-100%)'
-    }
-  },
-  'fade-left': {
-    enter: {
-      opacity: 0,
-      transform: 'translateX(-100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateX(-100%)'
-    }
-  },
-  'fade-right': {
-    enter: {
-      opacity: 0,
-      transform: 'translateX(100%)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'translateX(100%)'
-    }
-  },
-  'slide-up': {
-    enter: {
-      transform: 'translateY(100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateY(100%)'
-    }
-  },
-  'slide-down': {
-    enter: {
-      transform: 'translateY(-100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateY(-100%)'
-    }
-  },
-  'slide-left': {
-    enter: {
-      transform: 'translateX(-100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateX(-100%)'
-    }
-  },
-  'slide-right': {
-    enter: {
-      transform: 'translateX(100%)'
-    },
-    'enter-to': {
-      transform: 'translateY(0)'
-    },
-    leave: {
-      transform: 'translateY(0)'
-    },
-    'leave-to': {
-      transform: 'translateX(100%)'
-    }
-  },
-  zoom: {
-    enter: {
-      transform: 'scale(0.95)'
-    },
-    'enter-to': {
-      transform: 'scale(1)'
-    },
-    leave: {
-      transform: 'scale(1)'
-    },
-    'leave-to': {
-      transform: 'scale(0.95)'
-    }
-  },
-  'fade-zoom': {
-    enter: {
-      opacity: 0,
-      transform: 'scale(0.95)'
-    },
-    'enter-to': {
-      opacity: 1,
-      transform: 'scale(1)'
-    },
-    leave: {
-      opacity: 1,
-      transform: 'scale(1)'
-    },
-    'leave-to': {
-      opacity: 0,
-      transform: 'scale(0.95)'
-    }
-  }
-};
-exports.default = _default;
-
-/***/ }),
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */,
-/* 356 */,
-/* 357 */,
-/* 358 */
-/*!*************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-status-bar/props.js ***!
-  \*************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {
-    bgColor: {
-      type: String,
-      default: uni.$u.props.statusBar.bgColor
-    }
-  }
-};
-exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
-
-/***/ }),
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */,
-/* 364 */,
-/* 365 */,
-/* 366 */
-/*!**************************************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
-  \**************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _default = {
-  props: {}
-};
-exports.default = _default;
-
-/***/ }),
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */
-/*!***************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/index.js ***!
-  \***************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 25));
-var _index = _interopRequireDefault(__webpack_require__(/*! ./wte-side-list-popup/index */ 372));
-var _index2 = _interopRequireDefault(__webpack_require__(/*! ./wte-modal/index */ 374));
-var _index3 = _interopRequireDefault(__webpack_require__(/*! ./wte-action-sheet/index */ 375));
-var _index4 = _interopRequireDefault(__webpack_require__(/*! ./wte-popup/index */ 376));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 12:59:54
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 18:53:25
- * @FilePath: /what-to-eat/components/index.js
- * @Description: 组件
- */
-
-var components = [_index.default, _index2.default, _index3.default, _index4.default];
-components.map(function (component) {
-  _vue.default.component(component.name, component);
-});
-
-/***/ }),
-/* 372 */
-/*!***********************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-side-list-popup/index.js ***!
-  \***********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _wteSideListPopup = _interopRequireDefault(__webpack_require__(/*! ./wte-side-list-popup */ 251));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 18:53:57
- * @FilePath: /what-to-eat/components/wte-side-list-popup/index.js
- * @Description: 侧边弹框
- */
-var _default = _wteSideListPopup.default;
-exports.default = _default;
-
-/***/ }),
-/* 373 */,
-/* 374 */
-/*!*************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-modal/index.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _wteModal = _interopRequireDefault(__webpack_require__(/*! ./wte-modal */ 222));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 14:48:50
- * @FilePath: /what-to-eat/components/modal/index.js
- * @Description: 侧边弹框
- */
-var _default = _wteModal.default;
-exports.default = _default;
-
-/***/ }),
-/* 375 */
-/*!********************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-action-sheet/index.js ***!
-  \********************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _wteActionSheet = _interopRequireDefault(__webpack_require__(/*! ./wte-action-sheet */ 217));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 18:54:14
- * @FilePath: /what-to-eat/components/wte-action-sheet/index.js
- * @Description: 侧边弹框
- */
-var _default = _wteActionSheet.default;
-exports.default = _default;
-
-/***/ }),
-/* 376 */
-/*!*************************************************************************!*\
-  !*** /Users/pengchaoqun/code/what-to-eat/components/wte-popup/index.js ***!
-  \*************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-var _wtePopup = _interopRequireDefault(__webpack_require__(/*! ./wte-popup */ 189));
-/*
- * @Author: PengChaoQun 1152684231@qq.com
- * @Date: 2023-12-01 13:09:36
- * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-04 18:54:18
- * @FilePath: /what-to-eat/components/wte-popup/index.js
- * @Description: 侧边弹框
- */
-var _default = _wtePopup.default;
-exports.default = _default;
 
 /***/ })
 ]]);

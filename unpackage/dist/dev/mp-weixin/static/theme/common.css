@@ -1,6 +1,13 @@
 .u-cell__title-text {
   color: var(--wte-color-black) !important;
 }
+.u-modal__title {
+  color: #121212 !important;
+}
+.u-modal__content__text {
+  color: #121212 !important;
+  font-size: 32rpx !important;
+}
 .wte-btn.primary {
   background: #ee0a24;
   border-radius: 44rpx;

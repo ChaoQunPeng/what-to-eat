@@ -2,23 +2,25 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 16:27:48
+ * @LastEditTime: 2023-12-06 21:07:22
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="h-screen relative z-10">
-      <view class="text-right pr-30 mt-20">
-        <view class="go-menu-page iconfont icon-bianji" @click="goMyMenu"></view>
-      </view>
+      <view
+        :style="{ bottom: resolveGoMenuBtnBottom }"
+        class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full right-50"
+        @click="goMyMenu"
+      ></view>
 
       <image class="logo" src="../../static/logo.svg" mode="scaleToFill" />
 
       <view class="main">
         <view class="menu-text">
           <template v-if="menuText"> 吃{{ menuText }}! </template>
-          <template v-else>吃什么呢？</template>
+          <template v-else>吃什么呢?</template>
         </view>
 
         <button class="wte-btn primary" @click="randomFood">
@@ -26,7 +28,13 @@
           <template v-else>点击开始</template>
         </button>
 
-        <view class="menu-scope text-ellipsis overflow-hidden"> 当前范围：{{ currentCategoryText }} </view>
+        <view
+          class="menu-scope mb-17 text-size-28 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
+          style="width: 80%"
+        >
+          当前范围：{{ currentCategoryText }} {{ currentCategoryText }} {{ currentCategoryText }}
+          {{ currentCategoryText }} {{ currentCategoryText }} {{ currentCategoryText }}</view
+        >
 
         <view class="modify-menu-scope" @click="modifyScope"> 修改范围 </view>
       </view>
@@ -109,6 +117,11 @@ export default {
   },
 
   computed: {
+    resolveGoMenuBtnBottom() {
+      let bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
+
+      return bottom + 50 + 'rpx';
+    },
     currentCategoryText() {
       return this.$store.state.dataList
         .filter(e => this.currentCategoryIdList.includes(e.id))
@@ -133,11 +146,16 @@ export default {
     }
   },
 
-  created() {
+  created() {},
+
+  onShow() {
     this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
 
+    this.currentCategoryIdList = this.currentCategoryIdList.filter(e => {
+      return this.currentScopeList.findIndex(el => el.id == e) > -1;
+    });
+
     this.currentScopeList.forEach(e => {
-      this.$set(e, 'expand', false);
       this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
@@ -171,15 +189,6 @@ export default {
 
       randomList = randomList.map(e => e.name);
 
-      // foodList = categoryList
-      //   .filter(e => this.currentCategoryIdList.includes(e.id))
-      //   .reduce((acc, cur) => {
-      //     return (acc = [...acc, ...cur.list]);
-      //   }, [])
-      //   .map(e => e.food);
-
-      // randomList = Array.from(new Set(foodList));
-
       this.timer = setInterval(() => {
         let randomIndex = Math.floor(Math.random() * randomList.length);
 
@@ -193,6 +202,8 @@ export default {
      * @return {*}
      */
     modifyScope() {
+      this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+
       this.currentScopeList.forEach(e => {
         this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
@@ -249,7 +260,10 @@ page {
 }
 
 .go-menu-page {
-  font-size: 42rpx;
+  width: 80rpx;
+  height: 80rpx;
+  font-size: 40rpx;
+  box-shadow: 0 0 1px #ee0c24;
 }
 
 .logo {
@@ -262,7 +276,7 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 237rpx;
+  padding-top: 276rpx;
 
   .menu-text {
     font-size: 64rpx;
@@ -274,14 +288,6 @@ page {
   .wte-btn {
     margin-bottom: 42rpx;
     font-size: 32rpx;
-  }
-
-  .menu-scope {
-    font-size: 28rpx;
-    font-weight: 400;
-    line-height: 1.4;
-    color: #121212;
-    margin-bottom: 17rpx;
   }
 
   .modify-menu-scope {
@@ -310,7 +316,7 @@ page {
     border-bottom: 1px solid rgba(18, 18, 18, 0.05);
 
     .header {
-      padding: 16rpx 20rpx;
+      padding: 28rpx 20rpx;
     }
 
     .body {

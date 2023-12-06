@@ -271,6 +271,14 @@ var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
@@ -282,6 +290,10 @@ var _default = {
     };
   },
   computed: {
+    resolveGoMenuBtnBottom: function resolveGoMenuBtnBottom() {
+      var bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
+      return bottom + 50 + 'rpx';
+    },
     currentCategoryText: function currentCategoryText() {
       var _this = this;
       return this.$store.state.dataList.filter(function (e) {
@@ -306,11 +318,16 @@ var _default = {
       return getRandomObjectsFromArray(_menuData.MENU_DATA_LIST, 18);
     }
   },
-  created: function created() {
+  created: function created() {},
+  onShow: function onShow() {
     var _this2 = this;
     this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+    this.currentCategoryIdList = this.currentCategoryIdList.filter(function (e) {
+      return _this2.currentScopeList.findIndex(function (el) {
+        return el.id == e;
+      }) > -1;
+    });
     this.currentScopeList.forEach(function (e) {
-      _this2.$set(e, 'expand', false);
       _this2.$set(e, 'isChecked', _this2.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
@@ -344,16 +361,6 @@ var _default = {
       randomList = randomList.map(function (e) {
         return e.name;
       });
-
-      // foodList = categoryList
-      //   .filter(e => this.currentCategoryIdList.includes(e.id))
-      //   .reduce((acc, cur) => {
-      //     return (acc = [...acc, ...cur.list]);
-      //   }, [])
-      //   .map(e => e.food);
-
-      // randomList = Array.from(new Set(foodList));
-
       this.timer = setInterval(function () {
         var randomIndex = Math.floor(Math.random() * randomList.length);
         if (_this3.menuText != randomList[randomIndex]) {
@@ -367,6 +374,7 @@ var _default = {
      */
     modifyScope: function modifyScope() {
       var _this4 = this;
+      this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
       this.currentScopeList.forEach(function (e) {
         _this4.$set(e, 'isChecked', _this4.currentCategoryIdList.includes(e.id) ? [1] : []);
       });

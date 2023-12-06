@@ -20,6 +20,14 @@
   top: 0rpx
 }
 
+.right-30 {
+  right: 30rpx
+}
+
+.right-50 {
+  right: 50rpx
+}
+
 .z-10 {
   z-index: 10
 }
@@ -97,6 +105,10 @@
   margin-top: 20rpx
 }
 
+.mb-17 {
+  margin-bottom: 17rpx
+}
+
 .flex {
   display: flex
 }
@@ -165,12 +177,20 @@
   text-overflow: ellipsis
 }
 
+.whitespace-nowrap {
+  white-space: nowrap
+}
+
 .rounded-lg {
   border-radius: 0.5rem
 }
 
 .rounded-radius-20 {
   border-radius: 20rpx
+}
+
+.rounded-full {
+  border-radius: 9999px
 }
 
 .border {
@@ -180,6 +200,11 @@
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.bg-red {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 10 36 / var(--tw-bg-opacity))
 }
 
 .px-20 {
@@ -205,6 +230,11 @@
 .py-28 {
   padding-top: 28rpx;
   padding-bottom: 28rpx
+}
+
+.px-50 {
+  padding-left: 50rpx;
+  padding-right: 50rpx
 }
 
 .pb-30 {
@@ -286,6 +316,11 @@
 
 .text-black-65 {
   color: rgba(18, 18, 18, 0.65)
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity))
 }
 
 .filter {

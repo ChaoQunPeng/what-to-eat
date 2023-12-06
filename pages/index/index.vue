@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 21:07:22
+ * @LastEditTime: 2023-12-06 21:10:41
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -32,9 +32,8 @@
           class="menu-scope mb-17 text-size-28 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
           style="width: 80%"
         >
-          当前范围：{{ currentCategoryText }} {{ currentCategoryText }} {{ currentCategoryText }}
-          {{ currentCategoryText }} {{ currentCategoryText }} {{ currentCategoryText }}</view
-        >
+          当前范围：{{ currentCategoryText }}
+        </view>
 
         <view class="modify-menu-scope" @click="modifyScope"> 修改范围 </view>
       </view>

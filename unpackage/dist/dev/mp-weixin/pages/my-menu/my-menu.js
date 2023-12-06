@@ -107,7 +107,7 @@ try {
       return __webpack_require__.e(/*! import() | components/wte-modal/wte-modal */ "components/wte-modal/wte-modal").then(__webpack_require__.bind(null, /*! @/components/wte-modal/wte-modal.vue */ 174))
     },
     uInput: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 283))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 291))
     },
   }
 } catch (e) {
@@ -133,9 +133,11 @@ var render = function () {
   var _c = _vm._self._c || _h
   var l0 = _vm.__map(_vm.pageDataList, function (item, index) {
     var $orig = _vm.__get_orig(item)
-    var m0 = _vm.parseToText(item.list, "category")
+    var g0 = item.foodList.length
+    var m0 = g0 > 0 ? _vm.parseToText(item.foodList) : null
     return {
       $orig: $orig,
+      g0: g0,
       m0: m0,
     }
   })
@@ -239,6 +241,21 @@ var _constant = __webpack_require__(/*! ../../config/constant */ 30);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -252,7 +269,8 @@ var _default = {
         code: 'rename'
       }, {
         name: '删除',
-        code: 'delete'
+        code: 'delete',
+        color: '#ee0a24'
       }],
       showActionSheet: false,
       menuName: ''
@@ -260,12 +278,12 @@ var _default = {
   },
   computed: {
     pageDataList: function pageDataList() {
-      return this.$store.getters.categoryList;
+      return this.$store.state.dataList;
     },
     parseToText: function parseToText() {
-      return function (list, type) {
+      return function (list) {
         return list.map(function (e) {
-          return e.food;
+          return e.name;
         }).join('、');
       };
     }
@@ -282,22 +300,21 @@ var _default = {
       this.viewType = this.viewType == 'byMenu' ? 'byCategory' : 'byMenu';
     },
     /**
-     * @description: 前往菜单表单
+     * @description: 新建菜单
      * @return {*}
      */
-    goMenuForm: function goMenuForm() {
+    opeMenuForm: function opeMenuForm() {
       var _this = this;
       this.$refs.nameModal.open({
         title: "\u65B0\u5EFA\u83DC\u5355",
         showCancelButton: true,
         onConfirm: function onConfirm() {
           _this.$store.commit('createMenu', {
-            menuName: _this.menuName
+            name: _this.menuName
           });
           _this.menuName = '';
         }
       });
-      // uni.navigateTo({ url: '/pages/menu-form/menu-form' });
     },
     /**
      * @description: 点击卡片更多操作
@@ -322,7 +339,8 @@ var _default = {
             });
           } else if (selectItem.code == 'delete') {
             _this2.$refs.confirmDeleteModal.open({
-              content: "\u786E\u5B9A\u8981\u5220\u9664".concat(item.name, "\u5417\uFF1F"),
+              title: "\u7CFB\u7EDF\u901A\u77E5",
+              content: "\u786E\u5B9A\u8981\u5220\u9664\u3010".concat(item.name, "\u3011\u83DC\u5355\u5417\uFF1F"),
               showCancelButton: true,
               onConfirm: function onConfirm() {
                 _this2.$store.commit('deleteMenu', item.id);
@@ -335,9 +353,10 @@ var _default = {
               showCancelButton: true,
               onConfirm: function onConfirm() {
                 _this2.$store.commit('updateMenuData', {
-                  categoryId: item.id,
-                  category: _this2.menuName
+                  id: item.id,
+                  name: _this2.menuName
                 });
+                _this2.menuName = '';
               }
             });
           }

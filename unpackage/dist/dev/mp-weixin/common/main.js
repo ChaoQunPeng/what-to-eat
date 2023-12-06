@@ -125,13 +125,13 @@ var components
 try {
   components = {
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 216))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 224))
     },
     uSwipeAction: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 224))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 232))
     },
     uSwipeActionItem: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 230))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 238))
     },
   }
 } catch (e) {
@@ -422,7 +422,7 @@ var components
 try {
   components = {
     uModal: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-modal/u-modal */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-modal/u-modal")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-modal/u-modal.vue */ 242))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-modal/u-modal */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-modal/u-modal")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-modal/u-modal.vue */ 250))
     },
   }
 } catch (e) {
@@ -507,10 +507,13 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   name: 'wte-modal',
   // components:{},
-  // props: {},
+
+  props: {},
   data: function data() {
     return {
       show: false,
@@ -531,6 +534,7 @@ var _default = {
     open: function open() {
       var options = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       this.options = options;
+      console.log(options);
       this.show = true;
     },
     /**
@@ -657,7 +661,7 @@ var components
 try {
   components = {
     uActionSheet: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-action-sheet/u-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-action-sheet/u-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 250))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-action-sheet/u-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-action-sheet/u-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 258))
     },
   }
 } catch (e) {
@@ -867,7 +871,7 @@ var components
 try {
   components = {
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 216))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 224))
     },
   }
 } catch (e) {
@@ -1063,42 +1067,70 @@ var _constant = __webpack_require__(/*! ./config/constant */ 30);
 //
 var _default = {
   created: function created() {
-    console.log(111);
     var dataList = [{
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'zaocan',
-      category: '早餐'
+      id: 'zaocan',
+      name: '早餐',
+      foodList: [{
+        id: 'banfen',
+        name: '拌粉'
+      }, {
+        id: 'tangfen',
+        name: '汤粉'
+      }, {
+        id: 'baozi',
+        name: '包子'
+      }]
     }, {
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'wucan',
-      category: '午餐'
+      id: 'wucan',
+      name: '午餐',
+      foodList: [{
+        id: 'zhujiaofan',
+        name: '猪脚饭'
+      }, {
+        id: 'huangmenji',
+        name: '黄焖鸡'
+      }, {
+        id: 'huiguorougaijiaofan',
+        name: '回锅肉盖浇饭'
+      }, {
+        id: 'xiaojidunmogu',
+        name: '小鸡炖蘑菇'
+      }, {
+        id: 'hongshaopaigu',
+        name: '红烧排骨'
+      }]
     }, {
-      foodId: 'banfen',
-      food: '拌粉',
-      categoryId: 'wancan',
-      category: '晚餐'
+      id: 'wancan',
+      name: '晚餐',
+      foodList: [{
+        id: 'chaofen',
+        name: '炒粉'
+      }, {
+        id: 'shaobing',
+        name: '烧饼'
+      }, {
+        id: 'jiangzipaigu',
+        name: '酱汁排骨'
+      }, {
+        id: 'jiangzipaigu',
+        name: '酱汁排骨'
+      }]
     }, {
-      foodId: 'zhujiaofan',
-      food: '猪脚饭',
-      categoryId: 'wucan',
-      category: '午餐'
-    }, {
-      foodId: 'zhujiaofan',
-      food: '猪脚饭',
-      categoryId: 'wancan',
-      category: '晚餐'
-    }, {
-      foodId: 'jirou',
-      food: '鸡肉',
-      categoryId: 'huangmenji',
-      category: '黄焖鸡'
-    }, {
-      foodId: 'jirou',
-      food: '鸡肉',
-      categoryId: 'kendeji',
-      category: '肯德基'
+      id: 'shuiguo',
+      name: '水果',
+      foodList: [{
+        id: 'pingguo',
+        name: '苹果'
+      }, {
+        id: 'lizi',
+        name: '梨子'
+      }, {
+        id: 'xiangjiao',
+        name: '香蕉'
+      }, {
+        id: 'putao',
+        name: '葡萄'
+      }]
     }];
     if (!uni.getStorageSync(_constant.WET_MENU_DATA)) {
       uni.setStorageSync(_constant.WET_MENU_DATA, dataList);

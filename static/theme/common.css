@@ -8,6 +8,15 @@
   color: #121212 !important;
   font-size: 32rpx !important;
 }
+.u-action-sheet__header {
+  border-bottom: 1px solid rgba(12, 12, 12, 0.05);
+}
+.u-action-sheet__item-wrap .u-line {
+  border-bottom: 1px solid rgba(12, 12, 12, 0.1) !important;
+}
+.u-modal__button-group__wrapper--confirm .u-modal__button-group__wrapper__text {
+  color: #ee0a24 !important;
+}
 .wte-btn.primary {
   background: #ee0a24;
   border-radius: 44rpx;

@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 21:44:07
+ * @LastEditTime: 2023-12-06 15:23:31
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
@@ -153,22 +153,30 @@ const store = new Vuex.Store({
      * @param {*} foodName
      * @return {*}
      */
-    createFood(state, { menuId, menuName, foodName }) {
-      let list = getLocalData();
-      
+    createFood(state, { menuId, foodName }) {
+      let menuList = getLocalData();
+
+      let menu = menuList.find(e => e.id == menuId);
+
       let newData = {
-        categoryId: menuId,
-        category: menuName,
-        foodId: guid(),
-        food: foodName
+        id: guid(),
+        name: foodName
       };
 
-      setLocalData([...list, newData]);
+      menu.foodList.push(newData);
 
-      store.commit('updateDataList', [...list, newData]);
+      setLocalData(menuList);
+      store.commit('updateDataList', menuList);
     },
-    deleteFood(state) {
-      let list = getLocalData();
+    deleteFood(state, { menuId, foodId }) {
+      let menuList = getLocalData();
+      let foodList = menuList.find(e => e.id == menuId).foodList;
+
+      let index = foodList.findIndex(e => e.id == foodId);
+      foodList.splice(index, 1);
+
+      setLocalData(menuList);
+      store.commit('updateDataList', menuList);
     },
     /**
      * @description: 创建菜单
@@ -177,14 +185,13 @@ const store = new Vuex.Store({
      * @param {*} foodName
      * @return {*}
      */
-    createMenu(state, { menuName }) {
+    createMenu(state, { name }) {
       let list = getLocalData();
 
       let newData = {
-        categoryId: guid(),
-        category: menuName,
-        foodId: '',
-        food: ''
+        id: guid(),
+        name: name,
+        foodList: []
       };
 
       setLocalData([...list, newData]);
@@ -197,10 +204,10 @@ const store = new Vuex.Store({
      * @param {*} menuId
      * @return {*}
      */
-    deleteMenu(state, menuId) {
+    deleteMenu(state, id) {
       let list = getLocalData();
 
-      list = list.filter(e => e.categoryId != menuId);
+      list = list.filter(e => e.id != id);
 
       setLocalData(list);
 
@@ -246,16 +253,12 @@ const store = new Vuex.Store({
      * @param {*} newData
      * @return {*}
      */
-    updateMenuData(state, newData) {
+    updateMenuData(state, { id, name }) {
       let list = getLocalData();
-      let index = list.findIndex(e => e.categoryId == newData.categoryId);
+      let menu = list.find(e => e.id == id);
 
-      if (index > -1) {
-        list.forEach(e => {
-          if (e.categoryId == newData.categoryId) {
-            e.category = newData.category;
-          }
-        });
+      if (menu) {
+        menu.name = name;
 
         setLocalData(list);
         store.commit('updateDataList', list);

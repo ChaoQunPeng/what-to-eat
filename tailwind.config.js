@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-11-29 19:17:36
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 21:36:13
+ * @LastEditTime: 2023-12-05 23:13:10
  * @FilePath: /what-to-eat/tailwind.config.js
  * @Description: tailwind配置文件
  */
@@ -32,9 +32,11 @@ module.exports = {
         acc[`size-${cur}`] = `${cur}rpx`;
         return acc;
       }, {}),
-      borderRadius: {
-        'radius-20': '20rpx'
-      }
+      // Array(5).fill(0).map((e,i)=>i+1)
+      borderRadius: Array.from({ length: 20 }, (e, i) => i + 1).reduce((acc, cur, index) => {
+        acc[`radius-${cur}`] = `${cur}rpx`;
+        return acc;
+      }, {})
     }
   },
   plugins: []

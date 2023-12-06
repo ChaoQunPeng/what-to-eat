@@ -51,9 +51,10 @@ page {
 .modify-scope {
   width: calc(100vw - 200rpx);
 }
+.modify-scope .collapse-box {
+  border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+}
 .modify-scope .collapse-box .header {
-  border-top: 1px solid #ddd;
-  border-bottom: 1px solid #ddd;
   padding: 16rpx 20rpx;
 }
 .modify-scope .collapse-box .body > view {

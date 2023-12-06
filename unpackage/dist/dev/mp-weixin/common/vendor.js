@@ -9673,7 +9673,7 @@ var _constant = __webpack_require__(/*! ../config/constant */ 30);
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 21:44:07
+ * @LastEditTime: 2023-12-06 15:23:31
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
@@ -9814,20 +9814,32 @@ var store = new _vuex.default.Store({
      */
     createFood: function createFood(state, _ref) {
       var menuId = _ref.menuId,
-        menuName = _ref.menuName,
         foodName = _ref.foodName;
-      var list = getLocalData();
+      var menuList = getLocalData();
+      var menu = menuList.find(function (e) {
+        return e.id == menuId;
+      });
       var newData = {
-        categoryId: menuId,
-        category: menuName,
-        foodId: guid(),
-        food: foodName
+        id: guid(),
+        name: foodName
       };
-      setLocalData([].concat((0, _toConsumableArray2.default)(list), [newData]));
-      store.commit('updateDataList', [].concat((0, _toConsumableArray2.default)(list), [newData]));
+      menu.foodList.push(newData);
+      setLocalData(menuList);
+      store.commit('updateDataList', menuList);
     },
-    deleteFood: function deleteFood(state) {
-      var list = getLocalData();
+    deleteFood: function deleteFood(state, _ref2) {
+      var menuId = _ref2.menuId,
+        foodId = _ref2.foodId;
+      var menuList = getLocalData();
+      var foodList = menuList.find(function (e) {
+        return e.id == menuId;
+      }).foodList;
+      var index = foodList.findIndex(function (e) {
+        return e.id == foodId;
+      });
+      foodList.splice(index, 1);
+      setLocalData(menuList);
+      store.commit('updateDataList', menuList);
     },
     /**
      * @description: 创建菜单
@@ -9836,14 +9848,13 @@ var store = new _vuex.default.Store({
      * @param {*} foodName
      * @return {*}
      */
-    createMenu: function createMenu(state, _ref2) {
-      var menuName = _ref2.menuName;
+    createMenu: function createMenu(state, _ref3) {
+      var name = _ref3.name;
       var list = getLocalData();
       var newData = {
-        categoryId: guid(),
-        category: menuName,
-        foodId: '',
-        food: ''
+        id: guid(),
+        name: name,
+        foodList: []
       };
       setLocalData([].concat((0, _toConsumableArray2.default)(list), [newData]));
       store.commit('updateDataList', [].concat((0, _toConsumableArray2.default)(list), [newData]));
@@ -9854,10 +9865,10 @@ var store = new _vuex.default.Store({
      * @param {*} menuId
      * @return {*}
      */
-    deleteMenu: function deleteMenu(state, menuId) {
+    deleteMenu: function deleteMenu(state, id) {
       var list = getLocalData();
       list = list.filter(function (e) {
-        return e.categoryId != menuId;
+        return e.id != id;
       });
       setLocalData(list);
       store.commit('updateDataList', list);
@@ -9902,17 +9913,15 @@ var store = new _vuex.default.Store({
      * @param {*} newData
      * @return {*}
      */
-    updateMenuData: function updateMenuData(state, newData) {
+    updateMenuData: function updateMenuData(state, _ref4) {
+      var id = _ref4.id,
+        name = _ref4.name;
       var list = getLocalData();
-      var index = list.findIndex(function (e) {
-        return e.categoryId == newData.categoryId;
+      var menu = list.find(function (e) {
+        return e.id == id;
       });
-      if (index > -1) {
-        list.forEach(function (e) {
-          if (e.categoryId == newData.categoryId) {
-            e.category = newData.category;
-          }
-        });
+      if (menu) {
+        menu.name = name;
         setLocalData(list);
         store.commit('updateDataList', list);
       } else {
@@ -21247,7 +21256,15 @@ exports.MENU_DATA_LIST = MENU_DATA_LIST;
 /* 218 */,
 /* 219 */,
 /* 220 */,
-/* 221 */
+/* 221 */,
+/* 222 */,
+/* 223 */,
+/* 224 */,
+/* 225 */,
+/* 226 */,
+/* 227 */,
+/* 228 */,
+/* 229 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-popup/props.js ***!
   \********************************************************************************************/
@@ -21344,14 +21361,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 222 */,
-/* 223 */,
-/* 224 */,
-/* 225 */,
-/* 226 */,
-/* 227 */,
-/* 228 */,
-/* 229 */
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
   \***************************************************************************************************/
@@ -21378,12 +21395,12 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */
 /*!************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/touch.js ***!
   \************************************************************************************/
@@ -21459,7 +21476,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 236 */
+/* 244 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
   \********************************************************************************************************/
@@ -21518,7 +21535,7 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 237 */
+/* 245 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
   \******************************************************************************************************/
@@ -21550,16 +21567,16 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */,
-/* 244 */,
-/* 245 */,
 /* 246 */,
-/* 247 */
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */,
+/* 252 */,
+/* 253 */,
+/* 254 */,
+/* 255 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-modal/props.js ***!
   \********************************************************************************************/
@@ -21661,14 +21678,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
-/* 254 */,
-/* 255 */
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \***************************************************************************************/
@@ -21710,7 +21727,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 256 */
+/* 264 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/button.js ***!
   \*************************************************************************************/
@@ -21740,7 +21757,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 257 */
+/* 265 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \***************************************************************************************************/
@@ -21805,6 +21822,10 @@ var _default = {
     round: {
       type: [Boolean, String, Number],
       default: uni.$u.props.actionSheet.round
+    },
+    showCloseIcon: {
+      type: Boolean,
+      default: false
     }
   }
 };
@@ -21812,14 +21833,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */,
-/* 264 */,
-/* 265 */
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */,
+/* 272 */,
+/* 273 */
 /*!*****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox-group/props.js ***!
   \*****************************************************************************************************/
@@ -21916,14 +21937,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox/props.js ***!
   \***********************************************************************************************/
@@ -22010,21 +22031,21 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */,
 /* 282 */,
 /* 283 */,
 /* 284 */,
 /* 285 */,
 /* 286 */,
 /* 287 */,
-/* 288 */
+/* 288 */,
+/* 289 */,
+/* 290 */,
+/* 291 */,
+/* 292 */,
+/* 293 */,
+/* 294 */,
+/* 295 */,
+/* 296 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-input/props.js ***!
   \********************************************************************************************/
@@ -22229,14 +22250,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 289 */,
-/* 290 */,
-/* 291 */,
-/* 292 */,
-/* 293 */,
-/* 294 */,
-/* 295 */,
-/* 296 */
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell-group/props.js ***!
   \*************************************************************************************************/
@@ -22268,14 +22289,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell/props.js ***!
   \*******************************************************************************************/
@@ -22403,14 +22424,14 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \**********************************************************************************************/
@@ -22452,14 +22473,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/props.js ***!
   \*************************************************************************************************/
@@ -22501,7 +22522,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 321 */
+/* 329 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \******************************************************************************************************/
@@ -22518,7 +22539,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 60));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 62));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 322));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 330));
 // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {
   return new Promise(function (resolve) {
@@ -22610,7 +22631,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 322 */
+/* 330 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \********************************************************************************************************/
@@ -22803,14 +22824,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */,
-/* 329 */,
-/* 330 */
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */,
+/* 337 */,
+/* 338 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \*************************************************************************************************/
@@ -22836,14 +22857,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */,
+/* 345 */,
+/* 346 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \*******************************************************************************************/
@@ -23074,7 +23095,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 339 */
+/* 347 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/props.js ***!
   \*******************************************************************************************/
@@ -23181,14 +23202,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */,
-/* 347 */
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */,
+/* 355 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \**************************************************************************************************/
@@ -23208,14 +23229,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */,
+/* 363 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-line/props.js ***!
   \*******************************************************************************************/
@@ -23266,14 +23287,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \***************************************************************************************************/
@@ -23350,14 +23371,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-gap/props.js ***!
   \******************************************************************************************/

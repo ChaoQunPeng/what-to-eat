@@ -104,13 +104,13 @@ try {
       return __webpack_require__.e(/*! import() | components/wte-popup/wte-popup */ "components/wte-popup/wte-popup").then(__webpack_require__.bind(null, /*! @/components/wte-popup/wte-popup.vue */ 186))
     },
     uCheckboxGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 260))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 268))
     },
     uCheckbox: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox/u-checkbox.vue */ 268))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox/u-checkbox.vue */ 276))
     },
     uToast: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 276))
+      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 284))
     },
   }
 } catch (e) {
@@ -271,14 +271,12 @@ var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
 //
 //
 //
-//
-//
 var _default = {
   components: {},
   data: function data() {
     return {
       menuText: '',
-      currentCategoryIdList: ['zaocan', 'wucan', 'wancan', 'huangmenji', 'kendeji'],
+      currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
       currentScopeList: [],
       timer: null
     };
@@ -286,8 +284,7 @@ var _default = {
   computed: {
     currentCategoryText: function currentCategoryText() {
       var _this = this;
-      var categoryList = this.$store.getters.categoryList;
-      return categoryList.filter(function (e) {
+      return this.$store.state.dataList.filter(function (e) {
         return _this.currentCategoryIdList.includes(e.id);
       }).map(function (e) {
         return e.name;
@@ -311,7 +308,7 @@ var _default = {
   },
   created: function created() {
     var _this2 = this;
-    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.getters.categoryList));
+    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
     this.currentScopeList.forEach(function (e) {
       _this2.$set(e, 'expand', false);
       _this2.$set(e, 'isChecked', _this2.currentCategoryIdList.includes(e.id) ? [1] : []);
@@ -335,22 +332,28 @@ var _default = {
         this.timer = null;
         return;
       }
-      var categoryList = this.$store.getters.categoryList;
+      var menuList = this.$store.state.dataList;
       var randomList = [];
-      var foodList = [];
-      categoryList.forEach(function (e) {
+      // let foodList = [];
+
+      menuList.forEach(function (e) {
         if (_this3.currentCategoryIdList.includes(e.id)) {
-          randomList.push(e);
+          randomList = [].concat((0, _toConsumableArray2.default)(randomList), (0, _toConsumableArray2.default)(e.foodList));
         }
       });
-      foodList = categoryList.filter(function (e) {
-        return _this3.currentCategoryIdList.includes(e.id);
-      }).reduce(function (acc, cur) {
-        return acc = [].concat((0, _toConsumableArray2.default)(acc), (0, _toConsumableArray2.default)(cur.list));
-      }, []).map(function (e) {
-        return e.food;
+      randomList = randomList.map(function (e) {
+        return e.name;
       });
-      randomList = Array.from(new Set(foodList));
+
+      // foodList = categoryList
+      //   .filter(e => this.currentCategoryIdList.includes(e.id))
+      //   .reduce((acc, cur) => {
+      //     return (acc = [...acc, ...cur.list]);
+      //   }, [])
+      //   .map(e => e.food);
+
+      // randomList = Array.from(new Set(foodList));
+
       this.timer = setInterval(function () {
         var randomIndex = Math.floor(Math.random() * randomList.length);
         if (_this3.menuText != randomList[randomIndex]) {

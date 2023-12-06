@@ -2,21 +2,23 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-01 14:48:04
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-01 15:08:17
- * @FilePath: /what-to-eat/components/modal/wte-modal.vue
+ * @LastEditTime: 2023-12-06 17:14:51
+ * @FilePath: /what-to-eat/components/wte-modal/wte-modal.vue
  * @Description: modal弹框
 -->
 <template>
   <u-modal
     :show="show"
     :title="options.title"
-    :content="options.content"
     :showCancelButton="options.showCancelButton"
+    negativeTop="120"
     @cancel="onCancel"
     @confirm="onConfirm"
     @close="onClose"
   >
-    <slot></slot>
+    <slot>
+      {{ options.content }}
+    </slot>
   </u-modal>
 </template>
 
@@ -26,7 +28,7 @@ export default {
 
   // components:{},
 
-  // props: {},
+  props: {},
 
   data() {
     return {
@@ -48,6 +50,7 @@ export default {
      */
     open(options = {}) {
       this.options = options;
+      console.log(options);
       this.show = true;
     },
     /**

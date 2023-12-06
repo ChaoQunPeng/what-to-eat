@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 15:53:39
+ * @LastEditTime: 2023-12-06 16:27:41
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -11,15 +11,95 @@ import { WET_MENU_DATA } from './config/constant';
 
 export default {
   created() {
-    console.log(111);
     const dataList = [
-      { foodId: 'banfen', food: '拌粉', categoryId: 'zaocan', category: '早餐' },
-      { foodId: 'banfen', food: '拌粉', categoryId: 'wucan', category: '午餐' },
-      { foodId: 'banfen', food: '拌粉', categoryId: 'wancan', category: '晚餐' },
-      { foodId: 'zhujiaofan', food: '猪脚饭', categoryId: 'wucan', category: '午餐' },
-      { foodId: 'zhujiaofan', food: '猪脚饭', categoryId: 'wancan', category: '晚餐' },
-      { foodId: 'jirou', food: '鸡肉', categoryId: 'huangmenji', category: '黄焖鸡' },
-      { foodId: 'jirou', food: '鸡肉', categoryId: 'kendeji', category: '肯德基' }
+      {
+        id: 'zaocan',
+        name: '早餐',
+        foodList: [
+          {
+            id: 'banfen',
+            name: '拌粉'
+          },
+          {
+            id: 'tangfen',
+            name: '汤粉'
+          },
+          {
+            id: 'baozi',
+            name: '包子'
+          }
+        ]
+      },
+      {
+        id: 'wucan',
+        name: '午餐',
+        foodList: [
+          {
+            id: 'zhujiaofan',
+            name: '猪脚饭'
+          },
+          {
+            id: 'huangmenji',
+            name: '黄焖鸡'
+          },
+          {
+            id: 'huiguorougaijiaofan',
+            name: '回锅肉盖浇饭'
+          },
+          {
+            id: 'xiaojidunmogu',
+            name: '小鸡炖蘑菇'
+          },
+          {
+            id: 'hongshaopaigu',
+            name: '红烧排骨'
+          }
+        ]
+      },
+      {
+        id: 'wancan',
+        name: '晚餐',
+        foodList: [
+          {
+            id: 'chaofen',
+            name: '炒粉'
+          },
+          {
+            id: 'shaobing',
+            name: '烧饼'
+          },
+          {
+            id: 'jiangzipaigu',
+            name: '酱汁排骨'
+          },
+          {
+            id: 'jiangzipaigu',
+            name: '酱汁排骨'
+          }
+        ]
+      },
+      {
+        id: 'shuiguo',
+        name: '水果',
+        foodList: [
+          {
+            id: 'pingguo',
+            name: '苹果'
+          },
+          {
+            id: 'lizi',
+            name: '梨子'
+          },
+          {
+            id: 'xiangjiao',
+            name: '香蕉'
+          },
+          {
+            id: 'putao',
+            name: '葡萄'
+          }
+        ]
+      }
     ];
 
     if (!uni.getStorageSync(WET_MENU_DATA)) {

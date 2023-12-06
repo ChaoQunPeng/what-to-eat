@@ -2,14 +2,14 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 20:20:23
+ * @LastEditTime: 2023-12-06 16:27:48
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="h-screen relative z-10">
-      <view style="text-align: right; padding-right: 30rpx">
+      <view class="text-right pr-30 mt-20">
         <view class="go-menu-page iconfont icon-bianji" @click="goMyMenu"></view>
       </view>
 
@@ -50,14 +50,12 @@
         <view class="body flex-1">
           <view class="collapse-box" v-for="(category, index) in currentScopeList" :key="index">
             <view class="header flex items-center" @click="headerClick(category)">
-              <view></view>
-              <view class="font-bold">{{ category.name }}</view>
-
-              <view class="ml-auto">
+              <view>
                 <u-checkbox-group v-model="category.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
                   <u-checkbox :name="1"> </u-checkbox>
                 </u-checkbox-group>
               </view>
+              <view class="ml-10">{{ category.name }}</view>
             </view>
             <view class="body">
               <view
@@ -104,7 +102,7 @@ export default {
   data() {
     return {
       menuText: '',
-      currentCategoryIdList: ['zaocan', 'wucan', 'wancan', 'huangmenji', 'kendeji'],
+      currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
       currentScopeList: [],
       timer: null
     };
@@ -112,9 +110,7 @@ export default {
 
   computed: {
     currentCategoryText() {
-      let categoryList = this.$store.getters.categoryList;
-
-      return categoryList
+      return this.$store.state.dataList
         .filter(e => this.currentCategoryIdList.includes(e.id))
         .map(e => e.name)
         .join('、');
@@ -138,7 +134,7 @@ export default {
   },
 
   created() {
-    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.getters.categoryList));
+    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
 
     this.currentScopeList.forEach(e => {
       this.$set(e, 'expand', false);
@@ -163,24 +159,26 @@ export default {
         return;
       }
 
-      let categoryList = this.$store.getters.categoryList;
+      let menuList = this.$store.state.dataList;
       let randomList = [];
-      let foodList = [];
+      // let foodList = [];
 
-      categoryList.forEach(e => {
+      menuList.forEach(e => {
         if (this.currentCategoryIdList.includes(e.id)) {
-          randomList.push(e);
+          randomList = [...randomList, ...e.foodList];
         }
       });
 
-      foodList = categoryList
-        .filter(e => this.currentCategoryIdList.includes(e.id))
-        .reduce((acc, cur) => {
-          return (acc = [...acc, ...cur.list]);
-        }, [])
-        .map(e => e.food);
+      randomList = randomList.map(e => e.name);
 
-      randomList = Array.from(new Set(foodList));
+      // foodList = categoryList
+      //   .filter(e => this.currentCategoryIdList.includes(e.id))
+      //   .reduce((acc, cur) => {
+      //     return (acc = [...acc, ...cur.list]);
+      //   }, [])
+      //   .map(e => e.food);
+
+      // randomList = Array.from(new Set(foodList));
 
       this.timer = setInterval(() => {
         let randomIndex = Math.floor(Math.random() * randomList.length);
@@ -309,9 +307,9 @@ page {
   width: calc(100vw - 200rpx);
 
   .collapse-box {
+    border-bottom: 1px solid rgba(18, 18, 18, 0.05);
+
     .header {
-      border-top: 1px solid #ddd;
-      border-bottom: 1px solid #ddd;
       padding: 16rpx 20rpx;
     }
 

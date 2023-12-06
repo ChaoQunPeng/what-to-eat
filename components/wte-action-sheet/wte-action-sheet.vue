@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-01 15:14:56
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-05 10:57:26
+ * @LastEditTime: 2023-12-06 15:41:27
  * @FilePath: /what-to-eat/components/wte-action-sheet/wte-action-sheet.vue
  * @Description: 
 -->
@@ -12,7 +12,7 @@
     :title="title || options.title"
     :show="show"
     :closeOnClickAction="true"
-    :round="12"
+    :round="10"
     :closeOnClickOverlay="true"
     @close="onClose"
     @select="onSelect"

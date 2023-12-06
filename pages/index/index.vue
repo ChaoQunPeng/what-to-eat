@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 21:10:41
+ * @LastEditTime: 2023-12-06 21:16:54
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -23,13 +23,13 @@
           <template v-else>吃什么呢?</template>
         </view>
 
-        <button class="wte-btn primary" @click="randomFood">
+        <button class="wte-btn primary text-size-36" @click="randomFood">
           <template v-if="timer">点击停止</template>
           <template v-else>点击开始</template>
         </button>
 
         <view
-          class="menu-scope mb-17 text-size-28 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
+          class="menu-scope mb-17 text-size-32 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
           style="width: 80%"
         >
           当前范围：{{ currentCategoryText }}
@@ -286,11 +286,12 @@ page {
 
   .wte-btn {
     margin-bottom: 42rpx;
-    font-size: 32rpx;
+    font-size: 36rpx;
+    padding: 28rpx 72rpx;
   }
 
   .modify-menu-scope {
-    font-size: 24rpx;
+    font-size: 28rpx;
     font-weight: 400;
     line-height: 1.4;
     color: rgba(168, 168, 168, 1);

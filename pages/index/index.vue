@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 20:12:47
+ * @LastEditTime: 2023-12-11 20:51:29
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -12,7 +12,7 @@
       <image class="logo" src="../../static/logo.svg" mode="scaleToFill" />
 
       <view class="main">
-        <view class="menu-text">
+        <view class="menu-text text-center">
           <template v-if="menuText"> 吃{{ menuText }}! </template>
           <template v-else>吃什么呢?</template>
         </view>

@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 17:32:29
+ * @LastEditTime: 2023-12-11 18:38:37
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -198,7 +198,7 @@ export default {
 
     if (!uni.getStorageSync(WET_MENU_DATA)) {
       uni.setStorageSync(WET_MENU_DATA, dataList);
-      this.$store.commit('setDataList', dataList);
+      this.$store.commit('updateDataList', dataList);
     }
   },
 

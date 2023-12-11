@@ -1203,7 +1203,7 @@ var _default = {
     }];
     if (!uni.getStorageSync(_constant.WET_MENU_DATA)) {
       uni.setStorageSync(_constant.WET_MENU_DATA, dataList);
-      this.$store.commit('setDataList', dataList);
+      this.$store.commit('updateDataList', dataList);
     }
   },
   onLaunch: function onLaunch() {

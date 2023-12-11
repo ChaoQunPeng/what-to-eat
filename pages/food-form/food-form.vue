@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-05 20:29:00
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 16:32:27
+ * @LastEditTime: 2023-12-11 19:08:08
  * @FilePath: /what-to-eat/pages/food-form/food-form.vue
  * @Description: 
 -->
@@ -18,9 +18,17 @@
         hold-keyboard
       >
         <template slot="suffix">
+          <!-- #ifdef MP-WEIXIN -->
           <view @touchend.prevent>
             <button class="wte-btn primary" @click="ok">确定</button>
           </view>
+          <!-- #endif -->
+
+          <!-- #ifdef H5 -->
+          <view>
+            <button class="wte-btn primary" @click="ok">确定</button>
+          </view>
+          <!-- #endif -->
         </template>
       </u-input>
     </view>

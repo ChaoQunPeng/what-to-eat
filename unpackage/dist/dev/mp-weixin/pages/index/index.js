@@ -258,42 +258,28 @@ var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 var _default = {
   components: {},
   data: function data() {
     return {
       menuText: '',
       currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
-      currentScopeList: [],
+      currentMenuScopeList: [],
       timer: null
     };
   },
   computed: {
+    /**
+     * 控制前往我的菜单的按钮的底部距离
+     */
     resolveGoMenuBtnBottom: function resolveGoMenuBtnBottom() {
       var bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
       return bottom + 50 + 'rpx';
     },
-    currentCategoryText: function currentCategoryText() {
+    /**
+     * 当前菜单范围文本
+     */
+    currentMenuText: function currentMenuText() {
       var _this = this;
       return this.$store.state.dataList.filter(function (e) {
         return _this.currentCategoryIdList.includes(e.id);
@@ -301,6 +287,9 @@ var _default = {
         return e.name;
       }).join('、');
     },
+    /**
+     * 决定背景的菜单列表
+     */
     reaolveBgMenuList: function reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
         var result = new Array(n),
@@ -320,19 +309,24 @@ var _default = {
   created: function created() {},
   onShow: function onShow() {
     var _this2 = this;
-    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+    this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
     this.currentCategoryIdList = this.currentCategoryIdList.filter(function (e) {
-      return _this2.currentScopeList.findIndex(function (el) {
+      return _this2.currentMenuScopeList.findIndex(function (el) {
         return el.id == e;
       }) > -1;
     });
-    this.currentScopeList.forEach(function (e) {
+    this.currentMenuScopeList.forEach(function (e) {
       _this2.$set(e, 'isChecked', _this2.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
   mounted: function mounted() {},
   methods: {
+    /**
+     * @description: 前往我的菜单
+     * @return {*}
+     */
     goMyMenu: function goMyMenu() {
+      this.stopRandom();
       uni.navigateTo({
         url: '/pages/my-menu/my-menu'
       });
@@ -344,14 +338,11 @@ var _default = {
     randomFood: function randomFood() {
       var _this3 = this;
       if (this.timer) {
-        clearInterval(this.timer);
-        this.timer = null;
+        this.stopRandom();
         return;
       }
       var menuList = this.$store.state.dataList;
       var randomList = [];
-      // let foodList = [];
-
       menuList.forEach(function (e) {
         if (_this3.currentCategoryIdList.includes(e.id)) {
           randomList = [].concat((0, _toConsumableArray2.default)(randomList), (0, _toConsumableArray2.default)(e.foodList));
@@ -368,43 +359,43 @@ var _default = {
       }, 50);
     },
     /**
-     * @description: 修改范围
+     * @description: 停止随机
      * @return {*}
      */
-    modifyScope: function modifyScope() {
+    stopRandom: function stopRandom() {
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    /**
+     * @description: 修改菜单范围
+     * @return {*}
+     */
+    modifyMenuScope: function modifyMenuScope() {
       var _this4 = this;
-      this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
-      this.currentScopeList.forEach(function (e) {
+      this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+      this.currentMenuScopeList.forEach(function (e) {
         _this4.$set(e, 'isChecked', _this4.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
       this.$refs.modifyScope.open();
     },
-    headerClick: function headerClick(category) {
-      if (category.isChecked === undefined) {
-        this.$set(category, 'isChecked', []);
+    /**
+     * @description: 点击修改范围里的菜单
+     * @param {*} menu
+     * @return {*}
+     */
+    clickMenu: function clickMenu(menu) {
+      if (menu.isChecked === undefined) {
+        this.$set(menu, 'isChecked', []);
       }
-      this.$set(category, 'isChecked', category.isChecked.length == 0 ? [1] : []);
-
-      // category.list.forEach(food => {
-      //   this.$set(food, 'isChecked', category.isChecked);
-      // });
+      this.$set(menu, 'isChecked', menu.isChecked.length == 0 ? [1] : []);
     },
-    clickFood: function clickFood(food, category) {
-      // if (food.isChecked === undefined) {
-      //   this.$set(food, 'isChecked', []);
-      // }
-      // this.$set(food, 'isChecked', food.isChecked.length == 0 ? [1] : []);
-      // if (category.list.every(food => food.isChecked?.length > 0)) {
-      //   category.isChecked = [1];
-      // } else if (category.list.every(food => food.isChecked?.length == 0)) {
-      //   category.isChecked = [];
-      // } else {
-      //   category.isChecked = [];
-      // }
-    },
-    modifyCagetory: function modifyCagetory() {
+    /**
+     * @description: 修改菜单范围确认
+     * @return {*}
+     */
+    modifyMenu: function modifyMenu() {
       var _this5 = this;
-      if (this.currentScopeList.filter(function (e) {
+      if (this.currentMenuScopeList.filter(function (e) {
         var _e$isChecked;
         return ((_e$isChecked = e.isChecked) === null || _e$isChecked === void 0 ? void 0 : _e$isChecked.length) > 0;
       }).length == 0) {
@@ -413,13 +404,14 @@ var _default = {
         });
         return;
       }
-      this.currentCategoryIdList = this.currentScopeList.filter(function (e) {
+      this.stopRandom();
+      this.currentCategoryIdList = this.currentMenuScopeList.filter(function (e) {
         var _e$isChecked2;
         return ((_e$isChecked2 = e.isChecked) === null || _e$isChecked2 === void 0 ? void 0 : _e$isChecked2.length) > 0;
       }).map(function (e) {
         return e.id;
       });
-      this.currentScopeList.forEach(function (e) {
+      this.currentMenuScopeList.forEach(function (e) {
         _this5.$set(e, 'isChecked', _this5.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
       this.$refs.modifyScope.close();

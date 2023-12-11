@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 16:22:47
+ * @LastEditTime: 2023-12-11 18:28:07
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -32,10 +32,10 @@
           class="menu-scope mb-17 text-size-32 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
           style="width: 80%"
         >
-          当前范围：{{ currentCategoryText }}
+          当前范围：{{ currentMenuText }}
         </view>
 
-        <view class="modify-menu-scope" @click="modifyScope"> 修改范围 </view>
+        <view class="modify-menu-scope" @click="modifyMenuScope"> 修改范围 </view>
       </view>
     </view>
 
@@ -55,44 +55,24 @@
         </view>
 
         <view class="body">
-          <view class="collapse-box" v-for="(category, index) in currentScopeList" :key="index">
-            <view class="header flex items-center" @click="headerClick(category)">
+          <view class="collapse-box" v-for="(menu, index) in currentMenuScopeList" :key="index">
+            <view class="header flex items-center" @click="clickMenu(menu)">
               <view>
-                <u-checkbox-group v-model="category.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
+                <u-checkbox-group v-model="menu.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
                   <u-checkbox :name="1"> </u-checkbox>
                 </u-checkbox-group>
               </view>
-              <view class="ml-10">{{ category.name }}</view>
+              <view class="ml-10">{{ menu.name }}</view>
             </view>
-            <view class="body">
-              <view
-                v-for="(food, fIndex) in category.list"
-                :key="fIndex"
-                class="flex items-center"
-                @click="clickFood(food, category)"
-              >
+            <!-- <view class="body">
+              <view v-for="(food, fIndex) in menu.foodList" :key="fIndex" class="flex items-center">
                 <view> {{ food.food }} </view>
-
-                <!-- <u-checkbox-group
-                  class="ml-auto"
-                  v-model="food.isChecked"
-                  placement="column"
-                  activeColor="#ee0a24"
-                  shape="circle"
-                >
-                  <u-checkbox :name="1"> </u-checkbox>
-                </u-checkbox-group> -->
-
-                <!-- <view
-                  v-show="food.isChecked"
-                  class="iconfont icon-xiaoyan ml-auto font-bold checked-icon text-red"
-                ></view> -->
               </view>
-            </view>
+            </view> -->
           </view>
         </view>
         <view class="foot mx-30 my-30">
-          <button class="wte-btn primary" @click="modifyCagetory">确定</button>
+          <button class="wte-btn primary" @click="modifyMenu">确定</button>
         </view>
       </view>
       <u-toast ref="uToast"></u-toast>
@@ -110,23 +90,32 @@ export default {
     return {
       menuText: '',
       currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
-      currentScopeList: [],
+      currentMenuScopeList: [],
       timer: null
     };
   },
 
   computed: {
+    /**
+     * 控制前往我的菜单的按钮的底部距离
+     */
     resolveGoMenuBtnBottom() {
       let bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
 
       return bottom + 50 + 'rpx';
     },
-    currentCategoryText() {
+    /**
+     * 当前菜单范围文本
+     */
+    currentMenuText() {
       return this.$store.state.dataList
         .filter(e => this.currentCategoryIdList.includes(e.id))
         .map(e => e.name)
         .join('、');
     },
+    /**
+     * 决定背景的菜单列表
+     */
     reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
         var result = new Array(n),
@@ -148,13 +137,13 @@ export default {
   created() {},
 
   onShow() {
-    this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+    this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
 
     this.currentCategoryIdList = this.currentCategoryIdList.filter(e => {
-      return this.currentScopeList.findIndex(el => el.id == e) > -1;
+      return this.currentMenuScopeList.findIndex(el => el.id == e) > -1;
     });
 
-    this.currentScopeList.forEach(e => {
+    this.currentMenuScopeList.forEach(e => {
       this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
@@ -162,7 +151,13 @@ export default {
   mounted() {},
 
   methods: {
+    /**
+     * @description: 前往我的菜单
+     * @return {*}
+     */
     goMyMenu() {
+      this.stopRandom();
+      
       uni.navigateTo({ url: '/pages/my-menu/my-menu' });
     },
     /**
@@ -171,14 +166,12 @@ export default {
      */
     randomFood() {
       if (this.timer) {
-        clearInterval(this.timer);
-        this.timer = null;
+        this.stopRandom();
         return;
       }
 
       let menuList = this.$store.state.dataList;
       let randomList = [];
-      // let foodList = [];
 
       menuList.forEach(e => {
         if (this.currentCategoryIdList.includes(e.id)) {
@@ -197,54 +190,58 @@ export default {
       }, 50);
     },
     /**
-     * @description: 修改范围
+     * @description: 停止随机
      * @return {*}
      */
-    modifyScope() {
-      this.currentScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
+    stopRandom() {
+      clearInterval(this.timer);
+      this.timer = null;
+    },
+    /**
+     * @description: 修改菜单范围
+     * @return {*}
+     */
+    modifyMenuScope() {
+      this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
 
-      this.currentScopeList.forEach(e => {
+      this.currentMenuScopeList.forEach(e => {
         this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
 
       this.$refs.modifyScope.open();
     },
-    headerClick(category) {
-      if (category.isChecked === undefined) {
-        this.$set(category, 'isChecked', []);
+    /**
+     * @description: 点击修改范围里的菜单
+     * @param {*} menu
+     * @return {*}
+     */
+    clickMenu(menu) {
+      if (menu.isChecked === undefined) {
+        this.$set(menu, 'isChecked', []);
       }
 
-      this.$set(category, 'isChecked', category.isChecked.length == 0 ? [1] : []);
-
-      // category.list.forEach(food => {
-      //   this.$set(food, 'isChecked', category.isChecked);
-      // });
+      this.$set(menu, 'isChecked', menu.isChecked.length == 0 ? [1] : []);
     },
-    clickFood(food, category) {
-      // if (food.isChecked === undefined) {
-      //   this.$set(food, 'isChecked', []);
-      // }
-      // this.$set(food, 'isChecked', food.isChecked.length == 0 ? [1] : []);
-      // if (category.list.every(food => food.isChecked?.length > 0)) {
-      //   category.isChecked = [1];
-      // } else if (category.list.every(food => food.isChecked?.length == 0)) {
-      //   category.isChecked = [];
-      // } else {
-      //   category.isChecked = [];
-      // }
-    },
-    modifyCagetory() {
-      if (this.currentScopeList.filter(e => e.isChecked?.length > 0).length == 0) {
+    /**
+     * @description: 修改菜单范围确认
+     * @return {*}
+     */
+    modifyMenu() {
+      if (this.currentMenuScopeList.filter(e => e.isChecked?.length > 0).length == 0) {
         this.$refs.uToast.show({
           message: '至少要选择一个分类哦~'
         });
         return;
       }
 
-      this.currentCategoryIdList = this.currentScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
-      this.currentScopeList.forEach(e => {
+      this.stopRandom();
+
+      this.currentCategoryIdList = this.currentMenuScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
+
+      this.currentMenuScopeList.forEach(e => {
         this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
+
       this.$refs.modifyScope.close();
     }
   }

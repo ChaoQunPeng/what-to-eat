@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 18:08:31
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 15:23:31
+ * @LastEditTime: 2023-12-11 18:41:10
  * @FilePath: /what-to-eat/store/store.js
  * @Description: store文件;
  */
@@ -14,14 +14,27 @@ Vue.use(Vuex); //vue的插件机制
 
 import { WET_MENU_DATA } from '../config/constant';
 
+/**
+ * @description: 获取本地数据
+ * @return {*}
+ */
 const getLocalData = () => {
   return uni.getStorageSync(WET_MENU_DATA);
 };
 
+/**
+ * @description: 保存本地数据
+ * @param {*} data
+ * @return {*}
+ */
 const setLocalData = data => {
   return uni.setStorageSync(WET_MENU_DATA, data);
 };
 
+/**
+ * @description: 生成guid
+ * @return {*}
+ */
 const guid = () => {
   return 'xxxxxxxxxxxx4xxxyxxxxxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
     var r = (Math.random() * 16) | 0,
@@ -36,114 +49,108 @@ const store = new Vuex.Store({
   },
 
   getters: {
-    /**
-     * 食物数据-对象形式
-     * @param {*} state
-     * {
-     *    "食物名称1":[{}],
-     *    "食物名称2":[{}]
-     * }
-     */
-    foodMap(state) {
-      const foodGroup = {};
-      state.dataList.forEach(item => {
-        const { foodId } = item;
-        if (!foodGroup[foodId]) {
-          foodGroup[foodId] = [];
-        }
-        foodGroup[foodId].push(item);
-      });
-
-      console.log(`foodGroup`, foodGroup);
-
-      return foodGroup;
-    },
-    /**
-     * 分类数据-对象形式
-     * @param {*} state
-     * {
-     *    "分类名称1":[{}],
-     *    "分类名称2":[{}]
-     * }
-     */
-    categoryMap(state) {
-      const categoryGroup = {};
-
-      state.dataList.forEach(item => {
-        const { categoryId } = item;
-        if (!categoryGroup[categoryId]) {
-          categoryGroup[categoryId] = [];
-        }
-        categoryGroup[categoryId].push(item);
-      });
-
-      console.log(`categoryGroup`, categoryGroup);
-      return categoryGroup;
-    },
-    /**
-     * @description: 食物列表
-     * @param {*} state
-     *
-     * [
-     *    {
-     *      "id":"",
-     *      "name":"食物",
-     *      "list":[{}]
-     *    }
-     * ]
-     * @return {*}
-     */
-    foodList() {
-      const foodGroup = store.getters.foodMap;
-
-      let list = [];
-
-      for (const key in foodGroup) {
-        list.push({
-          id: foodGroup[key][0].foodId,
-          name: foodGroup[key][0].food,
-          list: foodGroup[key].filter(e => e.foodId == key)
-        });
-      }
-
-      console.log(`foodList`, list);
-
-      return list;
-    },
-    /**
-     * @description: 分类列表
-     * @param {*} state
-     *
-     * [
-     *    {
-     *      "id":"",
-     *      "name":"分类",
-     *      "list":[{}]
-     *    }
-     * ]
-     * @return {*}
-     */
-    categoryList() {
-      const categoryGroup = store.getters.categoryMap;
-
-      let list = [];
-
-      for (const key in categoryGroup) {
-        list.push({
-          id: categoryGroup[key][0].categoryId,
-          name: categoryGroup[key][0].category,
-          list: categoryGroup[key].filter(e => e.categoryId == key)
-        });
-      }
-
-      console.log(`categoryList`, list);
-
-      return list;
-    }
+    // /**
+    //  * 食物数据-对象形式
+    //  * @param {*} state
+    //  * {
+    //  *    "食物名称1":[{}],
+    //  *    "食物名称2":[{}]
+    //  * }
+    //  */
+    // foodMap(state) {
+    //   const foodGroup = {};
+    //   state.dataList.forEach(item => {
+    //     const { foodId } = item;
+    //     if (!foodGroup[foodId]) {
+    //       foodGroup[foodId] = [];
+    //     }
+    //     foodGroup[foodId].push(item);
+    //   });
+    //   console.log(`foodGroup`, foodGroup);
+    //   return foodGroup;
+    // },
+    // /**
+    //  * 分类数据-对象形式
+    //  * @param {*} state
+    //  * {
+    //  *    "分类名称1":[{}],
+    //  *    "分类名称2":[{}]
+    //  * }
+    //  */
+    // categoryMap(state) {
+    //   const categoryGroup = {};
+    //   state.dataList.forEach(item => {
+    //     const { categoryId } = item;
+    //     if (!categoryGroup[categoryId]) {
+    //       categoryGroup[categoryId] = [];
+    //     }
+    //     categoryGroup[categoryId].push(item);
+    //   });
+    //   console.log(`categoryGroup`, categoryGroup);
+    //   return categoryGroup;
+    // },
+    // /**
+    //  * @description: 食物列表
+    //  * @param {*} state
+    //  *
+    //  * [
+    //  *    {
+    //  *      "id":"",
+    //  *      "name":"食物",
+    //  *      "list":[{}]
+    //  *    }
+    //  * ]
+    //  * @return {*}
+    //  */
+    // foodList() {
+    //   const foodGroup = store.getters.foodMap;
+    //   let list = [];
+    //   for (const key in foodGroup) {
+    //     list.push({
+    //       id: foodGroup[key][0].foodId,
+    //       name: foodGroup[key][0].food,
+    //       list: foodGroup[key].filter(e => e.foodId == key)
+    //     });
+    //   }
+    //   console.log(`foodList`, list);
+    //   return list;
+    // },
+    // /**
+    //  * @description: 分类列表
+    //  * @param {*} state
+    //  *
+    //  * [
+    //  *    {
+    //  *      "id":"",
+    //  *      "name":"分类",
+    //  *      "list":[{}]
+    //  *    }
+    //  * ]
+    //  * @return {*}
+    //  */
+    // categoryList() {
+    //   const categoryGroup = store.getters.categoryMap;
+    //   let list = [];
+    //   for (const key in categoryGroup) {
+    //     list.push({
+    //       id: categoryGroup[key][0].categoryId,
+    //       name: categoryGroup[key][0].category,
+    //       list: categoryGroup[key].filter(e => e.categoryId == key)
+    //     });
+    //   }
+    //   console.log(`categoryList`, list);
+    //   return list;
+    // }
   },
 
   mutations: {
-    setDataList(state, dataList) {
+    /**
+     * @description: 更新dataList
+     * @param {*} state
+     * @param {*} dataList
+     * @return {*}
+     */
+    updateDataList(state, dataList) {
       state.dataList = dataList;
     },
     /**
@@ -168,6 +175,13 @@ const store = new Vuex.Store({
       setLocalData(menuList);
       store.commit('updateDataList', menuList);
     },
+    /**
+     * @description: 删除食物
+     * @param {*} state
+     * @param {*} menuId
+     * @param {*} foodId
+     * @return {*}
+     */    
     deleteFood(state, { menuId, foodId }) {
       let menuList = getLocalData();
       let foodList = menuList.find(e => e.id == menuId).foodList;
@@ -212,15 +226,6 @@ const store = new Vuex.Store({
       setLocalData(list);
 
       store.commit('updateDataList', list);
-    },
-    /**
-     * @description: 更新dataList
-     * @param {*} state
-     * @param {*} dataList
-     * @return {*}
-     */
-    updateDataList(state, dataList) {
-      state.dataList = dataList;
     },
     /**
      * @description: 更新食物数据
@@ -271,6 +276,6 @@ const store = new Vuex.Store({
   actions: {}
 });
 
-store.commit('setDataList', uni.getStorageSync(WET_MENU_DATA));
+store.commit('updateDataList', uni.getStorageSync(WET_MENU_DATA));
 
 export default store;

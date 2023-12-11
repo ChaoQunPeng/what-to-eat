@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 17:24:20
+ * @LastEditTime: 2023-12-11 17:32:29
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -18,7 +18,7 @@ export default {
         foodList: [
           {
             id: 'r3v66dk0t2l',
-            name: '拌粉'
+            name: '拌粉+瓦罐汤'
           },
           {
             id: '1ofr5ksa8zsh',
@@ -117,30 +117,34 @@ export default {
         ]
       },
       {
-        id: 'shaxianxiaochi',
-        name: '沙县小吃',
+        id: 'daguanzi',
+        name: '馆子店',
         foodList: [
           {
-            id: 'a5tccdvwoyq',
-            name: '云吞面'
+            id: 'vxl0ub2ch2',
+            name: '绿茶餐厅'
           },
           {
-            id: 'rnwislixvmc',
-            name: '鸭腿饭'
+            id: '7i00abcceac',
+            name: '遇江南'
           },
           {
-            id: 'getz13v387w',
-            name: '鸭头饭'
+            id: 'n22g0xgk1h',
+            name: '骨之味'
           },
           {
-            id: 'odrphf1wg89',
-            name: '鸡腿饭'
+            id: '4tiak9stpss',
+            name: '盛焰铁板烧'
+          },
+          {
+            id: 'm9d3sutc62',
+            name: '古乐牛香'
           }
         ]
       },
       {
-        id: '门店',
-        name: '门店',
+        id: 'richangxiaodian',
+        name: '日常小店',
         foodList: [
           {
             id: 'nzqafg5lf2',
@@ -160,11 +164,33 @@ export default {
           },
           {
             id: 'e035fwagaet',
-            name: '必胜客'
+            name: '绝杀水煮'
           },
           {
             id: 't59xldk0eme',
             name: '膳当家黄焖鸡'
+          }
+        ]
+      },
+      {
+        id: 'shaxianxiaochi',
+        name: '沙县小吃',
+        foodList: [
+          {
+            id: 'a5tccdvwoyq',
+            name: '云吞面'
+          },
+          {
+            id: 'rnwislixvmc',
+            name: '鸭腿饭'
+          },
+          {
+            id: 'getz13v387w',
+            name: '鸭头饭'
+          },
+          {
+            id: 'odrphf1wg89',
+            name: '鸡腿饭'
           }
         ]
       }

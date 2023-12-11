@@ -254,10 +254,6 @@ var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
 //
 //
 //
-//
-//
-//
-//
 var _default = {
   components: {},
   data: function data() {
@@ -265,7 +261,9 @@ var _default = {
       menuText: '',
       currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
       currentMenuScopeList: [],
-      timer: null
+      timer: null,
+      autoStopRandomTimeVal: 3,
+      autoStopRandomTimer: null
     };
   },
   computed: {
@@ -327,6 +325,7 @@ var _default = {
      */
     goMyMenu: function goMyMenu() {
       this.stopRandom();
+      this.stopAutoStopRandomTime();
       uni.navigateTo({
         url: '/pages/my-menu/my-menu'
       });
@@ -339,6 +338,7 @@ var _default = {
       var _this3 = this;
       if (this.timer) {
         this.stopRandom();
+        this.stopAutoStopRandomTime();
         return;
       }
       var menuList = this.$store.state.dataList;
@@ -351,12 +351,25 @@ var _default = {
       randomList = randomList.map(function (e) {
         return e.name;
       });
+
+      // 启动随机食物
       this.timer = setInterval(function () {
+        console.log(2);
         var randomIndex = Math.floor(Math.random() * randomList.length);
         if (_this3.menuText != randomList[randomIndex]) {
           _this3.menuText = randomList[randomIndex];
         }
       }, 50);
+
+      // 启动倒计时停止
+      this.autoStopRandomTimer = setInterval(function () {
+        console.log(1);
+        _this3.autoStopRandomTimeVal--;
+        if (_this3.autoStopRandomTimeVal == 0) {
+          _this3.stopRandom();
+          _this3.stopAutoStopRandomTime();
+        }
+      }, 1000);
     },
     /**
      * @description: 停止随机
@@ -365,6 +378,15 @@ var _default = {
     stopRandom: function stopRandom() {
       clearInterval(this.timer);
       this.timer = null;
+    },
+    /**
+     * @description: 停止随机
+     * @return {*}
+     */
+    stopAutoStopRandomTime: function stopAutoStopRandomTime() {
+      clearInterval(this.autoStopRandomTimer);
+      this.autoStopRandomTimer = null;
+      this.autoStopRandomTimeVal = 3;
     },
     /**
      * @description: 修改菜单范围
@@ -405,6 +427,7 @@ var _default = {
         return;
       }
       this.stopRandom();
+      this.stopAutoStopRandomTime();
       this.currentCategoryIdList = this.currentMenuScopeList.filter(function (e) {
         var _e$isChecked2;
         return ((_e$isChecked2 = e.isChecked) === null || _e$isChecked2 === void 0 ? void 0 : _e$isChecked2.length) > 0;

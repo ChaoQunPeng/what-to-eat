@@ -2,19 +2,13 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 18:28:07
+ * @LastEditTime: 2023-12-11 20:12:47
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
 <template>
   <view>
     <view class="h-screen relative z-10">
-      <view
-        :style="{ bottom: resolveGoMenuBtnBottom }"
-        class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full right-50"
-        @click="goMyMenu"
-      ></view>
-
       <image class="logo" src="../../static/logo.svg" mode="scaleToFill" />
 
       <view class="main">
@@ -24,7 +18,10 @@
         </view>
 
         <button class="wte-btn primary text-size-36" @click="randomFood">
-          <template v-if="timer">点击停止</template>
+          <view class="flex items-center" v-if="timer">
+            <view>点击停止</view>
+            <view class="text-size-24" v-if="autoStopRandomTimer">（{{ autoStopRandomTimeVal }}秒后自动停止） </view>
+          </view>
           <template v-else>点击开始</template>
         </button>
 
@@ -45,9 +42,13 @@
       </view>
     </view>
 
-    <!-- <u-popup :show="true" ref="adasdsasa">
-    </u-popup> -->
+    <view
+      :style="{ bottom: resolveGoMenuBtnBottom }"
+      class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full right-50 z-10"
+      @click="goMyMenu"
+    ></view>
 
+    <!-- 修改范围的弹框 -->
     <wte-popup ref="modifyScope">
       <view class="modify-scope h-full flex flex-col">
         <view class="header flex items-center pt-40 pb-30 px-26">
@@ -64,11 +65,6 @@
               </view>
               <view class="ml-10">{{ menu.name }}</view>
             </view>
-            <!-- <view class="body">
-              <view v-for="(food, fIndex) in menu.foodList" :key="fIndex" class="flex items-center">
-                <view> {{ food.food }} </view>
-              </view>
-            </view> -->
           </view>
         </view>
         <view class="foot mx-30 my-30">
@@ -91,7 +87,9 @@ export default {
       menuText: '',
       currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
       currentMenuScopeList: [],
-      timer: null
+      timer: null,
+      autoStopRandomTimeVal: 3,
+      autoStopRandomTimer: null
     };
   },
 
@@ -157,7 +155,8 @@ export default {
      */
     goMyMenu() {
       this.stopRandom();
-      
+      this.stopAutoStopRandomTime();
+
       uni.navigateTo({ url: '/pages/my-menu/my-menu' });
     },
     /**
@@ -167,6 +166,7 @@ export default {
     randomFood() {
       if (this.timer) {
         this.stopRandom();
+        this.stopAutoStopRandomTime();
         return;
       }
 
@@ -181,13 +181,26 @@ export default {
 
       randomList = randomList.map(e => e.name);
 
+      // 启动随机食物
       this.timer = setInterval(() => {
+        console.log(2);
         let randomIndex = Math.floor(Math.random() * randomList.length);
 
         if (this.menuText != randomList[randomIndex]) {
           this.menuText = randomList[randomIndex];
         }
       }, 50);
+
+      // 启动倒计时停止
+      this.autoStopRandomTimer = setInterval(() => {
+        console.log(1);
+        this.autoStopRandomTimeVal--;
+
+        if (this.autoStopRandomTimeVal == 0) {
+          this.stopRandom();
+          this.stopAutoStopRandomTime();
+        }
+      }, 1000);
     },
     /**
      * @description: 停止随机
@@ -196,6 +209,15 @@ export default {
     stopRandom() {
       clearInterval(this.timer);
       this.timer = null;
+    },
+    /**
+     * @description: 停止随机
+     * @return {*}
+     */
+    stopAutoStopRandomTime() {
+      clearInterval(this.autoStopRandomTimer);
+      this.autoStopRandomTimer = null;
+      this.autoStopRandomTimeVal = 3;
     },
     /**
      * @description: 修改菜单范围
@@ -235,6 +257,7 @@ export default {
       }
 
       this.stopRandom();
+      this.stopAutoStopRandomTime();
 
       this.currentCategoryIdList = this.currentMenuScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
 

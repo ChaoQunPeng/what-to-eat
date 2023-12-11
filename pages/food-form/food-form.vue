@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-05 20:29:00
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 17:21:32
+ * @LastEditTime: 2023-12-11 16:32:27
  * @FilePath: /what-to-eat/pages/food-form/food-form.vue
  * @Description: 
 -->
@@ -15,6 +15,7 @@
         class="name-input"
         v-model.trim="name"
         maxlength="15"
+        hold-keyboard
       >
         <template slot="suffix">
           <view @touchend.prevent>

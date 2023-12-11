@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 21:16:54
+ * @LastEditTime: 2023-12-11 16:22:47
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -54,7 +54,7 @@
           <view class="flex-1 text-center text-size-32 font-medium leading-none"> 修改范围 </view>
         </view>
 
-        <view class="body flex-1">
+        <view class="body">
           <view class="collapse-box" v-for="(category, index) in currentScopeList" :key="index">
             <view class="header flex items-center" @click="headerClick(category)">
               <view>

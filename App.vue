@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-04-01 01:47:12
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-06 16:27:41
+ * @LastEditTime: 2023-12-11 17:24:20
  * @FilePath: /what-to-eat/App.vue
  * @Description: 
 -->
@@ -17,16 +17,24 @@ export default {
         name: '早餐',
         foodList: [
           {
-            id: 'banfen',
+            id: 'r3v66dk0t2l',
             name: '拌粉'
           },
           {
-            id: 'tangfen',
+            id: '1ofr5ksa8zsh',
             name: '汤粉'
           },
           {
-            id: 'baozi',
+            id: 'xrmqyx0yayk',
             name: '包子'
+          },
+          {
+            id: '1l3n1yflnl5',
+            name: '豆浆油条'
+          },
+          {
+            id: '2xxrftqzwqi',
+            name: '肠粉'
           }
         ]
       },
@@ -35,24 +43,28 @@ export default {
         name: '午餐',
         foodList: [
           {
-            id: 'zhujiaofan',
+            id: '4o1ka6gmbim',
             name: '猪脚饭'
           },
           {
-            id: 'huangmenji',
+            id: 'i0jpxxsl07n',
             name: '黄焖鸡'
           },
           {
-            id: 'huiguorougaijiaofan',
+            id: 'wnzdmhl5hyp',
             name: '回锅肉盖浇饭'
           },
           {
-            id: 'xiaojidunmogu',
-            name: '小鸡炖蘑菇'
+            id: 's2r9znyslyd',
+            name: '啤酒鸭盖浇饭'
           },
           {
-            id: 'hongshaopaigu',
-            name: '红烧排骨'
+            id: 'yjptqwtk31a',
+            name: '鸡蛋肉丝炒粉'
+          },
+          {
+            id: 'ywrtm9puqi',
+            name: '老干妈蛋炒粉'
           }
         ]
       },
@@ -61,20 +73,24 @@ export default {
         name: '晚餐',
         foodList: [
           {
-            id: 'chaofen',
+            id: 'cvusapt22ku',
             name: '炒粉'
           },
           {
-            id: 'shaobing',
+            id: 'z2kp7ncp8ek',
             name: '烧饼'
           },
           {
-            id: 'jiangzipaigu',
-            name: '酱汁排骨'
+            id: 'zr9zq0aamuf',
+            name: '烧鸭饭'
           },
           {
-            id: 'jiangzipaigu',
-            name: '酱汁排骨'
+            id: 'lacrbbv0ce9',
+            name: '白切鸡饭'
+          },
+          {
+            id: 'cvkh1ubi0zr',
+            name: '螺蛳粉'
           }
         ]
       },
@@ -83,20 +99,72 @@ export default {
         name: '水果',
         foodList: [
           {
-            id: 'pingguo',
+            id: 'wrwq4wgsih',
             name: '苹果'
           },
           {
-            id: 'lizi',
+            id: 'y63oixemxz',
             name: '梨子'
           },
           {
-            id: 'xiangjiao',
+            id: 'loequjdql3b',
             name: '香蕉'
           },
           {
-            id: 'putao',
+            id: 'sdajs1q7u5',
             name: '葡萄'
+          }
+        ]
+      },
+      {
+        id: 'shaxianxiaochi',
+        name: '沙县小吃',
+        foodList: [
+          {
+            id: 'a5tccdvwoyq',
+            name: '云吞面'
+          },
+          {
+            id: 'rnwislixvmc',
+            name: '鸭腿饭'
+          },
+          {
+            id: 'getz13v387w',
+            name: '鸭头饭'
+          },
+          {
+            id: 'odrphf1wg89',
+            name: '鸡腿饭'
+          }
+        ]
+      },
+      {
+        id: '门店',
+        name: '门店',
+        foodList: [
+          {
+            id: 'nzqafg5lf2',
+            name: '沙县小吃'
+          },
+          {
+            id: 'kxyo055er4n',
+            name: '隆江猪脚饭'
+          },
+          {
+            id: '0xtgvlw2zbdh',
+            name: '麦当劳'
+          },
+          {
+            id: 'ifeq1g88ron',
+            name: '肯德基'
+          },
+          {
+            id: 'e035fwagaet',
+            name: '必胜客'
+          },
+          {
+            id: 't59xldk0eme',
+            name: '膳当家黄焖鸡'
           }
         ]
       }

@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/my-menu/my-menu",
+    "pages/menu-form/menu-form",
+    "pages/food-form/food-form"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "uni-app",
+    "navigationBarBackgroundColor": "#FAFAFA",
+    "backgroundColor": "#FAFAFA"
+  },
+  "usingComponents": {}
+}

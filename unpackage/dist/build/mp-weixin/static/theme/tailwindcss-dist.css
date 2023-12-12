@@ -1,0 +1,331 @@
+/* @tailwind base; */
+
+.fixed {
+  position: fixed
+}
+
+.absolute {
+  position: absolute
+}
+
+.relative {
+  position: relative
+}
+
+.bottom-0 {
+  bottom: 0rpx
+}
+
+.right-170 {
+  right: 170rpx
+}
+
+.right-50 {
+  right: 50rpx
+}
+
+.top-0 {
+  top: 0rpx
+}
+
+.z-10 {
+  z-index: 10
+}
+
+.mx-30 {
+  margin-left: 30rpx;
+  margin-right: 30rpx
+}
+
+.mx-40 {
+  margin-left: 40rpx;
+  margin-right: 40rpx
+}
+
+.mx-47 {
+  margin-left: 47rpx;
+  margin-right: 47rpx
+}
+
+.my-10 {
+  margin-top: 10rpx;
+  margin-bottom: 10rpx
+}
+
+.my-30 {
+  margin-top: 30rpx;
+  margin-bottom: 30rpx
+}
+
+.mb-17 {
+  margin-bottom: 17rpx
+}
+
+.mb-20 {
+  margin-bottom: 20rpx
+}
+
+.mb-30 {
+  margin-bottom: 30rpx
+}
+
+.ml-10 {
+  margin-left: 10rpx
+}
+
+.ml-32 {
+  margin-left: 32rpx
+}
+
+.ml-auto {
+  margin-left: auto
+}
+
+.mr-6 {
+  margin-right: 6rpx
+}
+
+.mr-8 {
+  margin-right: 8rpx
+}
+
+.mt-14 {
+  margin-top: 14rpx
+}
+
+.mt-20 {
+  margin-top: 20rpx
+}
+
+.mt-30 {
+  margin-top: 30rpx
+}
+
+.mt-36 {
+  margin-top: 36rpx
+}
+
+.flex {
+  display: flex
+}
+
+.h-60 {
+  height: 60rpx
+}
+
+.h-88 {
+  height: 88rpx
+}
+
+.h-full {
+  height: 100%
+}
+
+.h-screen {
+  height: 100vh
+}
+
+.w-32 {
+  width: 32rpx
+}
+
+.w-full {
+  width: 100%
+}
+
+.flex-1 {
+  flex: 1 1 0%
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+}
+
+.flex-col {
+  flex-direction: column
+}
+
+.flex-wrap {
+  flex-wrap: wrap
+}
+
+.items-end {
+  align-items: flex-end
+}
+
+.items-center {
+  align-items: center
+}
+
+.justify-center {
+  justify-content: center
+}
+
+.overflow-auto {
+  overflow: auto
+}
+
+.overflow-hidden {
+  overflow: hidden
+}
+
+.text-ellipsis {
+  text-overflow: ellipsis
+}
+
+.whitespace-nowrap {
+  white-space: nowrap
+}
+
+.rounded-full {
+  border-radius: 9999px
+}
+
+.rounded-lg {
+  border-radius: 0.5rem
+}
+
+.rounded-radius-20 {
+  border-radius: 20rpx
+}
+
+.border {
+  border-width: 1px
+}
+
+.bg-red {
+  --tw-bg-opacity: 1;
+  background-color: rgb(238 10 36 / var(--tw-bg-opacity))
+}
+
+.bg-white {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity))
+}
+
+.px-20 {
+  padding-left: 20rpx;
+  padding-right: 20rpx
+}
+
+.px-26 {
+  padding-left: 26rpx;
+  padding-right: 26rpx
+}
+
+.px-30 {
+  padding-left: 30rpx;
+  padding-right: 30rpx
+}
+
+.px-40 {
+  padding-left: 40rpx;
+  padding-right: 40rpx
+}
+
+.py-28 {
+  padding-top: 28rpx;
+  padding-bottom: 28rpx
+}
+
+.pb-20 {
+  padding-bottom: 20rpx
+}
+
+.pb-30 {
+  padding-bottom: 30rpx
+}
+
+.pt-20 {
+  padding-top: 20rpx
+}
+
+.pt-40 {
+  padding-top: 40rpx
+}
+
+.text-center {
+  text-align: center
+}
+
+.text-size-24 {
+  font-size: 24rpx
+}
+
+.text-size-28 {
+  font-size: 28rpx
+}
+
+.text-size-30 {
+  font-size: 30rpx
+}
+
+.text-size-32 {
+  font-size: 32rpx
+}
+
+.text-size-36 {
+  font-size: 36rpx
+}
+
+.font-bold {
+  font-weight: 700
+}
+
+.font-medium {
+  font-weight: 500
+}
+
+.font-normal {
+  font-weight: 400
+}
+
+.leading-none {
+  line-height: 1
+}
+
+.text-black {
+  color: var(--wte-color-black)
+}
+
+.text-black-45 {
+  color: rgba(18, 18, 18, 0.45)
+}
+
+.text-black-65 {
+  color: rgba(18, 18, 18, 0.65)
+}
+
+.text-red {
+  --tw-text-opacity: 1;
+  color: rgb(238 10 36 / var(--tw-text-opacity))
+}
+
+.text-white {
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.filter {
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms
+}
+
+/* @layer base {
+  :root {
+    --wte-page-bg-color: #fafafa;
+    --wte-color-red: #ee0a24;
+    --wte-color-black: rgb(18, 18, 18);
+    --wte-color-black-85: rgba(18, 18, 18, 0.85);
+    --wte-color-black-65: rgba(18, 18, 18, 0.65);
+    --wte-color-black-45: rgba(18, 18, 18, 0.45);
+    --wte-color-black-25: rgba(18, 18, 18, 0.25);
+  }
+} */

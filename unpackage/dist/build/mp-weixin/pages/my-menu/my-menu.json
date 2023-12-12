@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "我的菜单",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "wte-action-sheet": "/components/wte-action-sheet/wte-action-sheet",
+    "wte-modal": "/components/wte-modal/wte-modal",
+    "u-input": "/uni_modules/uview-ui/components/u-input/u-input"
+  }
+}

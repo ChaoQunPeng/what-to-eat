@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2023-12-11 20:51:29
+ * @LastEditTime: 2024-01-04 18:50:43
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -145,6 +145,8 @@ export default {
       this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
+
+  onShareAppMessage() {},
 
   mounted() {},
 

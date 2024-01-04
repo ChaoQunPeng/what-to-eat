@@ -775,7 +775,7 @@ function populateParameters(result) {
   // wx.getAccountInfoSync
 
   var parameters = {
-    appId: "wxb5c3d1653ac32e26",
+    appId: "__UNI__B59E209",
     appName: "what-to-eat",
     appVersion: "1.0.0",
     appVersionCode: "100",
@@ -874,7 +874,7 @@ var getAppBaseInfo = {
     var _hostName = getHostName(result);
     var hostLanguage = language.replace('_', '-');
     result = sortObject(Object.assign(result, {
-      appId: "wxb5c3d1653ac32e26",
+      appId: "__UNI__B59E209",
       appName: "what-to-eat",
       appVersion: "1.0.0",
       appVersionCode: "100",

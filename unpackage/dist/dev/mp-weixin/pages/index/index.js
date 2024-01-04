@@ -317,6 +317,7 @@ var _default = {
       _this2.$set(e, 'isChecked', _this2.currentCategoryIdList.includes(e.id) ? [1] : []);
     });
   },
+  onShareAppMessage: function onShareAppMessage() {},
   mounted: function mounted() {},
   methods: {
     /**

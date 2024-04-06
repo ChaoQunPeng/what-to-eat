@@ -254,6 +254,27 @@ var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   components: {},
   data: function data() {
@@ -263,7 +284,8 @@ var _default = {
       currentMenuScopeList: [],
       timer: null,
       autoStopRandomTimeVal: 3,
-      autoStopRandomTimer: null
+      autoStopRandomTimer: null,
+      plugin: {}
     };
   },
   computed: {
@@ -319,7 +341,33 @@ var _default = {
   },
   onShareAppMessage: function onShareAppMessage() {},
   mounted: function mounted() {},
+  onLoad: function onLoad() {
+    this.plugin = requirePlugin('wxacommentplugin');
+  },
   methods: {
+    dianZan: function dianZan() {
+      var _this3 = this;
+      this.plugin.openComment({
+        success: function success(res) {
+          var msg = '';
+          if (res.errCode == 0) {
+            msg = '您已经评价过了呢~';
+          } else if (res.errCode < 0) {
+            msg = '评价出错了 o(╥﹏╥)o';
+          }
+          _this3.$refs.pageToast.show({
+            message: msg
+          });
+          console.log("success", res);
+        },
+        fail: function fail(err) {
+          _this3.$refs.pageToast.show({
+            message: '评价失败了 o(╥﹏╥)o'
+          });
+          console.log("error", err);
+        }
+      });
+    },
     /**
      * @description: 前往我的菜单
      * @return {*}
@@ -336,7 +384,7 @@ var _default = {
      * @return {*}
      */
     randomFood: function randomFood() {
-      var _this3 = this;
+      var _this4 = this;
       if (this.timer) {
         this.stopRandom();
         this.stopAutoStopRandomTime();
@@ -345,7 +393,7 @@ var _default = {
       var menuList = this.$store.state.dataList;
       var randomList = [];
       menuList.forEach(function (e) {
-        if (_this3.currentCategoryIdList.includes(e.id)) {
+        if (_this4.currentCategoryIdList.includes(e.id)) {
           randomList = [].concat((0, _toConsumableArray2.default)(randomList), (0, _toConsumableArray2.default)(e.foodList));
         }
       });
@@ -357,18 +405,18 @@ var _default = {
       this.timer = setInterval(function () {
         console.log(2);
         var randomIndex = Math.floor(Math.random() * randomList.length);
-        if (_this3.menuText != randomList[randomIndex]) {
-          _this3.menuText = randomList[randomIndex];
+        if (_this4.menuText != randomList[randomIndex]) {
+          _this4.menuText = randomList[randomIndex];
         }
       }, 50);
 
       // 启动倒计时停止
       this.autoStopRandomTimer = setInterval(function () {
         console.log(1);
-        _this3.autoStopRandomTimeVal--;
-        if (_this3.autoStopRandomTimeVal == 0) {
-          _this3.stopRandom();
-          _this3.stopAutoStopRandomTime();
+        _this4.autoStopRandomTimeVal--;
+        if (_this4.autoStopRandomTimeVal == 0) {
+          _this4.stopRandom();
+          _this4.stopAutoStopRandomTime();
         }
       }, 1000);
     },
@@ -394,10 +442,10 @@ var _default = {
      * @return {*}
      */
     modifyMenuScope: function modifyMenuScope() {
-      var _this4 = this;
+      var _this5 = this;
       this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
       this.currentMenuScopeList.forEach(function (e) {
-        _this4.$set(e, 'isChecked', _this4.currentCategoryIdList.includes(e.id) ? [1] : []);
+        _this5.$set(e, 'isChecked', _this5.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
       this.$refs.modifyScope.open();
     },
@@ -417,7 +465,7 @@ var _default = {
      * @return {*}
      */
     modifyMenu: function modifyMenu() {
-      var _this5 = this;
+      var _this6 = this;
       if (this.currentMenuScopeList.filter(function (e) {
         var _e$isChecked;
         return ((_e$isChecked = e.isChecked) === null || _e$isChecked === void 0 ? void 0 : _e$isChecked.length) > 0;
@@ -436,7 +484,7 @@ var _default = {
         return e.id;
       });
       this.currentMenuScopeList.forEach(function (e) {
-        _this5.$set(e, 'isChecked', _this5.currentCategoryIdList.includes(e.id) ? [1] : []);
+        _this6.$set(e, 'isChecked', _this6.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
       this.$refs.modifyScope.close();
     }

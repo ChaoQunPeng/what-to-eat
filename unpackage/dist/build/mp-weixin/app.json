@@ -8,9 +8,15 @@
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "uni-app",
+    "navigationBarTitleText": "吃神马呢",
     "navigationBarBackgroundColor": "#FAFAFA",
     "backgroundColor": "#FAFAFA"
+  },
+  "plugins": {
+    "wxacommentplugin": {
+      "version": "latest",
+      "provider": "wx82e6ae1175f264fa"
+    }
   },
   "usingComponents": {}
 }

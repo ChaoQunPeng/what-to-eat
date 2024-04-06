@@ -6,6 +6,13 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "39245743",
+      "name": "zan",
+      "font_class": "zan",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
       "icon_id": "38451514",
       "name": "更多1",
       "font_class": "gengduo1",

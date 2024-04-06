@@ -15,20 +15,18 @@
       }
     },
     {
-    	"path" : "pages/menu-form/menu-form",
-    	"style" : 
-    	{
-    		"navigationBarTitleText" : "新增菜单",
-    		"enablePullDownRefresh" : false
-    	}
+      "path": "pages/menu-form/menu-form",
+      "style": {
+        "navigationBarTitleText": "新增菜单",
+        "enablePullDownRefresh": false
+      }
     },
     {
-    	"path" : "pages/food-form/food-form",
-    	"style" : 
-    	{
-    		"navigationBarTitleText" : "",
-    		"enablePullDownRefresh" : false
-    	}
+      "path": "pages/food-form/food-form",
+      "style": {
+        "navigationBarTitleText": "",
+        "enablePullDownRefresh": false
+      }
     }
   ],
   "globalStyle": {

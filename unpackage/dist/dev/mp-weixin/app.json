@@ -12,5 +12,11 @@
     "navigationBarBackgroundColor": "#FAFAFA",
     "backgroundColor": "#FAFAFA"
   },
+  "plugins": {
+    "wxacommentplugin": {
+      "version": "latest",
+      "provider": "wx82e6ae1175f264fa"
+    }
+  },
   "usingComponents": {}
 }

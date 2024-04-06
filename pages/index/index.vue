@@ -2,7 +2,7 @@
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2019-08-22 19:41:20
  * @LastEditors: PengChaoQun 1152684231@qq.com
- * @LastEditTime: 2024-01-09 19:50:51
+ * @LastEditTime: 2024-04-06 21:20:38
  * @FilePath: /what-to-eat/pages/index/index.vue
  * @Description: 
 -->
@@ -20,7 +20,9 @@
         <button class="wte-btn primary text-size-36" @click="randomFood">
           <view class="flex items-center" v-if="timer">
             <view>点击停止</view>
-            <view class="text-size-24" v-if="autoStopRandomTimer">（{{ autoStopRandomTimeVal }}秒后自动停止） </view>
+            <view class="text-size-24" v-if="autoStopRandomTimer"
+              >（{{ autoStopRandomTimeVal }}秒后自动停止）
+            </view>
           </view>
           <template v-else>点击开始</template>
         </button>
@@ -37,14 +39,25 @@
     </view>
 
     <view class="fixed flex flex-wrap w-full h-screen top-0">
-      <view v-for="(menu, index) in reaolveBgMenuList" :key="index" class="fixed-menu flex items-center justify-center">
+      <view
+        v-for="(menu, index) in reaolveBgMenuList"
+        :key="index"
+        class="fixed-menu flex items-center justify-center"
+      >
         <template>{{ menu.name }}</template>
       </view>
     </view>
 
     <view
       :style="{ bottom: resolveGoMenuBtnBottom }"
-      class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full right-50 z-10"
+      class="go-menu-page iconfont icon-zan fixed flex items-center justify-center text-white bg-red rounded-full z-10 right-40"
+      @click="dianZan"
+    ></view>
+
+    <view
+      :style="{ bottom: resolveGoMenuBtnBottom }"
+      style="right: 80px"
+      class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full z-10"
       @click="goMyMenu"
     ></view>
 
@@ -59,7 +72,12 @@
           <view class="collapse-box" v-for="(menu, index) in currentMenuScopeList" :key="index">
             <view class="header flex items-center" @click="clickMenu(menu)">
               <view>
-                <u-checkbox-group v-model="menu.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
+                <u-checkbox-group
+                  v-model="menu.isChecked"
+                  placement="column"
+                  activeColor="#ee0a24"
+                  shape="circle"
+                >
                   <u-checkbox :name="1"> </u-checkbox>
                 </u-checkbox-group>
               </view>
@@ -71,8 +89,11 @@
           <button class="wte-btn primary" @click="modifyMenu">确定</button>
         </view>
       </view>
+
       <u-toast ref="uToast"></u-toast>
     </wte-popup>
+
+    <u-toast ref="pageToast"></u-toast>
   </view>
 </template>
 
@@ -89,7 +110,8 @@ export default {
       currentMenuScopeList: [],
       timer: null,
       autoStopRandomTimeVal: 3,
-      autoStopRandomTimer: null
+      autoStopRandomTimer: null,
+      plugin: {}
     };
   },
 
@@ -119,7 +141,8 @@ export default {
         var result = new Array(n),
           len = arr.length,
           taken = new Array(len);
-        if (n > len) throw new RangeError('getRandomObjectsFromArray: more elements requested than available');
+        if (n > len)
+          throw new RangeError('getRandomObjectsFromArray: more elements requested than available');
         while (n--) {
           var x = Math.floor(Math.random() * len);
           result[n] = arr[x in taken ? taken[x] : x];
@@ -150,7 +173,36 @@ export default {
 
   mounted() {},
 
+  onLoad() {
+    this.plugin = requirePlugin('wxacommentplugin');
+  },
+
   methods: {
+    dianZan() {
+      this.plugin.openComment({
+        success: res => {
+          let msg = '';
+
+          if (res.errCode == 0) {
+            msg = '您已经评价过了呢~';
+          } else if (res.errCode < 0) {
+            msg = '评价出错了 o(╥﹏╥)o';
+          }
+
+          this.$refs.pageToast.show({
+            message: msg
+          });
+
+          console.log(`success`, res);
+        },
+        fail: err => {
+          this.$refs.pageToast.show({
+            message: '评价失败了 o(╥﹏╥)o'
+          });
+          console.log(`error`, err);
+        }
+      });
+    },
     /**
      * @description: 前往我的菜单
      * @return {*}
@@ -261,7 +313,9 @@ export default {
       this.stopRandom();
       this.stopAutoStopRandomTime();
 
-      this.currentCategoryIdList = this.currentMenuScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
+      this.currentCategoryIdList = this.currentMenuScopeList
+        .filter(e => e.isChecked?.length > 0)
+        .map(e => e.id);
 
       this.currentMenuScopeList.forEach(e => {
         this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);

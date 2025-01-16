@@ -10,7 +10,7 @@
   <view>
     <view class="mt-30 px-40">
       <u-input
-        placeholder="请输入食物名称"
+        placeholder="请输入事项名称"
         placeholder-class="placeholder-text-right"
         class="name-input"
         v-model.trim="name"
@@ -40,7 +40,7 @@
         </view>
       </template>
       <template v-else>
-        <view class="pb-20 text-size-28 text-black-65">还没有食物呢~</view>
+        <view class="pb-20 text-size-28 text-black-65">还没有事项呢~</view>
       </template>
     </view>
 
@@ -81,7 +81,7 @@ export default {
     ok() {
       if (!this.name) {
         this.$refs.uToast.show({
-          message: '食物名称不能为空哦~'
+          message: '事项名称不能为空哦~'
         });
 
         return;

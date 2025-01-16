@@ -28,7 +28,7 @@
  * @property {Boolean}			scrollTable	是否给每个表格添加一个滚动层使其能单独横向滚动
  * @property {Boolean}			selectable	是否开启长按复制
  * @property {Boolean}			setTitle	是否将 title 标签的内容设置到页面标题（默认 true ）
- * @property {Boolean}			showImgMenu	是否允许图片被长按时显示菜单（默认 true ）
+ * @property {Boolean}			showImgMenu	是否允许图片被长按时显示分类（默认 true ）
  * @property {Object}			tagStyle	标签的默认样式
  * @property {Boolean | Number}	useAnchor	是否使用锚点链接
  * 
@@ -82,7 +82,7 @@ export default {
   },
   methods: {
     /**
-     * @description 将锚点跳转的范围限定在一个 scroll-view 内
+     * @description 将锚点跳转的事项限定在一个 scroll-view 内
      * @param {Object} page scroll-view 所在页面的示例
      * @param {String} selector scroll-view 的选择器
      * @param {String} scrollTop scroll-view scroll-top 属性绑定的变量名

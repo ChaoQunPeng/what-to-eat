@@ -16,16 +16,28 @@
   bottom: 0rpx
 }
 
-.right-50 {
-  right: 50rpx
+.right-252 {
+  right: 252rpx
+}
+
+.right-40 {
+  right: 40rpx
 }
 
 .top-0 {
   top: 0rpx
 }
 
-.right-40 {
-  right: 40rpx
+.right-80 {
+  right: 80rpx
+}
+
+.right-60 {
+  right: 60rpx
+}
+
+.right-50 {
+  right: 50rpx
 }
 
 .z-10 {
@@ -57,16 +69,16 @@
   margin-bottom: 30rpx
 }
 
-.mb-17 {
-  margin-bottom: 17rpx
-}
-
 .mb-20 {
   margin-bottom: 20rpx
 }
 
 .mb-30 {
   margin-bottom: 30rpx
+}
+
+.mb-36 {
+  margin-bottom: 36rpx
 }
 
 .ml-10 {
@@ -91,6 +103,10 @@
 
 .mt-14 {
   margin-top: 14rpx
+}
+
+.mt-16 {
+  margin-top: 16rpx
 }
 
 .mt-20 {
@@ -133,6 +149,14 @@
   width: 100%
 }
 
+.w-284 {
+  width: 284rpx
+}
+
+.w-300 {
+  width: 300rpx
+}
+
 .flex-1 {
   flex: 1 1 0%
 }
@@ -159,6 +183,10 @@
 
 .justify-center {
   justify-content: center
+}
+
+.justify-between {
+  justify-content: space-between
 }
 
 .overflow-auto {
@@ -228,6 +256,11 @@
   padding-bottom: 28rpx
 }
 
+.px-24 {
+  padding-left: 24rpx;
+  padding-right: 24rpx
+}
+
 .pb-20 {
   padding-bottom: 20rpx
 }
@@ -268,6 +301,10 @@
   font-size: 36rpx
 }
 
+.text-size-38 {
+  font-size: 38rpx
+}
+
 .font-bold {
   font-weight: 700
 }
@@ -304,6 +341,10 @@
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.underline {
+  text-decoration-line: underline
 }
 
 .filter {

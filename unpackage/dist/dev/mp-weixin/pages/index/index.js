@@ -104,13 +104,13 @@ try {
       return __webpack_require__.e(/*! import() | components/wte-popup/wte-popup */ "components/wte-popup/wte-popup").then(__webpack_require__.bind(null, /*! @/components/wte-popup/wte-popup.vue */ 186))
     },
     uCheckboxGroup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 268))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 276))
     },
     uCheckbox: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox/u-checkbox.vue */ 276))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-checkbox/u-checkbox.vue */ 284))
     },
     uToast: function () {
-      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 284))
+      return __webpack_require__.e(/*! import() | uni_modules/uview-ui/components/u-toast/u-toast */ "uni_modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-toast/u-toast.vue */ 292))
     },
   }
 } catch (e) {
@@ -176,15 +176,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _toConsumableArray2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/toConsumableArray */ 18));
 var _menuData = __webpack_require__(/*! ../../config/menu-data */ 197);
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var _constant = __webpack_require__(/*! ../../config/constant */ 30);
 //
 //
 //
@@ -280,24 +272,25 @@ var _default = {
   data: function data() {
     return {
       menuText: '',
-      currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
+      currentCategoryIdList: ['wucan'],
       currentMenuScopeList: [],
       timer: null,
       autoStopRandomTimeVal: 3,
+      isAutoStopRandomTimer: false,
       autoStopRandomTimer: null,
       plugin: {}
     };
   },
   computed: {
     /**
-     * 控制前往我的菜单的按钮的底部距离
+     * 控制前往我的分类的按钮的底部距离
      */
     resolveGoMenuBtnBottom: function resolveGoMenuBtnBottom() {
       var bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
-      return bottom + 50 + 'rpx';
+      return bottom + 60 + 'rpx';
     },
     /**
-     * 当前菜单范围文本
+     * 当前分类事项文本
      */
     currentMenuText: function currentMenuText() {
       var _this = this;
@@ -308,7 +301,7 @@ var _default = {
       }).join('、');
     },
     /**
-     * 决定背景的菜单列表
+     * 决定背景的分类列表
      */
     reaolveBgMenuList: function reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
@@ -345,6 +338,11 @@ var _default = {
     this.plugin = requirePlugin('wxacommentplugin');
   },
   methods: {
+    goSetting: function goSetting() {
+      uni.navigateTo({
+        url: '/pages/settings/settings'
+      });
+    },
     dianZan: function dianZan() {
       var _this3 = this;
       this.plugin.openComment({
@@ -369,7 +367,7 @@ var _default = {
       });
     },
     /**
-     * @description: 前往我的菜单
+     * @description: 前往我的分类
      * @return {*}
      */
     goMyMenu: function goMyMenu() {
@@ -380,7 +378,7 @@ var _default = {
       });
     },
     /**
-     * @description: 随机筛选一个食物
+     * @description: 随机筛选一个事项
      * @return {*}
      */
     randomFood: function randomFood() {
@@ -401,7 +399,7 @@ var _default = {
         return e.name;
       });
 
-      // 启动随机食物
+      // 启动随机事项
       this.timer = setInterval(function () {
         console.log(2);
         var randomIndex = Math.floor(Math.random() * randomList.length);
@@ -409,6 +407,8 @@ var _default = {
           _this4.menuText = randomList[randomIndex];
         }
       }, 50);
+      this.isAutoStopRandomTimer = uni.getStorageSync(_constant.WET_IS_AUTO_STOP_RANDOM_TIMER);
+      if (!this.isAutoStopRandomTimer) return;
 
       // 启动倒计时停止
       this.autoStopRandomTimer = setInterval(function () {
@@ -438,7 +438,7 @@ var _default = {
       this.autoStopRandomTimeVal = 3;
     },
     /**
-     * @description: 修改菜单范围
+     * @description: 修改分类事项
      * @return {*}
      */
     modifyMenuScope: function modifyMenuScope() {
@@ -450,7 +450,7 @@ var _default = {
       this.$refs.modifyScope.open();
     },
     /**
-     * @description: 点击修改范围里的菜单
+     * @description: 点击修改事项里的分类
      * @param {*} menu
      * @return {*}
      */
@@ -461,7 +461,7 @@ var _default = {
       this.$set(menu, 'isChecked', menu.isChecked.length == 0 ? [1] : []);
     },
     /**
-     * @description: 修改菜单范围确认
+     * @description: 修改分类事项确认
      * @return {*}
      */
     modifyMenu: function modifyMenu() {

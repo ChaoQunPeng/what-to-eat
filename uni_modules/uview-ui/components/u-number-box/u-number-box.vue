@@ -191,7 +191,7 @@
 			init() {
 				this.currentValue = this.format(this.value)
 			},
-			// 格式化整理数据，限制范围
+			// 格式化整理数据，限制事项
 			format(value) {
 				value = this.filter(value)
 				// 如果为空字符串，那么设置为0，同时将值转为Number类型

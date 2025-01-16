@@ -16,13 +16,13 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 276rpx;
+  padding-top: 220rpx;
 }
 .main .menu-text {
   font-size: 64rpx;
   font-weight: bold;
   line-height: 1.4;
-  margin-bottom: 65rpx;
+  margin-bottom: 100rpx;
 }
 .main .wte-btn {
   margin-bottom: 42rpx;
@@ -34,8 +34,6 @@ page {
   font-weight: 400;
   line-height: 1.4;
   color: #a8a8a8;
-}
-.main .modify-menu-scope:active {
   color: #ee0a24;
 }
 .fixed-menu {

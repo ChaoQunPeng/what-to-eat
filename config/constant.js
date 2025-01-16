@@ -7,3 +7,4 @@
  * @Description: 
  */
 export const WET_MENU_DATA = 'WET_MENU_DATA';
+export const WET_IS_AUTO_STOP_RANDOM_TIMER = 'WET_IS_AUTO_STOP_RANDOM_TIMER';

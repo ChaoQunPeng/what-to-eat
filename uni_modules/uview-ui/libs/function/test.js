@@ -123,14 +123,14 @@ function contains(value, param) {
 }
 
 /**
- * 验证一个值范围[min, max]
+ * 验证一个值事项[min, max]
  */
 function range(value, param) {
     return value >= param[0] && value <= param[1]
 }
 
 /**
- * 验证一个长度范围[min, max]
+ * 验证一个长度事项[min, max]
  */
 function rangeLength(value, param) {
     return value.length >= param[0] && value.length <= param[1]

@@ -20,7 +20,7 @@ export default {
             type: Boolean,
             default: uni.$u.props.swipeActionItem.autoClose
         },
-        // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
+        // 滑动距离阈值，只有大于此值，才被认为是要打开分类
         threshold: {
             type: Number,
             default: uni.$u.props.swipeActionItem.threshold

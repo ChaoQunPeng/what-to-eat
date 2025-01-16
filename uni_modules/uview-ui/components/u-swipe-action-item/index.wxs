@@ -50,16 +50,16 @@ function touchmove(event, ownerInstance) {
 	if (state.status === 'open') {
 		// 在开启状态下，向左滑动，需忽略
 		if (moveX < 0) moveX = 0
-		// 想要收起菜单，最大能移动的距离为按钮的总宽度
+		// 想要收起分类，最大能移动的距离为按钮的总宽度
 		if (moveX > buttonsWidth) moveX = buttonsWidth
-		// 如果是已经打开了的状态，向左滑动时，移动收起菜单
+		// 如果是已经打开了的状态，向左滑动时，移动收起分类
 		moveSwipeAction(-buttonsWidth + moveX, instance, ownerInstance)
 	} else {
 		// 关闭状态下，右滑动需忽略
 		if (moveX > 0) moveX = 0
 		// 滑动的距离不允许超过所有按钮的总宽度，此时只能是左滑，最终设置按钮的总宽度，同时为负数
 		if (Math.abs(moveX) > buttonsWidth) moveX = -buttonsWidth
-		// 只要是在滑过程中，就不断移动单元格内容部分，从而使隐藏的菜单显示出来
+		// 只要是在滑过程中，就不断移动单元格内容部分，从而使隐藏的分类显示出来
 		moveSwipeAction(moveX, instance, ownerInstance)
 	}
 }
@@ -78,7 +78,7 @@ function touchend(event, ownerInstance) {
 	if (state.status === 'open') {
 		// 在展开的状态下，继续左滑，无需操作
 		if (moveX < 0) return
-		// 在开启状态下，点击一下内容区域，moveX为0，也即没有进行移动，这时执行收起菜单逻辑
+		// 在开启状态下，点击一下内容区域，moveX为0，也即没有进行移动，这时执行收起分类逻辑
 		if (moveX === 0) {
 			return closeSwipeAction(instance, ownerInstance)
 		}
@@ -112,13 +112,13 @@ function getMoveDirection(instance, ownerInstance) {
 	var state = instance.getState()
 }
 
-// 移动滑动选择器内容区域，同时显示出其隐藏的菜单
+// 移动滑动选择器内容区域，同时显示出其隐藏的分类
 function moveSwipeAction(moveX, instance, ownerInstance) {
 	var state = instance.getState()
 	// 获取所有按钮的实例，需要通过它去设置按钮的位移
 	var buttons = ownerInstance.selectAllComponents('.u-swipe-action-item__right__button')
 
-	// 设置菜单内容部分的偏移
+	// 设置分类内容部分的偏移
 	instance.requestAnimationFrame(function() {
 		instance.setStyle({
 			// 设置translateX的值
@@ -129,7 +129,7 @@ function moveSwipeAction(moveX, instance, ownerInstance) {
 	})
 }
 
-// 一次性展开滑动菜单
+// 一次性展开滑动分类
 function openSwipeAction(instance, ownerInstance) {
 	var state = instance.getState()
 	// 获取所有按钮的实例，需要通过它去设置按钮的位移
@@ -139,7 +139,7 @@ function openSwipeAction(instance, ownerInstance) {
 	// 展开过程中，是向左移动，所以X的偏移应该为负值
 	var buttonsWidth = -state.buttonsWidth
 	instance.requestAnimationFrame(function() {
-		// 设置菜单主体内容
+		// 设置分类主体内容
 		instance.setStyle({
 			'transition': 'transform ' + duration,
 			'transform': 'translateX(' + buttonsWidth + 'px)',
@@ -149,14 +149,14 @@ function openSwipeAction(instance, ownerInstance) {
 	setStatus('open', instance, ownerInstance)
 }
 
-// 标记菜单的当前状态，open-已经打开，close-已经关闭
+// 标记分类的当前状态，open-已经打开，close-已经关闭
 function setStatus(status, instance, ownerInstance) {
 	var state = instance.getState()
 	state.status = status
 	ownerInstance.callMethod('setState', status)
 }
 
-// 一次性收起滑动菜单
+// 一次性收起滑动分类
 function closeSwipeAction(instance, ownerInstance) {
 	var state = instance.getState()
 	// 获取所有按钮的实例，需要通过它去设置按钮的位移
@@ -165,7 +165,7 @@ function closeSwipeAction(instance, ownerInstance) {
 	// 处理duration单位问题
 	var duration = getDuration(state.duration)
 	instance.requestAnimationFrame(function() {
-		// 设置菜单主体内容
+		// 设置分类主体内容
 		instance.setStyle({
 			'transition': 'transform ' + duration,
 			'transform': 'translateX(0px)',
@@ -195,7 +195,7 @@ function statusChange(newValue, oldValue, ownerInstance, instance) {
 	}
 }
 
-// 菜单尺寸发生变化
+// 分类尺寸发生变化
 function sizeChange(newValue, oldValue, ownerInstance, instance) {
 	// wxs内的局部变量快照
 	var state = instance.getState()

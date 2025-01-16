@@ -1,5 +1,5 @@
 {
-  "navigationBarTitleText": "新增菜单",
+  "navigationBarTitleText": "新增分类",
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-cell-group": "/uni_modules/uview-ui/components/u-cell-group/u-cell-group",

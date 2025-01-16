@@ -402,7 +402,7 @@ function type(rule, value, source, errors, options) {
 function range(rule, value, source, errors, options) {
     const len = typeof rule.len === 'number'
     const min = typeof rule.min === 'number'
-    const max = typeof rule.max === 'number' // 正则匹配码点范围从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
+    const max = typeof rule.max === 'number' // 正则匹配码点事项从U+010000一直到U+10FFFF的文字（补充平面Supplementary Plane）
 
     const spRegexp = /[\uD800-\uDBFF][\uDC00-\uDFFF]/g
     let val = value

@@ -82,16 +82,16 @@ import openType from '../../libs/mixin/openType';
 import button from '../../libs/mixin/button';
 import props from './props.js';
 /**
- * ActionSheet 操作菜单
- * @description 本组件用于从底部弹出一个操作菜单，供用户选择并返回结果。本组件功能类似于uni的uni.showActionSheetAPI，配置更加灵活，所有平台都表现一致。
+ * ActionSheet 操作分类
+ * @description 本组件用于从底部弹出一个操作分类，供用户选择并返回结果。本组件功能类似于uni的uni.showActionSheetAPI，配置更加灵活，所有平台都表现一致。
  * @tutorial https://www.uviewui.com/components/actionSheet.html
  *
- * @property {Boolean}			show				操作菜单是否展示 （默认 false ）
- * @property {String}			title				操作菜单标题
+ * @property {Boolean}			show				操作分类是否展示 （默认 false ）
+ * @property {String}			title				操作分类标题
  * @property {String}			description			选项上方的描述信息
  * @property {Array<Object>}	actions				按钮的文字数组，见官方文档示例
  * @property {String}			cancelText			取消按钮的提示文字,不为空时显示按钮
- * @property {Boolean}			closeOnClickAction	点击某个菜单项时是否关闭弹窗 （默认 true ）
+ * @property {Boolean}			closeOnClickAction	点击某个分类项时是否关闭弹窗 （默认 true ）
  * @property {Boolean}			safeAreaInsetBottom	处理底部安全区 （默认 true ）
  * @property {String}			openType			小程序的打开方式 (contact | launchApp | getUserInfo | openSetting ｜getPhoneNumber ｜error )
  * @property {Boolean}			closeOnClickOverlay	点击遮罩是否允许关闭  (默认 true )

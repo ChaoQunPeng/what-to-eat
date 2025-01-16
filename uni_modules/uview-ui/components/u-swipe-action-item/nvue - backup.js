@@ -96,16 +96,16 @@ export default {
             if (this.status === 'open') {
                 // 在开启状态下，向左滑动，需忽略
                 if (moveX < 0) moveX = 0
-                // 想要收起菜单，最大能移动的距离为按钮的总宽度
+                // 想要收起分类，最大能移动的距离为按钮的总宽度
                 if (moveX > buttonsWidth) moveX = buttonsWidth
-                // 如果是已经打开了的状态，向左滑动时，移动收起菜单
+                // 如果是已经打开了的状态，向左滑动时，移动收起分类
                 this.moveSwipeAction(-buttonsWidth + moveX)
             } else {
                 // 关闭状态下，右滑动需忽略
                 if (moveX > 0) moveX = 0
                 // 滑动的距离不允许超过所有按钮的总宽度，此时只能是左滑，最终设置按钮的总宽度，同时为负数
                 if (Math.abs(moveX) > buttonsWidth) moveX = -buttonsWidth
-                // 只要是在滑过程中，就不断移动菜单的内容部分，从而使隐藏的菜单显示出来
+                // 只要是在滑过程中，就不断移动分类的内容部分，从而使隐藏的分类显示出来
                 this.moveSwipeAction(moveX)
             }
         },
@@ -121,7 +121,7 @@ export default {
                 // 在展开的状态下，继续左滑，无需操作
                 if (this.moveX < 0) this.moveX = 0
                 if (this.moveX > buttonsWidth) this.moveX = buttonsWidth
-                // 在开启状态下，点击一下内容区域，moveX为0，也即没有进行移动，这时执行收起菜单逻辑
+                // 在开启状态下，点击一下内容区域，moveX为0，也即没有进行移动，这时执行收起分类逻辑
                 if (this.moveX === 0) {
                     return this.closeSwipeAction()
                 }
@@ -144,7 +144,7 @@ export default {
                 }
             }
         },
-        // 移动滑动选择器内容区域，同时显示出其隐藏的菜单
+        // 移动滑动选择器内容区域，同时显示出其隐藏的分类
         moveSwipeAction(moveX) {
             if (this.moving) return
             this.moving = true
@@ -178,7 +178,7 @@ export default {
                 previewButtonsMoveX += translateX
             }
         },
-        // 关闭菜单
+        // 关闭分类
         closeSwipeAction() {
             if (this.status === 'close') return
             this.moving = true
@@ -210,7 +210,7 @@ export default {
                 }, () => {})
             }
         },
-        // 打开菜单
+        // 打开分类
         openSwipeAction() {
             if (this.status === 'open') return
             this.moving = true

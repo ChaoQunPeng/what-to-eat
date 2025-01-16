@@ -35,7 +35,7 @@ export default {
             type: Boolean,
             default: uni.$u.props.image.lazyLoad
         },
-        // 开启长按图片显示识别微信小程序码菜单
+        // 开启长按图片显示识别微信小程序码分类
         showMenuByLongpress: {
             type: Boolean,
             default: uni.$u.props.image.showMenuByLongpress

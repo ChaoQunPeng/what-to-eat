@@ -16,12 +16,12 @@ export default {
                 fontSize: '14px'
             })
         },
-        // 点击遮罩是否关闭菜单
+        // 点击遮罩是否关闭分类
         closeOnClickMask: {
             type: Boolean,
             default: true
         },
-        // 点击当前激活项标题是否关闭菜单
+        // 点击当前激活项标题是否关闭分类
         closeOnClickSelf: {
             type: Boolean,
             default: true
@@ -31,7 +31,7 @@ export default {
             type: [Number, String],
             default: 300
         },
-        // 标题菜单的高度
+        // 标题分类的高度
         height: {
             type: [Number, String],
             default: 40
@@ -51,12 +51,12 @@ export default {
             type: [Number, String],
             default: 0
         },
-        // 菜单右侧的icon图标
+        // 分类右侧的icon图标
         menuIcon: {
             type: String,
             default: 'arrow-down'
         },
-        // 菜单右侧图标的大小
+        // 分类右侧图标的大小
         menuIconSize: {
             type: [Number, String],
             default: 14

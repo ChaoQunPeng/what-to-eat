@@ -107,7 +107,7 @@ try {
       return __webpack_require__.e(/*! import() | components/wte-modal/wte-modal */ "components/wte-modal/wte-modal").then(__webpack_require__.bind(null, /*! @/components/wte-modal/wte-modal.vue */ 174))
     },
     uInput: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 291))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-input/u-input.vue */ 299))
     },
   }
 } catch (e) {
@@ -262,7 +262,7 @@ var _default = {
       viewType: 'byCategory',
       dataList: [],
       list: [{
-        name: '编辑食物',
+        name: '编辑事项',
         code: 'editFood'
       }, {
         name: '重命名',
@@ -300,13 +300,13 @@ var _default = {
       this.viewType = this.viewType == 'byMenu' ? 'byCategory' : 'byMenu';
     },
     /**
-     * @description: 新建菜单
+     * @description: 新建分类
      * @return {*}
      */
     opeMenuForm: function opeMenuForm() {
       var _this = this;
       this.$refs.nameModal.open({
-        title: "\u65B0\u5EFA\u83DC\u5355",
+        title: "\u65B0\u5EFA\u5206\u7C7B",
         showCancelButton: true,
         onConfirm: function onConfirm() {
           _this.$store.commit('createMenu', {
@@ -340,7 +340,7 @@ var _default = {
           } else if (selectItem.code == 'delete') {
             _this2.$refs.confirmDeleteModal.open({
               title: "\u7CFB\u7EDF\u901A\u77E5",
-              content: "\u786E\u5B9A\u8981\u5220\u9664\u3010".concat(item.name, "\u3011\u83DC\u5355\u5417\uFF1F"),
+              content: "\u786E\u5B9A\u8981\u5220\u9664\u3010".concat(item.name, "\u3011\u5206\u7C7B\u5417\uFF1F"),
               showCancelButton: true,
               onConfirm: function onConfirm() {
                 _this2.$store.commit('deleteMenu', item.id);

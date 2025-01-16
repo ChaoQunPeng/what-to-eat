@@ -111,7 +111,7 @@
 				// 先断掉之前的观察
 				this.disconnectObserver('contentObserver')
 				const contentObserver = uni.createIntersectionObserver({
-					// 检测的区间范围
+					// 检测的区间事项
 					thresholds: [0.95, 0.98, 1]
 				})
 				// 到屏幕顶部的高度时触发
@@ -125,7 +125,7 @@
 				this.contentObserver = contentObserver
 			},
 			setFixed(top) {
-				// 判断是否出于吸顶条件范围
+				// 判断是否出于吸顶条件事项
 				const fixed = top <= this.stickyTop
 				this.fixed = fixed
 			},

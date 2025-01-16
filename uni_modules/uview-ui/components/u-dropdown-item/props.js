@@ -5,7 +5,7 @@ export default {
             type: [Number, String, Array],
             default: ''
         },
-        // 菜单项标题
+        // 分类项标题
         title: {
             type: [String, Number],
             default: ''
@@ -17,7 +17,7 @@ export default {
                 return []
             }
         },
-        // 是否禁用此菜单项
+        // 是否禁用此分类项
         disabled: {
             type: Boolean,
             default: false

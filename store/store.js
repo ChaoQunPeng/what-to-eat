@@ -50,11 +50,11 @@ const store = new Vuex.Store({
 
   getters: {
     // /**
-    //  * 食物数据-对象形式
+    //  * 事项数据-对象形式
     //  * @param {*} state
     //  * {
-    //  *    "食物名称1":[{}],
-    //  *    "食物名称2":[{}]
+    //  *    "事项名称1":[{}],
+    //  *    "事项名称2":[{}]
     //  * }
     //  */
     // foodMap(state) {
@@ -90,13 +90,13 @@ const store = new Vuex.Store({
     //   return categoryGroup;
     // },
     // /**
-    //  * @description: 食物列表
+    //  * @description: 事项列表
     //  * @param {*} state
     //  *
     //  * [
     //  *    {
     //  *      "id":"",
-    //  *      "name":"食物",
+    //  *      "name":"事项",
     //  *      "list":[{}]
     //  *    }
     //  * ]
@@ -176,7 +176,7 @@ const store = new Vuex.Store({
       store.commit('updateDataList', menuList);
     },
     /**
-     * @description: 删除食物
+     * @description: 删除事项
      * @param {*} state
      * @param {*} menuId
      * @param {*} foodId
@@ -193,7 +193,7 @@ const store = new Vuex.Store({
       store.commit('updateDataList', menuList);
     },
     /**
-     * @description: 创建菜单
+     * @description: 创建分类
      * @param {*} state
      * @param {*} categoryList
      * @param {*} foodName
@@ -213,7 +213,7 @@ const store = new Vuex.Store({
       store.commit('updateDataList', [...list, newData]);
     },
     /**
-     * @description: 删除菜单
+     * @description: 删除分类
      * @param {*} state
      * @param {*} menuId
      * @return {*}
@@ -228,7 +228,7 @@ const store = new Vuex.Store({
       store.commit('updateDataList', list);
     },
     /**
-     * @description: 更新食物数据
+     * @description: 更新事项数据
      * @param {*} state
      * @param {*} id
      * @param {*} newData

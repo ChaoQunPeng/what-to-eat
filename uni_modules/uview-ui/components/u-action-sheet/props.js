@@ -1,6 +1,6 @@
 export default {
   props: {
-    // 操作菜单是否展示 （默认false）
+    // 操作分类是否展示 （默认false）
     show: {
       type: Boolean,
       default: uni.$u.props.actionSheet.show
@@ -25,7 +25,7 @@ export default {
       type: String,
       default: uni.$u.props.actionSheet.cancelText
     },
-    // 点击某个菜单项时是否关闭弹窗
+    // 点击某个分类项时是否关闭弹窗
     closeOnClickAction: {
       type: Boolean,
       default: uni.$u.props.actionSheet.closeOnClickAction

@@ -106,17 +106,17 @@
 				type: [Number, String],
 				default: Infinity
 			},
-			// 范围选择超过最多可选天数时的提示文案，mode = range时有效
+			// 事项选择超过最多可选天数时的提示文案，mode = range时有效
 			rangePrompt: {
 				type: String,
 				default: ''
 			},
-			// 范围选择超过最多可选天数时，是否展示提示文案，mode = range时有效
+			// 事项选择超过最多可选天数时，是否展示提示文案，mode = range时有效
 			showRangePrompt: {
 				type: Boolean,
 				default: true
 			},
-			// 是否允许日期范围的起止时间为同一天，mode = range时有效
+			// 是否允许日期事项的起止时间为同一天，mode = range时有效
 			allowSameDay: {
 				type: Boolean,
 				default: false
@@ -203,7 +203,7 @@
 							if (dayjs(date).isAfter(dayjs(this.selected[0])) && dayjs(date).isBefore(dayjs(this
 									.selected[len]))) {
 								style.backgroundColor = uni.$u.colorGradient(this.color, '#ffffff', 100)[90]
-								// 增加一个透明度，让范围区间的背景色也能看到底部的mark水印字符
+								// 增加一个透明度，让事项区间的背景色也能看到底部的mark水印字符
 								style.opacity = 0.7
 							}
 						} else if (this.selected.length === 1) {
@@ -234,7 +234,7 @@
 					}
 					if (this.mode === 'range') {
 						const len = this.selected.length - 1
-						// 如果是范围选择模式，第一个和最后一个之间的日期，文字颜色设置为高亮的主题色
+						// 如果是事项选择模式，第一个和最后一个之间的日期，文字颜色设置为高亮的主题色
 						if (dayjs(date).isAfter(dayjs(this.selected[0])) && dayjs(date).isBefore(dayjs(this
 								.selected[len]))) {
 							style.color = this.color
@@ -248,7 +248,7 @@
 				return (index1, index2, item) => {
 					const date = dayjs(item.date).format("YYYY-MM-DD")
 					const bottomInfo = item.bottomInfo
-					// 当为日期范围模式时，且选择的日期个数大于0时
+					// 当为日期事项模式时，且选择的日期个数大于0时
 					if (this.mode === 'range' && this.selected.length > 0) {
 						if (this.selected.length === 1) {
 							// 选择了一个日期时，如果当前日期为数组中的第一个日期，则显示底部文字为“开始”

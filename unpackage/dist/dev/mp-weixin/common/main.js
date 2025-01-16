@@ -125,13 +125,13 @@ var components
 try {
   components = {
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 224))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 232))
     },
     uSwipeAction: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 232))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action/u-swipe-action */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action/u-swipe-action")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action/u-swipe-action.vue */ 240))
     },
     uSwipeActionItem: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 238))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-swipe-action-item/u-swipe-action-item.vue */ 246))
     },
   }
 } catch (e) {
@@ -422,7 +422,7 @@ var components
 try {
   components = {
     uModal: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-modal/u-modal */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-modal/u-modal")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-modal/u-modal.vue */ 250))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-modal/u-modal */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-modal/u-modal")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-modal/u-modal.vue */ 258))
     },
   }
 } catch (e) {
@@ -661,7 +661,7 @@ var components
 try {
   components = {
     uActionSheet: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-action-sheet/u-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-action-sheet/u-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 258))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-action-sheet/u-action-sheet */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-action-sheet/u-action-sheet")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-action-sheet/u-action-sheet.vue */ 266))
     },
   }
 } catch (e) {
@@ -871,7 +871,7 @@ var components
 try {
   components = {
     uPopup: function () {
-      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 224))
+      return Promise.all(/*! import() | uni_modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("uni_modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! @/uni_modules/uview-ui/components/u-popup/u-popup.vue */ 232))
     },
   }
 } catch (e) {
@@ -1068,49 +1068,8 @@ var _constant = __webpack_require__(/*! ./config/constant */ 30);
 var _default = {
   created: function created() {
     var dataList = [{
-      id: 'zaocan',
-      name: '早餐',
-      foodList: [{
-        id: 'r3v66dk0t2l',
-        name: '拌粉+瓦罐汤'
-      }, {
-        id: '1ofr5ksa8zsh',
-        name: '汤粉'
-      }, {
-        id: 'xrmqyx0yayk',
-        name: '包子'
-      }, {
-        id: '1l3n1yflnl5',
-        name: '豆浆油条'
-      }, {
-        id: '2xxrftqzwqi',
-        name: '肠粉'
-      }]
-    }, {
       id: 'wucan',
-      name: '午餐',
-      foodList: [{
-        id: '4o1ka6gmbim',
-        name: '猪脚饭'
-      }, {
-        id: 'i0jpxxsl07n',
-        name: '黄焖鸡'
-      }, {
-        id: 'wnzdmhl5hyp',
-        name: '回锅肉盖浇饭'
-      }, {
-        id: 's2r9znyslyd',
-        name: '啤酒鸭盖浇饭'
-      }, {
-        id: 'yjptqwtk31a',
-        name: '鸡蛋肉丝炒粉'
-      }, {
-        id: 'ywrtm9puqi',
-        name: '老干妈蛋炒粉'
-      }]
-    }, {
-      id: 'wancan',
-      name: '晚餐',
+      name: '午餐吃什么',
       foodList: [{
         id: 'cvusapt22ku',
         name: '炒粉'
@@ -1129,7 +1088,7 @@ var _default = {
       }]
     }, {
       id: 'shuiguo',
-      name: '水果',
+      name: '吃什么饭后水果',
       foodList: [{
         id: 'wrwq4wgsih',
         name: '苹果'
@@ -1145,65 +1104,37 @@ var _default = {
       }]
     }, {
       id: 'daguanzi',
-      name: '馆子店',
+      name: '明天要不要早起?',
       foodList: [{
         id: 'vxl0ub2ch2',
-        name: '绿茶餐厅'
+        name: '要'
       }, {
         id: '7i00abcceac',
-        name: '遇江南'
-      }, {
-        id: 'n22g0xgk1h',
-        name: '骨之味'
-      }, {
-        id: '4tiak9stpss',
-        name: '盛焰铁板烧'
-      }, {
-        id: 'm9d3sutc62',
-        name: '古乐牛香'
+        name: '不要'
       }]
     }, {
-      id: 'richangxiaodian',
-      name: '日常小店',
+      id: 'yule',
+      name: '下班后怎么放松',
       foodList: [{
-        id: 'nzqafg5lf2',
-        name: '沙县小吃'
+        id: 'g3vkdjzqpxl',
+        name: '看电影'
       }, {
-        id: 'kxyo055er4n',
-        name: '隆江猪脚饭'
+        id: 'm7hwcnyrtdb',
+        name: '按摩'
       }, {
-        id: '0xtgvlw2zbdh',
-        name: '麦当劳'
+        id: 'e2uflnpwbvq',
+        name: '公园散步'
       }, {
-        id: 'ifeq1g88ron',
-        name: '肯德基'
-      }, {
-        id: 'e035fwagaet',
-        name: '绝杀水煮'
-      }, {
-        id: 't59xldk0eme',
-        name: '膳当家黄焖鸡'
-      }]
-    }, {
-      id: 'shaxianxiaochi',
-      name: '沙县小吃',
-      foodList: [{
-        id: 'a5tccdvwoyq',
-        name: '云吞面'
-      }, {
-        id: 'rnwislixvmc',
-        name: '鸭腿饭'
-      }, {
-        id: 'getz13v387w',
-        name: '鸭头饭'
-      }, {
-        id: 'odrphf1wg89',
-        name: '鸡腿饭'
+        id: 'j9sbgkpzvow',
+        name: '大吃一顿'
       }]
     }];
     if (!uni.getStorageSync(_constant.WET_MENU_DATA)) {
       uni.setStorageSync(_constant.WET_MENU_DATA, dataList);
       this.$store.commit('updateDataList', dataList);
+    }
+    if (!uni.getStorageSync(_constant.WET_IS_AUTO_STOP_RANDOM_TIMER)) {
+      uni.setStorageSync(_constant.WET_IS_AUTO_STOP_RANDOM_TIMER, false);
     }
   },
   onLaunch: function onLaunch() {

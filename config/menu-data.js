@@ -1,5 +1,5 @@
 /**
- * 菜单
+ * 分类
  */
 export const MENU_DATA_LIST = [
   { name: "小鸡炖蘑菇" },

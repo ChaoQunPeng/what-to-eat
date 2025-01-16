@@ -13,71 +13,62 @@
 
       <view class="main">
         <view class="menu-text text-center">
-          <template v-if="menuText"> 吃{{ menuText }}! </template>
-          <template v-else>吃什么呢?</template>
+          <template v-if="menuText"> {{ menuText }}! </template>
+          <template v-else>来选一个吧</template>
         </view>
 
         <button class="wte-btn primary text-size-36" @click="randomFood">
           <view class="flex items-center" v-if="timer">
             <view>点击停止</view>
-            <view class="text-size-24" v-if="autoStopRandomTimer"
-              >（{{ autoStopRandomTimeVal }}秒后自动停止）
-            </view>
+            <view class="text-size-24" v-if="autoStopRandomTimer">（{{ autoStopRandomTimeVal }}秒后自动停止） </view>
           </view>
           <template v-else>点击开始</template>
         </button>
 
-        <view
-          class="menu-scope mb-17 text-size-32 font-normal text-center text-black overflow-hidden text-ellipsis whitespace-nowrap"
-          style="width: 80%"
-        >
-          当前范围：{{ currentMenuText }}
+        <!-- overflow-hidden text-ellipsis whitespace-nowrap -->
+        <view class="menu-scope mt-16 mb-36 text-size-32 font-normal text-center text-black" style="width: 80%">
+          当前事项：{{ currentMenuText }}
         </view>
 
-        <view class="modify-menu-scope" @click="modifyMenuScope"> 修改范围 </view>
+        <view class="modify-menu-scope underline" @click="modifyMenuScope"> 修改事项 </view>
       </view>
     </view>
 
     <view class="fixed flex flex-wrap w-full h-screen top-0">
-      <view
-        v-for="(menu, index) in reaolveBgMenuList"
-        :key="index"
-        class="fixed-menu flex items-center justify-center"
-      >
+      <view v-for="(menu, index) in reaolveBgMenuList" :key="index" class="fixed-menu flex items-center justify-center">
         <template>{{ menu.name }}</template>
       </view>
     </view>
 
-    <view
-      :style="{ bottom: resolveGoMenuBtnBottom }"
-      class="go-menu-page iconfont icon-zan fixed flex items-center justify-center text-white bg-red rounded-full z-10 right-40"
-      @click="dianZan"
-    ></view>
+    <view class="fixed flex z-10 right-40 justify-between w-300" :style="{ bottom: resolveGoMenuBtnBottom }">
+      <view
+        class="go-menu-page iconfont icon-shezhi2 flex items-center justify-center text-white bg-red rounded-full"
+        @click="goSetting"
+      ></view>
 
-    <view
-      :style="{ bottom: resolveGoMenuBtnBottom }"
-      style="right: 80px"
-      class="go-menu-page iconfont icon-bianji fixed flex items-center justify-center text-white bg-red rounded-full z-10"
-      @click="goMyMenu"
-    ></view>
+      <view
+        class="go-menu-page iconfont icon-zan flex items-center justify-center text-white bg-red rounded-full"
+        @click="dianZan"
+      ></view>
 
-    <!-- 修改范围的弹框 -->
+      <view
+        class="go-menu-page iconfont icon-bianji flex items-center justify-center text-white bg-red rounded-full text-size-38"
+        @click="goMyMenu"
+      ></view>
+    </view>
+
+    <!-- 修改事项的弹框 -->
     <wte-popup ref="modifyScope">
       <view class="modify-scope h-full flex flex-col">
         <view class="header flex items-center pt-40 pb-30 px-26">
-          <view class="flex-1 text-center text-size-32 font-medium leading-none"> 修改范围 </view>
+          <view class="flex-1 text-center text-size-32 font-medium leading-none"> 修改事项 </view>
         </view>
 
         <view class="body">
           <view class="collapse-box" v-for="(menu, index) in currentMenuScopeList" :key="index">
             <view class="header flex items-center" @click="clickMenu(menu)">
               <view>
-                <u-checkbox-group
-                  v-model="menu.isChecked"
-                  placement="column"
-                  activeColor="#ee0a24"
-                  shape="circle"
-                >
+                <u-checkbox-group v-model="menu.isChecked" placement="column" activeColor="#ee0a24" shape="circle">
                   <u-checkbox :name="1"> </u-checkbox>
                 </u-checkbox-group>
               </view>
@@ -99,6 +90,7 @@
 
 <script>
 import { MENU_DATA_LIST } from '../../config/menu-data';
+import { WET_IS_AUTO_STOP_RANDOM_TIMER } from '../../config/constant';
 
 export default {
   components: {},
@@ -106,10 +98,11 @@ export default {
   data() {
     return {
       menuText: '',
-      currentCategoryIdList: ['wucan', 'wancan', 'shuiguo'],
+      currentCategoryIdList: ['wucan'],
       currentMenuScopeList: [],
       timer: null,
       autoStopRandomTimeVal: 3,
+      isAutoStopRandomTimer: false,
       autoStopRandomTimer: null,
       plugin: {}
     };
@@ -117,15 +110,15 @@ export default {
 
   computed: {
     /**
-     * 控制前往我的菜单的按钮的底部距离
+     * 控制前往我的分类的按钮的底部距离
      */
     resolveGoMenuBtnBottom() {
       let bottom = uni.getSystemInfoSync().safeAreaInsets.bottom;
 
-      return bottom + 50 + 'rpx';
+      return bottom + 60 + 'rpx';
     },
     /**
-     * 当前菜单范围文本
+     * 当前分类事项文本
      */
     currentMenuText() {
       return this.$store.state.dataList
@@ -134,15 +127,14 @@ export default {
         .join('、');
     },
     /**
-     * 决定背景的菜单列表
+     * 决定背景的分类列表
      */
     reaolveBgMenuList() {
       function getRandomObjectsFromArray(arr, n) {
         var result = new Array(n),
           len = arr.length,
           taken = new Array(len);
-        if (n > len)
-          throw new RangeError('getRandomObjectsFromArray: more elements requested than available');
+        if (n > len) throw new RangeError('getRandomObjectsFromArray: more elements requested than available');
         while (n--) {
           var x = Math.floor(Math.random() * len);
           result[n] = arr[x in taken ? taken[x] : x];
@@ -178,6 +170,9 @@ export default {
   },
 
   methods: {
+    goSetting() {
+      uni.navigateTo({ url: '/pages/settings/settings' });
+    },
     dianZan() {
       this.plugin.openComment({
         success: res => {
@@ -204,7 +199,7 @@ export default {
       });
     },
     /**
-     * @description: 前往我的菜单
+     * @description: 前往我的分类
      * @return {*}
      */
     goMyMenu() {
@@ -214,7 +209,7 @@ export default {
       uni.navigateTo({ url: '/pages/my-menu/my-menu' });
     },
     /**
-     * @description: 随机筛选一个食物
+     * @description: 随机筛选一个事项
      * @return {*}
      */
     randomFood() {
@@ -235,7 +230,7 @@ export default {
 
       randomList = randomList.map(e => e.name);
 
-      // 启动随机食物
+      // 启动随机事项
       this.timer = setInterval(() => {
         console.log(2);
         let randomIndex = Math.floor(Math.random() * randomList.length);
@@ -244,6 +239,10 @@ export default {
           this.menuText = randomList[randomIndex];
         }
       }, 50);
+
+      this.isAutoStopRandomTimer = uni.getStorageSync(WET_IS_AUTO_STOP_RANDOM_TIMER);
+
+      if (!this.isAutoStopRandomTimer) return;
 
       // 启动倒计时停止
       this.autoStopRandomTimer = setInterval(() => {
@@ -274,7 +273,7 @@ export default {
       this.autoStopRandomTimeVal = 3;
     },
     /**
-     * @description: 修改菜单范围
+     * @description: 修改分类事项
      * @return {*}
      */
     modifyMenuScope() {
@@ -287,7 +286,7 @@ export default {
       this.$refs.modifyScope.open();
     },
     /**
-     * @description: 点击修改范围里的菜单
+     * @description: 点击修改事项里的分类
      * @param {*} menu
      * @return {*}
      */
@@ -299,7 +298,7 @@ export default {
       this.$set(menu, 'isChecked', menu.isChecked.length == 0 ? [1] : []);
     },
     /**
-     * @description: 修改菜单范围确认
+     * @description: 修改分类事项确认
      * @return {*}
      */
     modifyMenu() {
@@ -313,9 +312,7 @@ export default {
       this.stopRandom();
       this.stopAutoStopRandomTime();
 
-      this.currentCategoryIdList = this.currentMenuScopeList
-        .filter(e => e.isChecked?.length > 0)
-        .map(e => e.id);
+      this.currentCategoryIdList = this.currentMenuScopeList.filter(e => e.isChecked?.length > 0).map(e => e.id);
 
       this.currentMenuScopeList.forEach(e => {
         this.$set(e, 'isChecked', this.currentCategoryIdList.includes(e.id) ? [1] : []);
@@ -351,13 +348,13 @@ page {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 276rpx;
+  padding-top: 220rpx;
 
   .menu-text {
     font-size: 64rpx;
     font-weight: bold;
     line-height: 1.4;
-    margin-bottom: 65rpx;
+    margin-bottom: 100rpx;
   }
 
   .wte-btn {
@@ -371,10 +368,7 @@ page {
     font-weight: 400;
     line-height: 1.4;
     color: rgba(168, 168, 168, 1);
-
-    &:active {
-      color: #ee0a24;
-    }
+    color: #ee0a24;
   }
 }
 

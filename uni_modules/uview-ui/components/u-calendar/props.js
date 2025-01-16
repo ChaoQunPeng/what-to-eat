@@ -15,7 +15,7 @@ export default {
             type: Boolean,
             default: uni.$u.props.calendar.showSubtitle
         },
-        // 日期类型选择，single-选择单个日期，multiple-可以选择多个日期，range-选择日期范围
+        // 日期类型选择，single-选择单个日期，multiple-可以选择多个日期，range-选择日期事项
         mode: {
             type: String,
             default: uni.$u.props.calendar.mode
@@ -115,17 +115,17 @@ export default {
             type: [Number, String],
             default: uni.$u.props.calendar.maxRange
         },
-        // 范围选择超过最多可选天数时的提示文案，mode = range时有效
+        // 事项选择超过最多可选天数时的提示文案，mode = range时有效
         rangePrompt: {
             type: String,
             default: uni.$u.props.calendar.rangePrompt
         },
-        // 范围选择超过最多可选天数时，是否展示提示文案，mode = range时有效
+        // 事项选择超过最多可选天数时，是否展示提示文案，mode = range时有效
         showRangePrompt: {
             type: Boolean,
             default: uni.$u.props.calendar.showRangePrompt
         },
-        // 是否允许日期范围的起止时间为同一天，mode = range时有效
+        // 是否允许日期事项的起止时间为同一天，mode = range时有效
         allowSameDay: {
             type: Boolean,
             default: uni.$u.props.calendar.allowSameDay

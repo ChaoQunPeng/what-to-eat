@@ -140,7 +140,7 @@
 					const customeStyle = index === this.innerCurrent ? uni.$u.addStyle(this.activeStyle) : uni.$u
 						.addStyle(
 							this.inactiveStyle)
-					// 如果当前菜单被禁用，则加上对应颜色，需要在此做处理，是因为nvue下，无法在style样式中通过!import覆盖标签的内联样式
+					// 如果当前分类被禁用，则加上对应颜色，需要在此做处理，是因为nvue下，无法在style样式中通过!import覆盖标签的内联样式
 					if (this.list[index].disabled) {
 						style.color = '#c8c9cc'
 					}
@@ -214,7 +214,7 @@
 				})
 			},
 			setScrollLeft() {
-				// 当前活动tab的布局信息，有tab菜单的width和left(为元素左边界到父元素左边界的距离)等信息
+				// 当前活动tab的布局信息，有tab分类的width和left(为元素左边界到父元素左边界的距离)等信息
 				const tabRect = this.list[this.innerCurrent]
 				// 累加得到当前item到左边的距离
 				const offsetLeft = this.list
@@ -251,7 +251,7 @@
 					this.setScrollLeft()
 				})
 			},
-			// 获取导航菜单的尺寸
+			// 获取导航分类的尺寸
 			getTabsRect() {
 				return new Promise(resolve => {
 					this.queryRect('u-tabs__wrapper__scroll-view').then(size => resolve(size))

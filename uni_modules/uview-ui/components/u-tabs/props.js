@@ -15,12 +15,12 @@ export default {
             type: String,
             default: uni.$u.props.tabs.lineColor
         },
-        // 菜单选择中时的样式
+        // 分类选择中时的样式
         activeStyle: {
             type: [String, Object],
             default: uni.$u.props.tabs.activeStyle
         },
-        // 菜单非选中时的样式
+        // 分类非选中时的样式
         inactiveStyle: {
             type: [String, Object],
             default: uni.$u.props.tabs.inactiveStyle
@@ -40,12 +40,12 @@ export default {
             type: String,
             default: uni.$u.props.tabs.lineBgSize
         },
-        // 菜单item的样式
+        // 分类item的样式
         itemStyle: {
             type: [String, Object],
             default: uni.$u.props.tabs.itemStyle
         },
-        // 菜单是否可滚动
+        // 分类是否可滚动
         scrollable: {
             type: Boolean,
             default: uni.$u.props.tabs.scrollable

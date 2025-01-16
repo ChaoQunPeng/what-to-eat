@@ -212,7 +212,7 @@
 				if (this.disabled || this.readonly) {
 					return;
 				}
-				// 判断当前操作的点的x坐标值，是否在允许的边界范围内
+				// 判断当前操作的点的x坐标值，是否在允许的边界事项内
 				const allRateWidth = this.rateWidth * this.count + this.rateBoxLeft;
 				// 如果小于第一个图标的左边界，设置为最小值，如果大于所有图标的宽度，则设置为最大值
 				x = uni.$u.range(this.rateBoxLeft, allRateWidth, x) - this.rateBoxLeft
@@ -223,7 +223,7 @@
 				// 判断是否允许半星
 				if (this.allowHalf) {
 					index = Math.floor(distance / this.rateWidth);
-					// 取余，判断小数的区间范围
+					// 取余，判断小数的区间事项
 					const decimal = distance % this.rateWidth;
 					if (decimal <= this.rateWidth / 2 && decimal > 0) {
 						index += 0.5;
@@ -232,7 +232,7 @@
 					}
 				} else {
 					index = Math.floor(distance / this.rateWidth);
-					// 取余，判断小数的区间范围
+					// 取余，判断小数的区间事项
 					const decimal = distance % this.rateWidth;
 					// 非半星时，只有超过了图标的一半距离，才认为是选择了这颗星
 					if (isClick){

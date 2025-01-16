@@ -9505,7 +9505,7 @@ internalMixin(Vue);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.WET_MENU_DATA = void 0;
+exports.WET_MENU_DATA = exports.WET_IS_AUTO_STOP_RANDOM_TIMER = void 0;
 /*
  * @Author: PengChaoQun 1152684231@qq.com
  * @Date: 2023-12-02 11:52:13
@@ -9516,6 +9516,8 @@ exports.WET_MENU_DATA = void 0;
  */
 var WET_MENU_DATA = 'WET_MENU_DATA';
 exports.WET_MENU_DATA = WET_MENU_DATA;
+var WET_IS_AUTO_STOP_RANDOM_TIMER = 'WET_IS_AUTO_STOP_RANDOM_TIMER';
+exports.WET_IS_AUTO_STOP_RANDOM_TIMER = WET_IS_AUTO_STOP_RANDOM_TIMER;
 
 /***/ }),
 /* 31 */,
@@ -9717,11 +9719,11 @@ var store = new _vuex.default.Store({
   },
   getters: {
     // /**
-    //  * 食物数据-对象形式
+    //  * 事项数据-对象形式
     //  * @param {*} state
     //  * {
-    //  *    "食物名称1":[{}],
-    //  *    "食物名称2":[{}]
+    //  *    "事项名称1":[{}],
+    //  *    "事项名称2":[{}]
     //  * }
     //  */
     // foodMap(state) {
@@ -9757,13 +9759,13 @@ var store = new _vuex.default.Store({
     //   return categoryGroup;
     // },
     // /**
-    //  * @description: 食物列表
+    //  * @description: 事项列表
     //  * @param {*} state
     //  *
     //  * [
     //  *    {
     //  *      "id":"",
-    //  *      "name":"食物",
+    //  *      "name":"事项",
     //  *      "list":[{}]
     //  *    }
     //  * ]
@@ -9842,7 +9844,7 @@ var store = new _vuex.default.Store({
       store.commit('updateDataList', menuList);
     },
     /**
-     * @description: 删除食物
+     * @description: 删除事项
      * @param {*} state
      * @param {*} menuId
      * @param {*} foodId
@@ -9863,7 +9865,7 @@ var store = new _vuex.default.Store({
       store.commit('updateDataList', menuList);
     },
     /**
-     * @description: 创建菜单
+     * @description: 创建分类
      * @param {*} state
      * @param {*} categoryList
      * @param {*} foodName
@@ -9881,7 +9883,7 @@ var store = new _vuex.default.Store({
       store.commit('updateDataList', [].concat((0, _toConsumableArray2.default)(list), [newData]));
     },
     /**
-     * @description: 删除菜单
+     * @description: 删除分类
      * @param {*} state
      * @param {*} menuId
      * @return {*}
@@ -9895,7 +9897,7 @@ var store = new _vuex.default.Store({
       store.commit('updateDataList', list);
     },
     /**
-     * @description: 更新食物数据
+     * @description: 更新事项数据
      * @param {*} state
      * @param {*} id
      * @param {*} newData
@@ -15509,14 +15511,14 @@ function contains(value, param) {
 }
 
 /**
- * 验证一个值范围[min, max]
+ * 验证一个值事项[min, max]
  */
 function range(value, param) {
   return value >= param[0] && value <= param[1];
 }
 
 /**
- * 验证一个长度范围[min, max]
+ * 验证一个长度事项[min, max]
  */
 function rangeLength(value, param) {
   return value.length >= param[0] && value.length <= param[1];
@@ -16168,7 +16170,7 @@ function timeFormat() {
  * @description 时间戳转为多久之前
  * @param {String|Number} timestamp 时间戳
  * @param {String|Boolean} format
- * 格式化规则如果为时间格式字符串，超出一定时间范围，返回固定的时间格式；
+ * 格式化规则如果为时间格式字符串，超出一定时间事项，返回固定的时间格式；
  * 如果为布尔值false，无论什么时间，都返回多久以前的格式
  * @returns {string} 转化后的内容
  */
@@ -21005,7 +21007,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.MENU_DATA_LIST = void 0;
 /**
- * 菜单
+ * 分类
  */
 var MENU_DATA_LIST = [{
   name: "小鸡炖蘑菇"
@@ -21276,7 +21278,15 @@ exports.MENU_DATA_LIST = MENU_DATA_LIST;
 /* 226 */,
 /* 227 */,
 /* 228 */,
-/* 229 */
+/* 229 */,
+/* 230 */,
+/* 231 */,
+/* 232 */,
+/* 233 */,
+/* 234 */,
+/* 235 */,
+/* 236 */,
+/* 237 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-popup/props.js ***!
   \********************************************************************************************/
@@ -21373,14 +21383,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 230 */,
-/* 231 */,
-/* 232 */,
-/* 233 */,
-/* 234 */,
-/* 235 */,
-/* 236 */,
-/* 237 */
+/* 238 */,
+/* 239 */,
+/* 240 */,
+/* 241 */,
+/* 242 */,
+/* 243 */,
+/* 244 */,
+/* 245 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action/props.js ***!
   \***************************************************************************************************/
@@ -21407,12 +21417,12 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 238 */,
-/* 239 */,
-/* 240 */,
-/* 241 */,
-/* 242 */,
-/* 243 */
+/* 246 */,
+/* 247 */,
+/* 248 */,
+/* 249 */,
+/* 250 */,
+/* 251 */
 /*!************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/touch.js ***!
   \************************************************************************************/
@@ -21488,7 +21498,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 244 */
+/* 252 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/props.js ***!
   \********************************************************************************************************/
@@ -21524,7 +21534,7 @@ var _default2 = {
       type: Boolean,
       default: uni.$u.props.swipeActionItem.autoClose
     },
-    // 滑动距离阈值，只有大于此值，才被认为是要打开菜单
+    // 滑动距离阈值，只有大于此值，才被认为是要打开分类
     threshold: {
       type: Number,
       default: uni.$u.props.swipeActionItem.threshold
@@ -21547,7 +21557,7 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 245 */
+/* 253 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-swipe-action-item/wxs.js ***!
   \******************************************************************************************************/
@@ -21579,16 +21589,16 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 246 */,
-/* 247 */,
-/* 248 */,
-/* 249 */,
-/* 250 */,
-/* 251 */,
-/* 252 */,
-/* 253 */,
 /* 254 */,
-/* 255 */
+/* 255 */,
+/* 256 */,
+/* 257 */,
+/* 258 */,
+/* 259 */,
+/* 260 */,
+/* 261 */,
+/* 262 */,
+/* 263 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-modal/props.js ***!
   \********************************************************************************************/
@@ -21690,14 +21700,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 256 */,
-/* 257 */,
-/* 258 */,
-/* 259 */,
-/* 260 */,
-/* 261 */,
-/* 262 */,
-/* 263 */
+/* 264 */,
+/* 265 */,
+/* 266 */,
+/* 267 */,
+/* 268 */,
+/* 269 */,
+/* 270 */,
+/* 271 */
 /*!***************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/openType.js ***!
   \***************************************************************************************/
@@ -21739,7 +21749,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 264 */
+/* 272 */
 /*!*************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/libs/mixin/button.js ***!
   \*************************************************************************************/
@@ -21769,7 +21779,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 265 */
+/* 273 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-action-sheet/props.js ***!
   \***************************************************************************************************/
@@ -21785,7 +21795,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _default = {
   props: {
-    // 操作菜单是否展示 （默认false）
+    // 操作分类是否展示 （默认false）
     show: {
       type: Boolean,
       default: uni.$u.props.actionSheet.show
@@ -21810,7 +21820,7 @@ var _default = {
       type: String,
       default: uni.$u.props.actionSheet.cancelText
     },
-    // 点击某个菜单项时是否关闭弹窗
+    // 点击某个分类项时是否关闭弹窗
     closeOnClickAction: {
       type: Boolean,
       default: uni.$u.props.actionSheet.closeOnClickAction
@@ -21845,14 +21855,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 266 */,
-/* 267 */,
-/* 268 */,
-/* 269 */,
-/* 270 */,
-/* 271 */,
-/* 272 */,
-/* 273 */
+/* 274 */,
+/* 275 */,
+/* 276 */,
+/* 277 */,
+/* 278 */,
+/* 279 */,
+/* 280 */,
+/* 281 */
 /*!*****************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox-group/props.js ***!
   \*****************************************************************************************************/
@@ -21949,14 +21959,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 274 */,
-/* 275 */,
-/* 276 */,
-/* 277 */,
-/* 278 */,
-/* 279 */,
-/* 280 */,
-/* 281 */
+/* 282 */,
+/* 283 */,
+/* 284 */,
+/* 285 */,
+/* 286 */,
+/* 287 */,
+/* 288 */,
+/* 289 */
 /*!***********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-checkbox/props.js ***!
   \***********************************************************************************************/
@@ -22043,21 +22053,21 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 282 */,
-/* 283 */,
-/* 284 */,
-/* 285 */,
-/* 286 */,
-/* 287 */,
-/* 288 */,
-/* 289 */,
 /* 290 */,
 /* 291 */,
 /* 292 */,
 /* 293 */,
 /* 294 */,
 /* 295 */,
-/* 296 */
+/* 296 */,
+/* 297 */,
+/* 298 */,
+/* 299 */,
+/* 300 */,
+/* 301 */,
+/* 302 */,
+/* 303 */,
+/* 304 */
 /*!********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-input/props.js ***!
   \********************************************************************************************/
@@ -22262,14 +22272,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 297 */,
-/* 298 */,
-/* 299 */,
-/* 300 */,
-/* 301 */,
-/* 302 */,
-/* 303 */,
-/* 304 */
+/* 305 */,
+/* 306 */,
+/* 307 */,
+/* 308 */,
+/* 309 */,
+/* 310 */,
+/* 311 */,
+/* 312 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell-group/props.js ***!
   \*************************************************************************************************/
@@ -22301,14 +22311,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 305 */,
-/* 306 */,
-/* 307 */,
-/* 308 */,
-/* 309 */,
-/* 310 */,
-/* 311 */,
-/* 312 */
+/* 313 */,
+/* 314 */,
+/* 315 */,
+/* 316 */,
+/* 317 */,
+/* 318 */,
+/* 319 */,
+/* 320 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-cell/props.js ***!
   \*******************************************************************************************/
@@ -22436,14 +22446,93 @@ exports.default = _default2;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 313 */,
-/* 314 */,
-/* 315 */,
-/* 316 */,
-/* 317 */,
-/* 318 */,
-/* 319 */,
-/* 320 */
+/* 321 */,
+/* 322 */,
+/* 323 */,
+/* 324 */,
+/* 325 */,
+/* 326 */,
+/* 327 */,
+/* 328 */
+/*!*********************************************************************************************!*\
+  !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-switch/props.js ***!
+  \*********************************************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(uni) {
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _default = {
+  props: {
+    // 是否为加载中状态
+    loading: {
+      type: Boolean,
+      default: uni.$u.props.switch.loading
+    },
+    // 是否为禁用装填
+    disabled: {
+      type: Boolean,
+      default: uni.$u.props.switch.disabled
+    },
+    // 开关尺寸，单位px
+    size: {
+      type: [String, Number],
+      default: uni.$u.props.switch.size
+    },
+    // 打开时的背景颜色
+    activeColor: {
+      type: String,
+      default: uni.$u.props.switch.activeColor
+    },
+    // 关闭时的背景颜色
+    inactiveColor: {
+      type: String,
+      default: uni.$u.props.switch.inactiveColor
+    },
+    // 通过v-model双向绑定的值
+    value: {
+      type: [Boolean, String, Number],
+      default: uni.$u.props.switch.value
+    },
+    // switch打开时的值
+    activeValue: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.switch.activeValue
+    },
+    // switch关闭时的值
+    inactiveValue: {
+      type: [String, Number, Boolean],
+      default: uni.$u.props.switch.inactiveValue
+    },
+    // 是否开启异步变更，开启后需要手动控制输入值
+    asyncChange: {
+      type: Boolean,
+      default: uni.$u.props.switch.asyncChange
+    },
+    // 圆点与外边框的距离
+    space: {
+      type: [String, Number],
+      default: uni.$u.props.switch.space
+    }
+  }
+};
+exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+
+/***/ }),
+/* 329 */,
+/* 330 */,
+/* 331 */,
+/* 332 */,
+/* 333 */,
+/* 334 */,
+/* 335 */,
+/* 336 */
 /*!**********************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-overlay/props.js ***!
   \**********************************************************************************************/
@@ -22485,14 +22574,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 321 */,
-/* 322 */,
-/* 323 */,
-/* 324 */,
-/* 325 */,
-/* 326 */,
-/* 327 */,
-/* 328 */
+/* 337 */,
+/* 338 */,
+/* 339 */,
+/* 340 */,
+/* 341 */,
+/* 342 */,
+/* 343 */,
+/* 344 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/props.js ***!
   \*************************************************************************************************/
@@ -22534,7 +22623,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 329 */
+/* 345 */
 /*!******************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/transition.js ***!
   \******************************************************************************************************/
@@ -22551,7 +22640,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 60));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 62));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 330));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 346));
 // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {
   return new Promise(function (resolve) {
@@ -22643,7 +22732,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 330 */
+/* 346 */
 /*!********************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \********************************************************************************************************/
@@ -22836,14 +22925,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 331 */,
-/* 332 */,
-/* 333 */,
-/* 334 */,
-/* 335 */,
-/* 336 */,
-/* 337 */,
-/* 338 */
+/* 347 */,
+/* 348 */,
+/* 349 */,
+/* 350 */,
+/* 351 */,
+/* 352 */,
+/* 353 */,
+/* 354 */
 /*!*************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-status-bar/props.js ***!
   \*************************************************************************************************/
@@ -22869,14 +22958,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 339 */,
-/* 340 */,
-/* 341 */,
-/* 342 */,
-/* 343 */,
-/* 344 */,
-/* 345 */,
-/* 346 */
+/* 355 */,
+/* 356 */,
+/* 357 */,
+/* 358 */,
+/* 359 */,
+/* 360 */,
+/* 361 */,
+/* 362 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/icons.js ***!
   \*******************************************************************************************/
@@ -23107,7 +23196,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 347 */
+/* 363 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-icon/props.js ***!
   \*******************************************************************************************/
@@ -23214,14 +23303,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 348 */,
-/* 349 */,
-/* 350 */,
-/* 351 */,
-/* 352 */,
-/* 353 */,
-/* 354 */,
-/* 355 */
+/* 364 */,
+/* 365 */,
+/* 366 */,
+/* 367 */,
+/* 368 */,
+/* 369 */,
+/* 370 */,
+/* 371 */
 /*!**************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \**************************************************************************************************/
@@ -23241,14 +23330,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 356 */,
-/* 357 */,
-/* 358 */,
-/* 359 */,
-/* 360 */,
-/* 361 */,
-/* 362 */,
-/* 363 */
+/* 372 */,
+/* 373 */,
+/* 374 */,
+/* 375 */,
+/* 376 */,
+/* 377 */,
+/* 378 */,
+/* 379 */
 /*!*******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-line/props.js ***!
   \*******************************************************************************************/
@@ -23299,14 +23388,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 364 */,
-/* 365 */,
-/* 366 */,
-/* 367 */,
-/* 368 */,
-/* 369 */,
-/* 370 */,
-/* 371 */
+/* 380 */,
+/* 381 */,
+/* 382 */,
+/* 383 */,
+/* 384 */,
+/* 385 */,
+/* 386 */,
+/* 387 */
 /*!***************************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-loading-icon/props.js ***!
   \***************************************************************************************************/
@@ -23383,14 +23472,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 372 */,
-/* 373 */,
-/* 374 */,
-/* 375 */,
-/* 376 */,
-/* 377 */,
-/* 378 */,
-/* 379 */
+/* 388 */,
+/* 389 */,
+/* 390 */,
+/* 391 */,
+/* 392 */,
+/* 393 */,
+/* 394 */,
+/* 395 */
 /*!******************************************************************************************!*\
   !*** /Users/pengchaoqun/code/what-to-eat/uni_modules/uview-ui/components/u-gap/props.js ***!
   \******************************************************************************************/

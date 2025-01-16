@@ -30,7 +30,7 @@ export default {
             type: String,
             default: uni.$u.props.slider.inactiveColor
         },
-        // 滑块的大小，取值范围为 12 - 28
+        // 滑块的大小，取值事项为 12 - 28
         blockSize: {
             type: [Number, String],
             default: uni.$u.props.slider.blockSize

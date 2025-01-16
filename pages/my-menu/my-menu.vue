@@ -11,10 +11,10 @@
     <!-- <view class="flex items-center h-60 mx-40 mb-20 mt-30">
       <view class="tabs flex items-end">
         <view :class="{ actived: viewType == 'byCategory' }" @click="viewType = 'byCategory'">
-          <view>菜单</view>
+          <view>分类</view>
         </view>
         <view :class="{ actived: viewType == 'byMenu' }" @click="viewType = 'byMenu'">
-          <view>食物</view>
+          <view>事项</view>
         </view>
       </view>
 
@@ -36,14 +36,14 @@
               <template v-if="item.foodList.length > 0">
                 {{ parseToText(item.foodList) }}
               </template>
-              <template v-else>没有食物呢~</template>
+              <template v-else>没有事项呢~</template>
             </div>
           </view>
         </template>
       </view>
 
       <view class="px-40 safe-area">
-        <button class="wte-btn primary text-size-32" @click="opeMenuForm">添加菜单</button>
+        <button class="wte-btn primary text-size-32" @click="opeMenuForm">添加分类</button>
       </view>
     </view>
 
@@ -75,7 +75,7 @@ export default {
       dataList: [],
       list: [
         {
-          name: '编辑食物',
+          name: '编辑事项',
           code: 'editFood'
         },
         {
@@ -117,12 +117,12 @@ export default {
       this.viewType = this.viewType == 'byMenu' ? 'byCategory' : 'byMenu';
     },
     /**
-     * @description: 新建菜单
+     * @description: 新建分类
      * @return {*}
      */
     opeMenuForm() {
       this.$refs.nameModal.open({
-        title: `新建菜单`,
+        title: `新建分类`,
         showCancelButton: true,
         onConfirm: () => {
           this.$store.commit('createMenu', { name: this.menuName });
@@ -152,7 +152,7 @@ export default {
           } else if (selectItem.code == 'delete') {
             this.$refs.confirmDeleteModal.open({
               title: `系统通知`,
-              content: `确定要删除【${item.name}】菜单吗？`,
+              content: `确定要删除【${item.name}】分类吗？`,
               showCancelButton: true,
               onConfirm: () => {
                 this.$store.commit('deleteMenu', item.id);

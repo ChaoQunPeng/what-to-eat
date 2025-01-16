@@ -10,7 +10,7 @@
   <view>
     <view class="bg-white mt-30">
       <u-cell-group>
-        <u-cell title="食物名称">
+        <u-cell title="事项名称">
           <u-input
             slot="right-icon"
             placeholder="请输入"
@@ -26,7 +26,7 @@
     </view>
 
     <view class="flex items-end mt-36 ml-32">
-      <view class="text-size-32 text-black mr-8">食物</view>
+      <view class="text-size-32 text-black mr-8">事项</view>
       <!-- <view class="text-size-28 text-black-45"></view> -->
     </view>
 
@@ -91,7 +91,7 @@ export default {
     save() {
       if (!this.name) {
         this.$refs.uToast.show({
-          message: '菜单名称不能为空哦~'
+          message: '分类名称不能为空哦~'
         });
         return;
       }

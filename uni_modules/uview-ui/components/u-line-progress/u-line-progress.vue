@@ -62,7 +62,7 @@
 				return style
 			},
 			innserPercentage() {
-				// 控制范围在0-100之间
+				// 控制事项在0-100之间
 				return uni.$u.range(0, 100, this.percentage)
 			}
 		},

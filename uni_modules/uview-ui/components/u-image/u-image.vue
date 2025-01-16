@@ -76,7 +76,7 @@
 	 * @property {String}			shape 				图片形状，circle-圆形，square-方形 （默认 'square' ）
 	 * @property {String | Number}	radius		 		圆角值，单位任意，如果为数值，则为px单位 （默认 0 ）
 	 * @property {Boolean}			lazyLoad			是否懒加载，仅微信小程序、App、百度小程序、字节跳动小程序有效 （默认 true ）
-	 * @property {Boolean}			showMenuByLongpress	是否开启长按图片显示识别小程序码菜单，仅微信小程序有效 （默认 true ）
+	 * @property {Boolean}			showMenuByLongpress	是否开启长按图片显示识别小程序码分类，仅微信小程序有效 （默认 true ）
 	 * @property {String}			loadingIcon 		加载中的图标，或者小图片 （默认 'photo' ）
 	 * @property {String}			errorIcon 			加载失败的图标，或者小图片 （默认 'error-circle' ）
 	 * @property {Boolean}			showLoading 		是否显示加载中的图标或者自定义的slot （默认 true ）

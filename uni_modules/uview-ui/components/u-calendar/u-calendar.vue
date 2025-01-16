@@ -72,13 +72,13 @@ import dayjs from '../../libs/util/dayjs.js'
 import Calendar from '../../libs/util/calendar.js'
 /**
  * Calendar 日历
- * @description  此组件用于单个选择日期，范围选择日期等，日历被包裹在底部弹起的容器中.
+ * @description  此组件用于单个选择日期，事项选择日期等，日历被包裹在底部弹起的容器中.
  * @tutorial https://www.uviewui.com/components/calendar.html
  *
  * @property {String}				title				标题内容 (默认 日期选择 )
  * @property {Boolean}				showTitle			是否显示标题  (默认 true )
  * @property {Boolean}				showSubtitle		是否显示副标题	(默认 true )
- * @property {String}				mode				日期类型选择  single-选择单个日期，multiple-可以选择多个日期，range-选择日期范围 （ 默认 'single' )
+ * @property {String}				mode				日期类型选择  single-选择单个日期，multiple-可以选择多个日期，range-选择日期事项 （ 默认 'single' )
  * @property {String}				startText			mode=range时，第一个日期底部的提示文字  (默认 '开始' )
  * @property {String}				endText				mode=range时，最后一个日期底部的提示文字 (默认 '结束' )
  * @property {Array}				customList			自定义列表
@@ -97,9 +97,9 @@ import Calendar from '../../libs/util/calendar.js'
  * @property {Boolean}				closeOnClickOverlay	是否允许点击遮罩关闭日历 (默认 false )
  * @property {Boolean}				readonly	        是否为只读状态，只读状态下禁止选择日期 (默认 false )
  * @property {String | Number}		maxRange	        日期区间最多可选天数，默认无限制，mode = range时有效
- * @property {String}				rangePrompt	        范围选择超过最多可选天数时的提示文案，mode = range时有效
- * @property {Boolean}				showRangePrompt	    范围选择超过最多可选天数时，是否展示提示文案，mode = range时有效 (默认 true )
- * @property {Boolean}				allowSameDay	    是否允许日期范围的起止时间为同一天，mode = range时有效 (默认 false )
+ * @property {String}				rangePrompt	        事项选择超过最多可选天数时的提示文案，mode = range时有效
+ * @property {Boolean}				showRangePrompt	    事项选择超过最多可选天数时，是否展示提示文案，mode = range时有效 (默认 true )
+ * @property {Boolean}				allowSameDay	    是否允许日期事项的起止时间为同一天，mode = range时有效 (默认 false )
  * @property {Number|String}	    round				圆角值，默认无圆角  (默认 0 )
  * @property {Number|String}	    monthNum			最多展示的月份数量  (默认 3 )
  *
@@ -198,7 +198,7 @@ export default {
 		monthSelected(e) {
 			this.selected = e
 			if (!this.showConfirm) {
-				// 在不需要确认按钮的情况下，如果为单选，或者范围多选且已选长度大于2，则直接进行返还
+				// 在不需要确认按钮的情况下，如果为单选，或者事项多选且已选长度大于2，则直接进行返还
 				if (
 					this.mode === 'multiple' ||
 					this.mode === 'single' ||

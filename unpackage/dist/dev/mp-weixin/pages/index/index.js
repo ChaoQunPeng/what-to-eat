@@ -265,8 +265,6 @@ var _constant = __webpack_require__(/*! ../../config/constant */ 30);
 //
 //
 //
-//
-//
 var _default = {
   components: {},
   data: function data() {
@@ -300,6 +298,9 @@ var _default = {
         return e.name;
       }).join('、');
     },
+    showModifyMenu: function showModifyMenu() {
+      return this.$store.state.dataList.length > 0;
+    },
     /**
      * 决定背景的分类列表
      */
@@ -319,7 +320,12 @@ var _default = {
       return getRandomObjectsFromArray(_menuData.MENU_DATA_LIST, 18);
     }
   },
-  created: function created() {},
+  created: function created() {
+    uni.$on('deleteMenu', this.handleRemoveMenu);
+  },
+  destroyed: function destroyed() {
+    uni.$off('deleteMenu', this.handleRemoveMenu);
+  },
   onShow: function onShow() {
     var _this2 = this;
     this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
@@ -383,6 +389,12 @@ var _default = {
      */
     randomFood: function randomFood() {
       var _this4 = this;
+      if (this.currentCategoryIdList.length == 0) {
+        this.$refs.pageToast.show({
+          message: '还没有选择分类呢~'
+        });
+        return;
+      }
       if (this.timer) {
         this.stopRandom();
         this.stopAutoStopRandomTime();
@@ -487,6 +499,9 @@ var _default = {
         _this6.$set(e, 'isChecked', _this6.currentCategoryIdList.includes(e.id) ? [1] : []);
       });
       this.$refs.modifyScope.close();
+    },
+    handleRemoveMenu: function handleRemoveMenu() {
+      this.menuText = '';
     }
   }
 };

@@ -16,28 +16,12 @@
   bottom: 0rpx
 }
 
-.right-252 {
-  right: 252rpx
-}
-
 .right-40 {
   right: 40rpx
 }
 
 .top-0 {
   top: 0rpx
-}
-
-.right-80 {
-  right: 80rpx
-}
-
-.right-60 {
-  right: 60rpx
-}
-
-.right-50 {
-  right: 50rpx
 }
 
 .z-10 {
@@ -141,20 +125,16 @@
   height: 100vh
 }
 
+.w-300 {
+  width: 300rpx
+}
+
 .w-32 {
   width: 32rpx
 }
 
 .w-full {
   width: 100%
-}
-
-.w-284 {
-  width: 284rpx
-}
-
-.w-300 {
-  width: 300rpx
 }
 
 .flex-1 {
@@ -236,6 +216,11 @@
   padding-right: 20rpx
 }
 
+.px-24 {
+  padding-left: 24rpx;
+  padding-right: 24rpx
+}
+
 .px-26 {
   padding-left: 26rpx;
   padding-right: 26rpx
@@ -256,9 +241,9 @@
   padding-bottom: 28rpx
 }
 
-.px-24 {
-  padding-left: 24rpx;
-  padding-right: 24rpx
+.py-40 {
+  padding-top: 40rpx;
+  padding-bottom: 40rpx
 }
 
 .pb-20 {

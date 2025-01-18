@@ -27,7 +27,7 @@
 
         <!-- overflow-hidden text-ellipsis whitespace-nowrap -->
         <view class="menu-scope mt-16 mb-36 text-size-32 font-normal text-center text-black" style="width: 80%">
-          当前事项：{{ currentMenuText }}
+          当前事项：{{ currentMenuText == '' ? '无' : currentMenuText }}
         </view>
 
         <view class="modify-menu-scope underline" @click="modifyMenuScope"> 修改事项 </view>
@@ -46,10 +46,7 @@
         @click="goSetting"
       ></view>
 
-      <view
-        class="go-menu-page iconfont icon-zan flex items-center justify-center text-white bg-red rounded-full"
-        @click="dianZan"
-      ></view>
+      <view class="go-menu-page iconfont icon-zan flex items-center justify-center text-white bg-red rounded-full" @click="dianZan"></view>
 
       <view
         class="go-menu-page iconfont icon-bianji flex items-center justify-center text-white bg-red rounded-full text-size-38"
@@ -76,9 +73,10 @@
             </view>
           </view>
         </view>
-        <view class="foot mx-30 my-30">
+        <view v-if="showModifyMenu" class="foot mx-30 my-30">
           <button class="wte-btn primary" @click="modifyMenu">确定</button>
         </view>
+        <view v-else class="foot mx-30 my-30 text-center text-black-65"> 暂无分类~ </view>
       </view>
 
       <u-toast ref="uToast"></u-toast>
@@ -126,6 +124,9 @@ export default {
         .map(e => e.name)
         .join('、');
     },
+    showModifyMenu() {
+      return this.$store.state.dataList.length > 0;
+    },
     /**
      * 决定背景的分类列表
      */
@@ -147,7 +148,13 @@ export default {
     }
   },
 
-  created() {},
+  created() {
+    uni.$on('deleteMenu', this.handleRemoveMenu);
+  },
+
+  destroyed() {
+    uni.$off('deleteMenu', this.handleRemoveMenu);
+  },
 
   onShow() {
     this.currentMenuScopeList = JSON.parse(JSON.stringify(this.$store.state.dataList));
@@ -213,6 +220,13 @@ export default {
      * @return {*}
      */
     randomFood() {
+      if (this.currentCategoryIdList.length == 0) {
+        this.$refs.pageToast.show({
+          message: '还没有选择分类呢~'
+        });
+        return;
+      }
+
       if (this.timer) {
         this.stopRandom();
         this.stopAutoStopRandomTime();
@@ -319,6 +333,9 @@ export default {
       });
 
       this.$refs.modifyScope.close();
+    },
+    handleRemoveMenu() {
+      this.menuText = '';
     }
   }
 };

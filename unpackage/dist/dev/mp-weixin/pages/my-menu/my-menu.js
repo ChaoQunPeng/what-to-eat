@@ -131,16 +131,18 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var l0 = _vm.__map(_vm.pageDataList, function (item, index) {
-    var $orig = _vm.__get_orig(item)
-    var g0 = item.foodList.length
-    var m0 = g0 > 0 ? _vm.parseToText(item.foodList) : null
-    return {
-      $orig: $orig,
-      g0: g0,
-      m0: m0,
-    }
-  })
+  var l0 = _vm.showModifyMenu
+    ? _vm.__map(_vm.pageDataList, function (item, index) {
+        var $orig = _vm.__get_orig(item)
+        var g0 = item.foodList.length
+        var m0 = g0 > 0 ? _vm.parseToText(item.foodList) : null
+        return {
+          $orig: $orig,
+          g0: g0,
+          m0: m0,
+        }
+      })
+    : null
   _vm.$mp.data = Object.assign(
     {},
     {
@@ -256,6 +258,9 @@ var _constant = __webpack_require__(/*! ../../config/constant */ 30);
 //
 //
 //
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -286,6 +291,9 @@ var _default = {
           return e.name;
         }).join('、');
       };
+    },
+    showModifyMenu: function showModifyMenu() {
+      return this.$store.state.dataList.length > 0;
     }
   },
   onLoad: function onLoad() {
@@ -344,6 +352,7 @@ var _default = {
               showCancelButton: true,
               onConfirm: function onConfirm() {
                 _this2.$store.commit('deleteMenu', item.id);
+                uni.$emit('deleteMenu', item);
               }
             });
           } else if (selectItem.code == 'rename') {

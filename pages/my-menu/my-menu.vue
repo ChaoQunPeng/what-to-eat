@@ -22,7 +22,7 @@
     </view> -->
 
     <view class="flex flex-col h-screen">
-      <view class="menu-group-area px-40 mt-30 flex-1 overflow-auto">
+      <view v-if="showModifyMenu" class="menu-group-area px-40 mt-30 flex-1 overflow-auto">
         <template v-for="(item, index) in pageDataList">
           <view :key="index" class="menu-card mb-30 py-28 px-30 bg-white rounded-radius-20">
             <view class="header flex items-center">
@@ -41,9 +41,12 @@
           </view>
         </template>
       </view>
+      <view v-else class="text-center text-black-65 py-40"> 暂无分类~ </view>
 
       <view class="px-40 safe-area">
-        <button class="wte-btn primary text-size-32" @click="opeMenuForm">添加分类</button>
+        <button class="wte-btn primary text-size-32 rounded-full" @click="opeMenuForm" style="border-radius: 999rpx !important">
+          添加分类
+        </button>
       </view>
     </view>
 
@@ -101,6 +104,9 @@ export default {
       return function (list) {
         return list.map(e => e.name).join('、');
       };
+    },
+    showModifyMenu() {
+      return this.$store.state.dataList.length > 0;
     }
   },
 
@@ -156,6 +162,7 @@ export default {
               showCancelButton: true,
               onConfirm: () => {
                 this.$store.commit('deleteMenu', item.id);
+                uni.$emit('deleteMenu', item);
               }
             });
           } else if (selectItem.code == 'rename') {

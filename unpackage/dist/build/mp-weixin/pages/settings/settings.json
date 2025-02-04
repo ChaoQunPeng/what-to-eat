@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "设置",
+  "usingComponents": {
+    "u-switch": "/uni_modules/uview-ui/components/u-switch/u-switch"
+  }
+}

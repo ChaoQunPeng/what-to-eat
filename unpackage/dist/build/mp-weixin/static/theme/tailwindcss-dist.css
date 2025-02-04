@@ -16,16 +16,12 @@
   bottom: 0rpx
 }
 
-.right-50 {
-  right: 50rpx
+.right-40 {
+  right: 40rpx
 }
 
 .top-0 {
   top: 0rpx
-}
-
-.right-40 {
-  right: 40rpx
 }
 
 .z-10 {
@@ -57,16 +53,16 @@
   margin-bottom: 30rpx
 }
 
-.mb-17 {
-  margin-bottom: 17rpx
-}
-
 .mb-20 {
   margin-bottom: 20rpx
 }
 
 .mb-30 {
   margin-bottom: 30rpx
+}
+
+.mb-36 {
+  margin-bottom: 36rpx
 }
 
 .ml-10 {
@@ -91,6 +87,10 @@
 
 .mt-14 {
   margin-top: 14rpx
+}
+
+.mt-16 {
+  margin-top: 16rpx
 }
 
 .mt-20 {
@@ -123,6 +123,10 @@
 
 .h-screen {
   height: 100vh
+}
+
+.w-300 {
+  width: 300rpx
 }
 
 .w-32 {
@@ -159,6 +163,10 @@
 
 .justify-center {
   justify-content: center
+}
+
+.justify-between {
+  justify-content: space-between
 }
 
 .overflow-auto {
@@ -208,6 +216,11 @@
   padding-right: 20rpx
 }
 
+.px-24 {
+  padding-left: 24rpx;
+  padding-right: 24rpx
+}
+
 .px-26 {
   padding-left: 26rpx;
   padding-right: 26rpx
@@ -226,6 +239,11 @@
 .py-28 {
   padding-top: 28rpx;
   padding-bottom: 28rpx
+}
+
+.py-40 {
+  padding-top: 40rpx;
+  padding-bottom: 40rpx
 }
 
 .pb-20 {
@@ -268,6 +286,10 @@
   font-size: 36rpx
 }
 
+.text-size-38 {
+  font-size: 38rpx
+}
+
 .font-bold {
   font-weight: 700
 }
@@ -304,6 +326,10 @@
 .text-white {
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity))
+}
+
+.underline {
+  text-decoration-line: underline
 }
 
 .filter {

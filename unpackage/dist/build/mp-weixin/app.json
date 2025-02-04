@@ -3,12 +3,13 @@
     "pages/index/index",
     "pages/my-menu/my-menu",
     "pages/menu-form/menu-form",
-    "pages/food-form/food-form"
+    "pages/food-form/food-form",
+    "pages/settings/settings"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "选小助",
+    "navigationBarTitleText": "就它吧",
     "navigationBarBackgroundColor": "#FAFAFA",
     "backgroundColor": "#FAFAFA"
   },

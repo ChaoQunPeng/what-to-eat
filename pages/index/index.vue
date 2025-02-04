@@ -41,12 +41,12 @@
     </view>
 
     <view class="fixed flex z-10 right-40 justify-between w-300" :style="{ bottom: resolveGoMenuBtnBottom }">
+      <view class="go-menu-page iconfont icon-zan flex items-center justify-center text-white bg-red rounded-full" @click="dianZan"></view>
+
       <view
         class="go-menu-page iconfont icon-shezhi2 flex items-center justify-center text-white bg-red rounded-full"
         @click="goSetting"
       ></view>
-
-      <view class="go-menu-page iconfont icon-zan flex items-center justify-center text-white bg-red rounded-full" @click="dianZan"></view>
 
       <view
         class="go-menu-page iconfont icon-bianji flex items-center justify-center text-white bg-red rounded-full text-size-38"
